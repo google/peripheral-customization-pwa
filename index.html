@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <link rel="manifest" href="manifest.json">
+    </head>
+    <body>
+        <div style="display: none" id="connect-screen">
+            <button id="connect-hid">Connect to device</button>
+            <span id="status-message">&nbsp;</span>
+        </div>
+        <div id="main-content">
+            <img id="logo" src="device-logo.png">
+            <span id="device-name">SABRE RGB Pro Wireless Champion Series</span>
+            <div id="sidebar">
+                <ul>
+                    <li id="sidebar-customize-buttons">Customize buttons</li>
+                    <li id="sidebar-rgb-lighting">RGB lighting</li>
+                    <li id="sidebar-adjust-dpi">Adjust DPI</li>
+                </ul>
+            </div>
+            <div id="settings">
+                <div id="buttonsPane">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>Button</th><th>Mapping</th>
+                            </tr>
+                            <tr>
+                                <td>Left click</td>
+                                <td><select><options><option>Left click</option></options></select></td>
+                            </tr>
+                            <tr>
+                                <td>Right click</td>
+                                <td><select><options><option>Right click</option></options></select></td>
+                            </tr>
+                            <tr>
+                                <td>Scroll up</td>
+                                <td><select><options><option>Scroll down</option></options></select></td>
+                            </tr>
+                            <tr>
+                                <td>Scroll down</td>
+                                <td><select><options><option>Scroll up</option></options></select></td>
+                            </tr>
+                            <tr>
+                                <td>Button 1</td>
+                                <td><select><options><option>Space bar</option></options></select></td>
+                            </tr>
+                            <tr>
+                                <td>Button 2</td>
+                                <td><select><options><option>None</option></options></select></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="RGBPane">RGB</div>
+                <div id="DPIPane">DPI</div>
+            </div>
+            <div id="device-image">
+                <img id="device-image-top" src="device.png">
+                <img id="device-image-bottom" src="device-bottom.png">
+            </div>
+            <div id="device-details">
+                Remaining Battery <span id="battery-indicator">90%</span><br>
+                Firmware Version	1.0.126<br>
+                <a href="https://www.corsair.com/us/en/Categories/Products/Gaming-Mice/Wireless-Gaming-Mice/SABRE-RGB-PRO-WIRELESS-CHAMPION-SERIES-Ultra-Lightweight-FPS-MOBA-Gaming-Mouse/p/CH-9313211-NA">
+                    Product Website
+                </a>
+            </div>
+        </div>
+    </body>
+    <script src="app.js"></script>
+</html>

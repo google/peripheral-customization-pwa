@@ -1,0 +1,166 @@
+body {
+    margin: 0;
+}
+
+div#connect-screen {
+    position: fixed;
+    z-index: 10;
+
+    width: 98%;
+    height: 98%;
+
+    margin: 1%;
+
+    opacity: 0.95;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 15px;
+
+    /*background-color: whitesmoke;*/
+
+    transition: all .5s ease;
+    transform: translateY(0);
+}
+
+div#connect-screen.slide-out {
+    transform: translateY(120vh);
+}
+
+button#connect-hid {
+    font-size: 40px;
+    color: white;
+    background-color: darkslategray;
+    padding: 15px 32px;
+}
+
+span#connect-hid {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+span.connection-error {
+    animation: error-flash 1s ease-out 0s;
+}
+
+@keyframes error-flash {
+    from {
+        background: transparent;
+    }
+    to {
+        background: red;
+    }
+  }
+
+div#main-content {
+    display: grid;
+    grid-template-columns: repeat(10, [col] 10vw);
+    grid-template-rows: [header] 15vh [main] 70vh [footer] 15vh;
+
+    width: 100vw;
+    height: 100vh;
+}
+
+#logo {
+    grid-row: header;
+    grid-column: col 1 / span 3;
+
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#device-name {
+    grid-row: header;
+    grid-column: col 6 / span 5;
+
+    font-size: xx-large;
+    font-weight: bold;
+
+    padding-top: 2.3vh;
+}
+
+#sidebar {
+    grid-row: main;
+    grid-column: col 1 / span 3;
+    text-align: center;
+}
+
+#sidebar > ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#sidebar > ul > li {
+    padding: 20px;
+    margin: 5px;
+    background-color: lightgray;
+}
+
+#sidebar > ul > li.selected {
+    background-color: gray;
+    color: white;
+}
+
+#sidebar > ul > li:hover {
+    background-color: gray;
+}
+
+#settings {
+    grid-row: main;
+    grid-column: col 4 / span 4;
+}
+
+#settings > div {
+    display: none;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#settings > .shown {
+    display: block;
+}
+
+#buttonsPane > table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: x-large;
+    text-align: center;
+}
+
+#buttonsPane > table td {
+    border-top: 1px solid lightgray;
+    padding: 5px;
+}
+
+#device-image {
+    grid-row: main;
+    grid-column: col 8 / span 3;
+
+    padding: 10px;
+}
+
+#device-image > img {
+    max-width: 90%;
+    max-height: 90%;
+}
+
+#device-image-top {
+    display: block;
+}
+
+#device-image-bottom {
+    display: none;
+}
+
+#device-details {
+    grid-row: footer;
+    grid-column: col 1 / span 3;
+    padding: 10px;
+}
+
+#battery-indicator {
+    color: green;
+}

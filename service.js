@@ -4,12 +4,12 @@ const {precaching, routing, strategies} = workbox;
 const CacheStrategy = strategies.NetworkFirst;
 
 precaching.precacheAndRoute([
-    { url: '/index.html', revision: 1 },
-    { url: '/app.js', revision: 1 },
-    { url: '/style.css', revision: 1 },
-    { url: '/device.png', revision: 1 },
-    { url: '/device-bottom.png', revision: 1 },
-    { url: '/logo.png', revision: 1 },
+    { url: '/index.html', revision: 2 },
+    { url: '/app.js', revision: 2 },
+    { url: '/style.css', revision: 2 },
+    { url: '/device.png', revision: 2 },
+    { url: '/device-bottom.png', revision: 2 },
+    { url: '/logo.png', revision: 2 },
 ])
 
 routing.registerRoute(

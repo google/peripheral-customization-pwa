@@ -4,7 +4,7 @@
         <link rel="manifest" href="manifest.json">
     </head>
     <body>
-        <div style="display: none" id="connect-screen">
+        <div id="connect-screen">
             <button id="connect-hid">Connect to device</button>
             <span id="status-message">&nbsp;</span>
         </div>
@@ -52,7 +52,12 @@
                         </tbody>
                     </table>
                 </div>
-                <div id="RGBPane">RGB</div>
+                <div id="RGBPane">
+                    <button style="background-color: red; height: 50px; width: 50px;" id="led-color-red"></button>
+                    <button style="background-color: green; height: 50px; width: 50px;" id="led-color-green"></button>
+                    <button style="background-color: blue; height: 50px; width: 50px;" id="led-color-blue"></button>
+                    <input type="color" id="led-color" name="led-color" value="#ff0000">
+                </div>
                 <div id="DPIPane">DPI</div>
             </div>
             <div id="device-image">
@@ -68,5 +73,5 @@
             </div>
         </div>
     </body>
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
 </html>

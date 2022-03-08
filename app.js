@@ -1,3 +1,6 @@
+import { Manager } from './manager.js';
+import '/devices/vendor2-model21.js';
+
 const connectScreen = document.querySelector("div#connect-screen");
 const connectButton = document.querySelector("button#connect-hid");
 const statusMessage = document.querySelector("span#status-message");
@@ -53,29 +56,13 @@ window.addEventListener('load', async e => {
     setSettingsPane(settingsPaneButtons);
 
     connectButton.addEventListener("click", async () => {
-        let device;
-
         statusMessage.classList.remove("connection-error");
 
         try {
-            const devices = await navigator.hid.requestDevice({
-                "filters": [],
-            });
-
-            device = devices[0];
-
-            if (!device) {
-                connectionError("No device was selected.")
-                return;
-            }
+            await Manager.connect()
         } catch (e) {
             connectionError(e)
-        }
-
-        try {
-            await device.open();
-        } catch(e) {
-            connectionError(e);
+            return
         }
 
         connectionSuccess();
@@ -93,3 +80,27 @@ window.addEventListener('load', async e => {
         setSettingsPane(settingsPaneDPI);
     })
 });
+
+// RGB
+const ledColorPicker = document.querySelector('#led-color');
+
+ledColorPicker.addEventListener('input', () => {
+    console.log('event listener: ' + ledColorPicker.value)
+    Manager.set_led(ledColorPicker.value, null, null)
+})
+
+const ledColorRed = document.querySelector('#led-color-red');
+const ledColorGreen = document.querySelector('#led-color-green');
+const ledColorBlue = document.querySelector('#led-color-blue');
+
+ledColorRed.addEventListener('click', () => {
+    Manager.set_led('#FF0000')
+})
+
+ledColorGreen.addEventListener('click', () => {
+    Manager.set_led('#00FF00')
+})
+
+ledColorBlue.addEventListener('click', () => {
+    Manager.set_led('#0000FF')
+})

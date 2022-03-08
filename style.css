@@ -19,7 +19,7 @@ div#connect-screen {
     flex-direction: column;
     row-gap: 15px;
 
-    /*background-color: whitesmoke;*/
+    background-color: whitesmoke;
 
     transition: all .5s ease;
     transform: translateY(0);

@@ -42,6 +42,10 @@ class ManagerSingleton {
         console.log(`button: ${button.name} action: ${action}`)
     }
 
+    set_dpi_level(level) {
+        console.log(`DPI level: ${level}`)
+    }
+
     // rgb: HTML rgb string, can come directly from a color picker input, must have the #
     // mode: some mice support modes like 'colorful', 'breathing', etc.
     // zone: some mice have leds in more than one location

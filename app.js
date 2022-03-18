@@ -136,3 +136,10 @@ buttonsButton1.addEventListener('change', () => {
 buttonsButton2.addEventListener('change', () => {
     Manager.set_button(Buttons.Button2, buttonsButton2.value)
 })
+
+// DPI
+const dpiLevels = document.querySelector('#dpi-levels')
+
+dpiLevels.addEventListener('change', () => {
+    Manager.set_dpi_level(dpiLevels.value)
+})

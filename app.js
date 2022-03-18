@@ -1,4 +1,4 @@
-import { Manager } from './manager.js';
+import { Manager, Buttons } from './manager.js';
 import '/devices/vendor2-model21.js';
 
 const connectScreen = document.querySelector("div#connect-screen");
@@ -103,4 +103,36 @@ ledColorGreen.addEventListener('click', () => {
 
 ledColorBlue.addEventListener('click', () => {
     Manager.set_led('#0000FF')
+})
+
+// Buttons
+const buttonsLeft = document.querySelector('#buttons-left');
+const buttonsRight = document.querySelector('#buttons-right');
+const buttonsScrollUp = document.querySelector('#buttons-scroll-up');
+const buttonsScrollDown = document.querySelector('#buttons-scroll-down');
+const buttonsButton1 = document.querySelector('#buttons-button1');
+const buttonsButton2 = document.querySelector('#buttons-button2');
+
+buttonsLeft.addEventListener('change', () => {
+    Manager.set_button(Buttons.Left, buttonsLeft.value)
+})
+
+buttonsRight.addEventListener('change', () => {
+    Manager.set_button(Buttons.Right, buttonsRight.value)
+})
+
+buttonsScrollUp.addEventListener('change', () => {
+    Manager.set_button(Buttons.ScrollUp, buttonsScrollUp.value)
+})
+
+buttonsScrollDown.addEventListener('change', () => {
+    Manager.set_button(Buttons.ScrollDown, buttonsScrollDown.value)
+})
+
+buttonsButton1.addEventListener('change', () => {
+    Manager.set_button(Buttons.Button1, buttonsButton1.value)
+})
+
+buttonsButton2.addEventListener('change', () => {
+    Manager.set_button(Buttons.Button2, buttonsButton2.value)
 })

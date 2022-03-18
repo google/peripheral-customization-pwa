@@ -38,16 +38,36 @@ class ManagerSingleton {
         throw "No backend exists for this device"
     }
 
+    set_button(button, action) {
+        console.log(`button: ${button.name} action: ${action}`)
+    }
+
     // rgb: HTML rgb string, can come directly from a color picker input, must have the #
     // mode: some mice support modes like 'colorful', 'breathing', etc.
     // zone: some mice have leds in more than one location
     set_led(rgb, mode, zone) {
-        console.log(this.backend)
-        this.backend.set_led(rgb, mode, zone)
+        console.log(`rgb: ${rgb} mode: ${mode} zone: ${zone}`)
+
+        if (this.backend != undefined) {
+            this.backend.set_led(rgb, mode, zone)
+        }
     }
 
     register(cls, filters) {
         this.supported_devices.push([cls, filters])
+    }
+}
+
+export class Buttons {
+    static Left = new Buttons("buttons-left");
+    static Right = new Buttons("buttons-right");
+    static ScrollUp = new Buttons("buttons-scroll-up");
+    static ScrollDown = new Buttons("buttons-scroll-down");
+    static Button1 = new Buttons("buttons-button1");
+    static Button2 = new Buttons("buttons-button2");
+
+    constructor(name) {
+        this.name = name
     }
 }
 

@@ -13,10 +13,7 @@ class ManagerSingleton {
             throw "No device was selected"
         }
 
-        console.log("Creating backend...")
         this.backend = await this.create_backend_for_devices(devices)
-        console.log("Backend: ")
-        console.log(this.backend)
     }
 
     async create_backend_for_devices(devices) {

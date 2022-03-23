@@ -1,37 +1,40 @@
 class ManagerSingleton {
     constructor() {
-        this.supported_devices = []
+        this.supportedDevices = []
     }
 
     async connect() {
         // FIXME: get USB IDs for filters from the backend classes.
         const devices = await navigator.hid.requestDevice({
-            "filters": [],
-        });
+            filters: [],
+        })
 
         if (devices.length == 0) {
-            throw "No device was selected"
+            throw 'No device was selected'
         }
 
-        console.log("Looking for backend for {}", devices)
+        console.log('Looking for backend for {}', devices)
         try {
-            this.backend = await this.create_backend_for_devices(devices)
+            this.backend = await this.createBackendForDevices(devices)
         } catch (e) {
             throw e
         }
 
         // Initialize the UI with information and current settings.
-        this.request_fw_version()
+        this.requestFWVersion()
 
-        console.log("Selected backend: ", this.backend)
+        console.log('Selected backend: ', this.backend)
     }
 
-    async create_backend_for_devices(devices) {
+    async createBackendForDevices(devices) {
         let device = devices[0]
 
-        for (let [cls, filters] of this.supported_devices) {
+        for (let [cls, filters] of this.supportedDevices) {
             for (let filter of filters) {
-                if (device.productId == filter.productId && device.vendorId == filter.vendorId) {
+                if (
+                    device.productId == filter.productId &&
+                    device.vendorId == filter.vendorId
+                ) {
                     let backend = new cls(devices)
 
                     try {
@@ -45,38 +48,36 @@ class ManagerSingleton {
             }
         }
 
-        throw "No backend exists for this device"
+        throw 'No backend exists for this device'
     }
 
     // Application helpers
 
-    subscribe(handlers_map) {
-        this.handlers_map = handlers_map
+    subscribe(handlersMap) {
+        this.handlersMap = handlersMap
     }
 
     // Basics
 
-    request_fw_version() {
-        this.backend.request_fw_version()
+    requestFWVersion() {
+        this.backend.requestFWVersion()
     }
 
-    got_fw_version(version) {
-        if (!'fw-version' in this.handlers_map) {
+    gotFWVersion(version) {
+        if (!'fw-version' in this.handlersMap) {
             return
         }
 
-        this.handlers_map['fw-version'](
-            strview(version)
-        )
+        this.handlersMap['fw-version'](strView(version))
     }
 
     // Buttons
 
-    set_button(button, action) {
+    setButton(button, action) {
         console.log(`button: ${button.name} action: ${action}`)
     }
 
-    set_dpi_level(level) {
+    setDPILevel(level) {
         console.log(`DPI level: ${level}`)
     }
 
@@ -85,35 +86,35 @@ class ManagerSingleton {
     // rgb: HTML rgb string, can come directly from a color picker input, must have the #
     // mode: some mice support modes like 'colorful', 'breathing', etc.
     // zone: some mice have leds in more than one location
-    set_led(rgb, mode, zone) {
+    setLED(rgb, mode, zone) {
         console.log(`rgb: ${rgb} mode: ${mode} zone: ${zone}`)
 
         if (this.backend != undefined) {
-            this.backend.set_led(rgb, mode, zone)
+            this.backend.setLED(rgb, mode, zone)
         }
     }
 
     register(cls, filters) {
-        this.supported_devices.push([cls, filters])
+        this.supportedDevices.push([cls, filters])
     }
 }
 
-const strview = data => {
-    let buffer = '';
-    let u8array = new Uint8Array(data.buffer);
+const strView = (data) => {
+    let buffer = ''
+    let u8array = new Uint8Array(data.buffer)
     for (const byteValue of u8array) {
-        buffer += String.fromCharCode(byteValue);
+        buffer += String.fromCharCode(byteValue)
     }
-    return buffer;
-};
+    return buffer
+}
 
 export class Buttons {
-    static Left = new Buttons("buttons-left");
-    static Right = new Buttons("buttons-right");
-    static ScrollUp = new Buttons("buttons-scroll-up");
-    static ScrollDown = new Buttons("buttons-scroll-down");
-    static Button1 = new Buttons("buttons-button1");
-    static Button2 = new Buttons("buttons-button2");
+    static Left = new Buttons('buttons-left')
+    static Right = new Buttons('buttons-right')
+    static ScrollUp = new Buttons('buttons-scroll-up')
+    static ScrollDown = new Buttons('buttons-scroll-down')
+    static Button1 = new Buttons('buttons-button1')
+    static Button2 = new Buttons('buttons-button2')
 
     constructor(name) {
         this.name = name

@@ -1,7 +1,9 @@
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.2.0/workbox-sw.js');
-const {precaching, routing, strategies} = workbox;
+importScripts(
+    'https://storage.googleapis.com/workbox-cdn/releases/6.2.0/workbox-sw.js',
+)
+const { precaching, routing, strategies } = workbox
 
-const CacheStrategy = strategies.NetworkFirst;
+const CacheStrategy = strategies.NetworkFirst
 
 precaching.precacheAndRoute([
     { url: '/index.html', revision: 2 },
@@ -13,6 +15,6 @@ precaching.precacheAndRoute([
 ])
 
 routing.registerRoute(
-    ({url}) => url.origin === location.origin,
-    new CacheStrategy()
+    ({ url }) => url.origin === location.origin,
+    new CacheStrategy(),
 )

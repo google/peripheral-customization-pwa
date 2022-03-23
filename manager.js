@@ -13,7 +13,17 @@ class ManagerSingleton {
             throw "No device was selected"
         }
 
-        this.backend = await this.create_backend_for_devices(devices)
+        console.log("Looking for backend for {}", devices)
+        try {
+            this.backend = await this.create_backend_for_devices(devices)
+        } catch (e) {
+            throw e
+        }
+
+        // Initialize the UI with information and current settings.
+        this.request_fw_version()
+
+        console.log("Selected backend: ", this.backend)
     }
 
     async create_backend_for_devices(devices) {
@@ -38,6 +48,30 @@ class ManagerSingleton {
         throw "No backend exists for this device"
     }
 
+    // Application helpers
+
+    subscribe(handlers_map) {
+        this.handlers_map = handlers_map
+    }
+
+    // Basics
+
+    request_fw_version() {
+        this.backend.request_fw_version()
+    }
+
+    got_fw_version(version) {
+        if (!'fw-version' in this.handlers_map) {
+            return
+        }
+
+        this.handlers_map['fw-version'](
+            strview(version)
+        )
+    }
+
+    // Buttons
+
     set_button(button, action) {
         console.log(`button: ${button.name} action: ${action}`)
     }
@@ -45,6 +79,8 @@ class ManagerSingleton {
     set_dpi_level(level) {
         console.log(`DPI level: ${level}`)
     }
+
+    // RGB
 
     // rgb: HTML rgb string, can come directly from a color picker input, must have the #
     // mode: some mice support modes like 'colorful', 'breathing', etc.
@@ -61,6 +97,15 @@ class ManagerSingleton {
         this.supported_devices.push([cls, filters])
     }
 }
+
+const strview = data => {
+    let buffer = '';
+    let u8array = new Uint8Array(data.buffer);
+    for (const byteValue of u8array) {
+        buffer += String.fromCharCode(byteValue);
+    }
+    return buffer;
+};
 
 export class Buttons {
     static Left = new Buttons("buttons-left");

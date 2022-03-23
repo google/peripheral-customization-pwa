@@ -157,7 +157,7 @@ div#main-content {
 
 #device-details {
     grid-row: footer;
-    grid-column: col 1 / span 3;
+    grid-column: col 1 / span 8;
     padding: 10px;
 }
 

@@ -81,6 +81,14 @@ window.addEventListener('load', async e => {
     })
 });
 
+// Callbacks
+Manager.subscribe({
+    'fw-version': (version) => {
+        let div = document.querySelector('#fw-version')
+        div.innerText = version;
+    }
+})
+
 // RGB
 const ledColorPicker = document.querySelector('#led-color');
 

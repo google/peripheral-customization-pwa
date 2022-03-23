@@ -121,4 +121,28 @@ export class Buttons {
     }
 }
 
+export class Color {
+    constructor(red, green, blue) {
+        this.red = red
+        this.green = green
+        this.blue = blue
+    }
+}
+
+export class ProtocolHelper {
+    static htmlRGBToColor(rgb) {
+        console.log(rgb)
+        if (rgb[0] != '#' || rgb.length < 7) {
+            console.log('Bad color provided, setting LED to red...')
+            return new Color(0xff, 0x00, 0x00)
+        } else {
+            return new Color(
+                parseInt(rgb.substring(1, 3), 16),
+                parseInt(rgb.substring(3, 5), 16),
+                parseInt(rgb.substring(5, 7), 16),
+            )
+        }
+    }
+}
+
 export var Manager = new ManagerSingleton()

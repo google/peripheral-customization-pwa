@@ -87,8 +87,6 @@ class ManagerSingleton {
     // mode: some mice support modes like 'colorful', 'breathing', etc.
     // zone: some mice have leds in more than one location
     setLED(rgb, mode, zone) {
-        console.log(`rgb: ${rgb} mode: ${mode} zone: ${zone}`)
-
         if (this.backend != undefined) {
             this.backend.setLED(rgb, mode, zone)
         }
@@ -131,7 +129,6 @@ export class Color {
 
 export class ProtocolHelper {
     static htmlRGBToColor(rgb) {
-        console.log(rgb)
         if (rgb[0] != '#' || rgb.length < 7) {
             console.log('Bad color provided, setting LED to red...')
             return new Color(0xff, 0x00, 0x00)

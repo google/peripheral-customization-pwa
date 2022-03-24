@@ -100,61 +100,105 @@ Manager.subscribe({
 })
 
 // RGB
-function wireLEDEvents(zone) {
+function zone_to_id_fragment(zone) {
+    switch (zone) {
+        case LEDZones.ALL:
+            return 'all-zones'
+        case LEDZones.BACK:
+            return 'back'
+        case LEDZones.SIDES_BACK:
+            return 'sides-back'
+        case LEDZones.SIDES_FRONT:
+            return 'sides-front'
+        default:
+            console.log('Unknown zone, returning all...')
+    }
+
+    return 'all-zones'
+}
+
+function wireSimpleRGBLEDEvents(zone, id_fragment) {
+    const ledColorRed = document.querySelector(
+        '#led-' + id_fragment + '-color-red',
+    )
+    const ledColorGreen = document.querySelector(
+        '#led-' + id_fragment + '-color-green',
+    )
+    const ledColorBlue = document.querySelector(
+        '#led-' + id_fragment + '-color-blue',
+    )
+
+    ledColorRed.addEventListener('click', () => {
+        Manager.setLED('#FF0000', zone)
+    })
+
+    ledColorGreen.addEventListener('click', () => {
+        Manager.setLED('#00FF00', zone)
+    })
+
+    ledColorBlue.addEventListener('click', () => {
+        Manager.setLED('#0000FF', zone)
+    })
+}
+
+function wireAllColorsLEDEvents(zone, id_fragment) {
     const ledColorPicker = document.querySelector(
-        '#led-' + zone + '-color-picker',
+        '#led-' + id_fragment + '-color-picker',
     )
 
     ledColorPicker.addEventListener('input', (event) => {
         let ledColorPicker = event.currentTarget
-        Manager.setLED(ledColorPicker.value, null, null)
+        Manager.setLED(ledColorPicker.value, zone)
     })
+}
 
-    const ledColorRed = document.querySelector('#led-' + zone + '-color-red')
-    const ledColorGreen = document.querySelector(
-        '#led-' + zone + '-color-green',
+function wireLEDsForZone(zone, range) {
+    let id_fragment = zone_to_id_fragment(zone)
+    const ledAllZonesControls = document.querySelector(
+        '#led-' + id_fragment + '-controls',
     )
-    const ledColorBlue = document.querySelector('#led-' + zone + '-color-blue')
+    ledAllZonesControls.classList.add('shown')
 
-    ledColorRed.addEventListener('click', () => {
-        Manager.setLED('#FF0000')
-    })
+    switch (range) {
+        case LEDColorRange.SIMPLE_RGB:
+            wireSimpleRGBLEDEvents(zone, id_fragment)
 
-    ledColorGreen.addEventListener('click', () => {
-        Manager.setLED('#00FF00')
-    })
-
-    ledColorBlue.addEventListener('click', () => {
-        Manager.setLED('#0000FF')
-    })
+            document
+                .querySelector('#led-' + id_fragment + '-simple-rgb')
+                .classList.add('shown')
+            break
+        case LEDColorRange.ALL_COLORS:
+            wireAllColorsLEDEvents(zone, id_fragment)
+            document
+                .querySelector('#led-' + id_fragment + '-all-colors')
+                .classList.add('shown')
+            break
+        default:
+            console.log('Unkown color range...')
+    }
 }
 
 function wireLEDs() {
     let ledCapabilities = Manager.ledCapabilities()
 
-    let range = ledCapabilities.rangeForZone(LEDZones.ALL)
+    var range = ledCapabilities.rangeForZone(LEDZones.ALL)
     if (range != LEDColorRange.NONE) {
-        const ledAllZonesControls = document.querySelector(
-            '#led-all-zones-controls',
-        )
-        ledAllZonesControls.classList.add('shown')
+        wireLEDsForZone(LEDZones.ALL, range)
+    }
 
-        switch (range) {
-            case LEDColorRange.SIMPLE_RGB:
-                document
-                    .querySelector('#led-all-zones-simple-rgb')
-                    .classList.add('shown')
-                break
-            case LEDColorRange.ALL_COLORS:
-                document
-                    .querySelector('#led-all-zones-all-colors')
-                    .classList.add('shown')
-                break
-            default:
-                console.log('Unkown color range...')
-        }
+    range = ledCapabilities.rangeForZone(LEDZones.BACK)
+    if (range != LEDColorRange.NONE) {
+        wireLEDsForZone(LEDZones.BACK, range)
+    }
 
-        wireLEDEvents('all-zones')
+    range = ledCapabilities.rangeForZone(LEDZones.SIDES_BACK)
+    if (range != LEDColorRange.NONE) {
+        wireLEDsForZone(LEDZones.SIDES_BACK, range)
+    }
+
+    range = ledCapabilities.rangeForZone(LEDZones.SIDES_FRONT)
+    if (range != LEDColorRange.NONE) {
+        wireLEDsForZone(LEDZones.SIDES_FRONT, range)
     }
 }
 

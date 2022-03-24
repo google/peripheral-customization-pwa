@@ -95,9 +95,9 @@ class ManagerSingleton {
     // rgb: HTML rgb string, can come directly from a color picker input, must have the #
     // mode: some mice support modes like 'colorful', 'breathing', etc.
     // zone: some mice have leds in more than one location
-    setLED(rgb, mode, zone) {
+    setLED(rgb, zone, mode) {
         if (this.backend != undefined) {
-            this.backend.setLED(rgb, mode, zone)
+            this.backend.setLED(rgb, zone, mode)
         }
     }
 
@@ -159,9 +159,9 @@ export class LEDColorRange {
 
 export class LEDZones {
     static ALL = 0
-    static REAR = 1
-    static LEFT = 2
-    static RIGHT = 3
+    static BACK = 1
+    static SIDES_BACK = 2
+    static SIDES_FRONT = 3
 }
 
 export class LEDCapabilities {

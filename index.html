@@ -95,10 +95,17 @@
                     </table>
                 </div>
                 <div id="RGBPane">
-                    <button style="background-color: red; height: 50px; width: 50px;" id="led-color-red"></button>
-                    <button style="background-color: green; height: 50px; width: 50px;" id="led-color-green"></button>
-                    <button style="background-color: blue; height: 50px; width: 50px;" id="led-color-blue"></button>
-                    <input type="color" id="led-color" name="led-color" value="#ff0000">
+                    <div id="led-all-zones-controls">
+                        <h2>All LEDs</h2>
+                        <div id="led-all-zones-simple-rgb">
+                            <button style="background-color: red; height: 50px; width: 50px;" id="led-all-zones-color-red"></button>
+                            <button style="background-color: green; height: 50px; width: 50px;" id="led-all-zones-color-green"></button>
+                            <button style="background-color: blue; height: 50px; width: 50px;" id="led-all-zones-color-blue"></button>
+                        </div>
+                        <div id="led-all-zones-all-colors">
+                            <input type="color" id="led-all-zones-color-picker" name="led-all-zones-color" value="#ff0000">
+                        </div>
+                    </div>
                 </div>
                 <div id="DPIPane">
                     <select id="dpi-levels"><options>

@@ -123,6 +123,22 @@ div#main-content {
     display: block;
 }
 
+#RGBPane > div {
+    display: none;
+}
+
+#RGBPane > .shown {
+    display: block;
+}
+
+#RGBPane > div > div {
+    display: none;
+}
+
+#RGBPane > div > .shown {
+    display: block;
+}
+
 #buttonsPane > table {
     width: 100%;
     border-collapse: collapse;

@@ -1,4 +1,4 @@
-import { Manager, Buttons } from './manager.js'
+import { Manager, Buttons, LEDZones, LEDColorRange } from './manager.js'
 import '/devices/vendor2-model21.js'
 import '/devices/vendor1-model11.js'
 
@@ -90,6 +90,9 @@ window.addEventListener('load', async (e) => {
 
 // Callbacks
 Manager.subscribe({
+    connected: () => {
+        wireLEDs()
+    },
     'fw-version': (version) => {
         let div = document.querySelector('#fw-version')
         div.innerText = version
@@ -97,28 +100,63 @@ Manager.subscribe({
 })
 
 // RGB
-const ledColorPicker = document.querySelector('#led-color')
+function wireLEDEvents(zone) {
+    const ledColorPicker = document.querySelector(
+        '#led-' + zone + '-color-picker',
+    )
 
-ledColorPicker.addEventListener('input', () => {
-    console.log('event listener: ' + ledColorPicker.value)
-    Manager.setLED(ledColorPicker.value, null, null)
-})
+    ledColorPicker.addEventListener('input', (event) => {
+        let ledColorPicker = event.currentTarget
+        Manager.setLED(ledColorPicker.value, null, null)
+    })
 
-const ledColorRed = document.querySelector('#led-color-red')
-const ledColorGreen = document.querySelector('#led-color-green')
-const ledColorBlue = document.querySelector('#led-color-blue')
+    const ledColorRed = document.querySelector('#led-' + zone + '-color-red')
+    const ledColorGreen = document.querySelector(
+        '#led-' + zone + '-color-green',
+    )
+    const ledColorBlue = document.querySelector('#led-' + zone + '-color-blue')
 
-ledColorRed.addEventListener('click', () => {
-    Manager.setLED('#FF0000')
-})
+    ledColorRed.addEventListener('click', () => {
+        Manager.setLED('#FF0000')
+    })
 
-ledColorGreen.addEventListener('click', () => {
-    Manager.setLED('#00FF00')
-})
+    ledColorGreen.addEventListener('click', () => {
+        Manager.setLED('#00FF00')
+    })
 
-ledColorBlue.addEventListener('click', () => {
-    Manager.setLED('#0000FF')
-})
+    ledColorBlue.addEventListener('click', () => {
+        Manager.setLED('#0000FF')
+    })
+}
+
+function wireLEDs() {
+    let ledCapabilities = Manager.ledCapabilities()
+
+    let range = ledCapabilities.rangeForZone(LEDZones.ALL)
+    if (range != LEDColorRange.NONE) {
+        const ledAllZonesControls = document.querySelector(
+            '#led-all-zones-controls',
+        )
+        ledAllZonesControls.classList.add('shown')
+
+        switch (range) {
+            case LEDColorRange.SIMPLE_RGB:
+                document
+                    .querySelector('#led-all-zones-simple-rgb')
+                    .classList.add('shown')
+                break
+            case LEDColorRange.ALL_COLORS:
+                document
+                    .querySelector('#led-all-zones-all-colors')
+                    .classList.add('shown')
+                break
+            default:
+                console.log('Unkown color range...')
+        }
+
+        wireLEDEvents('all-zones')
+    }
+}
 
 // Buttons
 const buttonsLeft = document.querySelector('#buttons-left')

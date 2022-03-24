@@ -88,6 +88,9 @@ class ManagerSingleton {
     }
 
     // RGB
+    ledCapabilities() {
+        return this.backend.ledCapabilities()
+    }
 
     // rgb: HTML rgb string, can come directly from a color picker input, must have the #
     // mode: some mice support modes like 'colorful', 'breathing', etc.
@@ -145,6 +148,43 @@ export class ProtocolHelper {
                 parseInt(rgb.substring(5, 7), 16),
             )
         }
+    }
+}
+
+export class LEDColorRange {
+    static NONE = 0
+    static SIMPLE_RGB = 1
+    static ALL_COLORS = 2
+}
+
+export class LEDZones {
+    static ALL = 0
+    static REAR = 1
+    static LEFT = 2
+    static RIGHT = 3
+}
+
+export class LEDCapabilities {
+    // The constructor is given the minimum range that can be applied to all
+    // zones.
+    constructor(range) {
+        this.zones = {
+            0: range,
+        }
+    }
+
+    // zone: a LEDZone
+    // range: a LEDColorRange
+    addZone(zone, range) {
+        this.zones[zone] = range
+    }
+
+    rangeForZone(zone) {
+        if (!zone in this.zones) {
+            return LEDColorRange.NONE
+        }
+
+        return this.zones[zone]
     }
 }
 

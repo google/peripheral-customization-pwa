@@ -20,7 +20,9 @@ class ManagerSingleton {
             throw e
         }
 
-        // Initialize the UI with information and current settings.
+        // Initialize the UI with capabilities, information and current settings.
+        this.notify('connected')
+
         this.requestFWVersion()
 
         console.log('Selected backend: ', this.backend)
@@ -57,6 +59,14 @@ class ManagerSingleton {
         this.handlersMap = handlersMap
     }
 
+    notify(eventName, data) {
+        if (!eventName in this.handlersMap) {
+            return
+        }
+
+        this.handlersMap[eventName](data)
+    }
+
     // Basics
 
     requestFWVersion() {
@@ -64,11 +74,7 @@ class ManagerSingleton {
     }
 
     gotFWVersion(version) {
-        if (!'fw-version' in this.handlersMap) {
-            return
-        }
-
-        this.handlersMap['fw-version'](strView(version))
+        this.notify('fw-version', strView(version))
     }
 
     // Buttons

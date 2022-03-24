@@ -1,7 +1,7 @@
 <html>
     <head>
-        <link rel="stylesheet" href="style.css">
-        <link rel="manifest" href="manifest.json">
+        <link rel="stylesheet" href="style.css" />
+        <link rel="manifest" href="manifest.json" />
     </head>
     <body>
         <div id="connect-screen">
@@ -9,7 +9,7 @@
             <span id="status-message">&nbsp;</span>
         </div>
         <div id="main-content">
-            <img id="logo" src="device-logo.png">
+            <img id="logo" src="device-logo.png" />
             <span id="device-name">SABRE RGB Pro Wireless Champion Series</span>
             <div id="sidebar">
                 <ul>
@@ -23,73 +23,168 @@
                     <table>
                         <tbody>
                             <tr>
-                                <th>Button</th><th>Mapping</th>
+                                <th>Button</th>
+                                <th>Mapping</th>
                             </tr>
                             <tr>
                                 <td>Left click</td>
-                                <td><select id="buttons-left"><options>
-                                    <option value="left-click" selected>Left click</option>
-                                    <option value="right-click">Right click</option>
-                                    <option value="scroll-down">Scroll down</option>
-                                    <option value="scroll-up">Scroll up</option>
-                                    <option value="space-bar">Space bar</option>
-                                    <option value="none">None</option>
-                                </options></select></td>
+                                <td>
+                                    <select id="buttons-left">
+                                        <options>
+                                            <option value="left-click" selected>
+                                                Left click
+                                            </option>
+                                            <option value="right-click">
+                                                Right click
+                                            </option>
+                                            <option value="scroll-down">
+                                                Scroll down
+                                            </option>
+                                            <option value="scroll-up">
+                                                Scroll up
+                                            </option>
+                                            <option value="space-bar">
+                                                Space bar
+                                            </option>
+                                            <option value="none">None</option>
+                                        </options>
+                                    </select>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Right click</td>
-                                <td><select id="buttons-right"><options>
-                                    <option value="left-click">Left click</option>
-                                    <option value="right-click" selected>Right click</option>
-                                    <option value="scroll-down">Scroll down</option>
-                                    <option value="scroll-up">Scroll up</option>
-                                    <option value="space-bar">Space bar</option>
-                                    <option value="none">None</option>
-                                </options></select></td>
+                                <td>
+                                    <select id="buttons-right">
+                                        <options>
+                                            <option value="left-click">
+                                                Left click
+                                            </option>
+                                            <option
+                                                value="right-click"
+                                                selected
+                                            >
+                                                Right click
+                                            </option>
+                                            <option value="scroll-down">
+                                                Scroll down
+                                            </option>
+                                            <option value="scroll-up">
+                                                Scroll up
+                                            </option>
+                                            <option value="space-bar">
+                                                Space bar
+                                            </option>
+                                            <option value="none">None</option>
+                                        </options>
+                                    </select>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Scroll up</td>
-                                <td><select id="buttons-scroll-up"><options>
-                                    <option value="left-click">Left click</option>
-                                    <option value="right-click">Right click</option>
-                                    <option value="scroll-down">Scroll down</option>
-                                    <option value="scroll-up" selected>Scroll up</option>
-                                    <option value="space-bar">Space bar</option>
-                                    <option value="none">None</option>
-                                </options></select></td>
+                                <td>
+                                    <select id="buttons-scroll-up">
+                                        <options>
+                                            <option value="left-click">
+                                                Left click
+                                            </option>
+                                            <option value="right-click">
+                                                Right click
+                                            </option>
+                                            <option value="scroll-down">
+                                                Scroll down
+                                            </option>
+                                            <option value="scroll-up" selected>
+                                                Scroll up
+                                            </option>
+                                            <option value="space-bar">
+                                                Space bar
+                                            </option>
+                                            <option value="none">None</option>
+                                        </options>
+                                    </select>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Scroll down</td>
-                                <td><select id="buttons-scroll-down"><options>
-                                    <option value="left-click">Left click</option>
-                                    <option value="right-click">Right click</option>
-                                    <option value="scroll-down" selected>Scroll down</option>
-                                    <option value="scroll-up">Scroll up</option>
-                                    <option value="space-bar">Space bar</option>
-                                    <option value="none">None</option>
-                                </options></select></td>
+                                <td>
+                                    <select id="buttons-scroll-down">
+                                        <options>
+                                            <option value="left-click">
+                                                Left click
+                                            </option>
+                                            <option value="right-click">
+                                                Right click
+                                            </option>
+                                            <option
+                                                value="scroll-down"
+                                                selected
+                                            >
+                                                Scroll down
+                                            </option>
+                                            <option value="scroll-up">
+                                                Scroll up
+                                            </option>
+                                            <option value="space-bar">
+                                                Space bar
+                                            </option>
+                                            <option value="none">None</option>
+                                        </options>
+                                    </select>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Button 1</td>
-                                <td><select id="buttons-button1"><options>
-                                    <option value="left-click">Left click</option>
-                                    <option value="right-click">Right click</option>
-                                    <option value="scroll-down">Scroll down</option>
-                                    <option value="scroll-up">Scroll up</option>
-                                    <option value="space-bar">Space bar</option>
-                                    <option value="none" selected>None</option>
-                                </options></select></td>
+                                <td>
+                                    <select id="buttons-button1">
+                                        <options>
+                                            <option value="left-click">
+                                                Left click
+                                            </option>
+                                            <option value="right-click">
+                                                Right click
+                                            </option>
+                                            <option value="scroll-down">
+                                                Scroll down
+                                            </option>
+                                            <option value="scroll-up">
+                                                Scroll up
+                                            </option>
+                                            <option value="space-bar">
+                                                Space bar
+                                            </option>
+                                            <option value="none" selected>
+                                                None
+                                            </option>
+                                        </options>
+                                    </select>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Button 2</td>
-                                <td><select id="buttons-button2"><options>
-                                    <option value="left-click">Left click</option>
-                                    <option value="right-click">Right click</option>
-                                    <option value="scroll-down">Scroll down</option>
-                                    <option value="scroll-up">Scroll up</option>
-                                    <option value="space-bar">Space bar</option>
-                                    <option value="none" selected>None</option>
-                                </options></select></td>
+                                <td>
+                                    <select id="buttons-button2">
+                                        <options>
+                                            <option value="left-click">
+                                                Left click
+                                            </option>
+                                            <option value="right-click">
+                                                Right click
+                                            </option>
+                                            <option value="scroll-down">
+                                                Scroll down
+                                            </option>
+                                            <option value="scroll-up">
+                                                Scroll up
+                                            </option>
+                                            <option value="space-bar">
+                                                Space bar
+                                            </option>
+                                            <option value="none" selected>
+                                                None
+                                            </option>
+                                        </options>
+                                    </select>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -98,33 +193,63 @@
                     <div id="led-all-zones-controls">
                         <h2>All LEDs</h2>
                         <div id="led-all-zones-simple-rgb">
-                            <button style="background-color: red; height: 50px; width: 50px;" id="led-all-zones-color-red"></button>
-                            <button style="background-color: green; height: 50px; width: 50px;" id="led-all-zones-color-green"></button>
-                            <button style="background-color: blue; height: 50px; width: 50px;" id="led-all-zones-color-blue"></button>
+                            <button
+                                style="
+                                    background-color: red;
+                                    height: 50px;
+                                    width: 50px;
+                                "
+                                id="led-all-zones-color-red"
+                            ></button>
+                            <button
+                                style="
+                                    background-color: green;
+                                    height: 50px;
+                                    width: 50px;
+                                "
+                                id="led-all-zones-color-green"
+                            ></button>
+                            <button
+                                style="
+                                    background-color: blue;
+                                    height: 50px;
+                                    width: 50px;
+                                "
+                                id="led-all-zones-color-blue"
+                            ></button>
                         </div>
                         <div id="led-all-zones-all-colors">
-                            <input type="color" id="led-all-zones-color-picker" name="led-all-zones-color" value="#ff0000">
+                            <input
+                                type="color"
+                                id="led-all-zones-color-picker"
+                                name="led-all-zones-color"
+                                value="#ff0000"
+                            />
                         </div>
                     </div>
                 </div>
                 <div id="DPIPane">
-                    <select id="dpi-levels"><options>
-                        <option value="1">Level 1 - 400 CPI</option>
-                        <option value="2">Level 2 - 800 CPI</option>
-                        <option value="3">Level 3 - 1200 CPI</option>
-                        <option value="4">Level 4 - 2400 CPI</option>
-                        <option value="5">Level 5 - 3200 CPI</option>
-                    </options></select>
+                    <select id="dpi-levels">
+                        <options>
+                            <option value="1">Level 1 - 400 CPI</option>
+                            <option value="2">Level 2 - 800 CPI</option>
+                            <option value="3">Level 3 - 1200 CPI</option>
+                            <option value="4">Level 4 - 2400 CPI</option>
+                            <option value="5">Level 5 - 3200 CPI</option>
+                        </options>
+                    </select>
                 </div>
             </div>
             <div id="device-image">
-                <img id="device-image-top" src="device.png">
-                <img id="device-image-bottom" src="device-bottom.png">
+                <img id="device-image-top" src="device.png" />
+                <img id="device-image-bottom" src="device-bottom.png" />
             </div>
             <div id="device-details">
-                Remaining Battery <span id="battery-indicator">90%</span><br>
-                Firmware Version <span id="fw-version">0.0.0</span><br>
-                <a href="https://www.corsair.com/us/en/Categories/Products/Gaming-Mice/Wireless-Gaming-Mice/SABRE-RGB-PRO-WIRELESS-CHAMPION-SERIES-Ultra-Lightweight-FPS-MOBA-Gaming-Mouse/p/CH-9313211-NA">
+                Remaining Battery <span id="battery-indicator">90%</span><br />
+                Firmware Version <span id="fw-version">0.0.0</span><br />
+                <a
+                    href="https://www.corsair.com/us/en/Categories/Products/Gaming-Mice/Wireless-Gaming-Mice/SABRE-RGB-PRO-WIRELESS-CHAMPION-SERIES-Ultra-Lightweight-FPS-MOBA-Gaming-Mouse/p/CH-9313211-NA"
+                >
                     Product Website
                 </a>
             </div>

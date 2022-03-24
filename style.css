@@ -21,7 +21,7 @@ div#connect-screen {
 
     background-color: whitesmoke;
 
-    transition: all .5s ease;
+    transition: all 0.5s ease;
     transform: translateY(0);
 }
 
@@ -52,7 +52,7 @@ span.connection-error {
     to {
         background: red;
     }
-  }
+}
 
 div#main-content {
     display: grid;

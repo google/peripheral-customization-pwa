@@ -24,6 +24,7 @@ class ManagerSingleton {
         this.notify('connected')
 
         this.requestFWVersion()
+        this.requestCurrentConfig()
 
         console.log('Selected backend: ', this.backend)
     }
@@ -77,6 +78,10 @@ class ManagerSingleton {
         this.notify('fw-version', strView(version))
     }
 
+    requestCurrentConfig() {
+        this.backend.requestCurrentConfig()
+    }
+
     // Buttons
 
     setButton(button, action) {
@@ -92,9 +97,15 @@ class ManagerSingleton {
         return this.backend.ledCapabilities()
     }
 
+    // zone: the LEDZones we want to query
+    async ledForZone(zone) {
+        await this.backend.ledForZone(zone)
+    }
+
     // rgb: HTML rgb string, can come directly from a color picker input, must have the #
     // mode: some mice support modes like 'colorful', 'breathing', etc.
-    // zone: some mice have leds in more than one location
+    // zone: a LEDZones specifying which zone to set the color to, or LEDZones.ALL for
+    // setting to all of them
     setLED(rgb, zone, mode) {
         if (this.backend != undefined) {
             this.backend.setLED(rgb, zone, mode)
@@ -162,6 +173,15 @@ export class LEDZones {
     static BACK = 1
     static SIDES_BACK = 2
     static SIDES_FRONT = 3
+
+    static all() {
+        return [
+            LEDZones.ALL,
+            LEDZones.BACK,
+            LEDZones.SIDES_BACK,
+            LEDZones.SIDES_FRONT,
+        ]
+    }
 }
 
 export class LEDCapabilities {
@@ -189,3 +209,6 @@ export class LEDCapabilities {
 }
 
 export var Manager = new ManagerSingleton()
+
+// Print the object so we can use it from devtools
+console.log(Manager)

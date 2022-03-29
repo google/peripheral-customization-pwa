@@ -93,11 +93,53 @@ Manager.subscribe({
     connected: () => {
         wireLEDs()
     },
+    'dpi-levels': wireDPI,
     'fw-version': (version) => {
         let div = document.querySelector('#fw-version')
         div.innerText = version
     },
 })
+
+// DPI
+function wireDPI(count, current, levels) {
+    const DPIPane = document.querySelector('#DPIPane')
+    let capabilities = Manager.dpiCapabilities()
+
+    for (let i = 0; i < capabilities.count; i++) {
+        let div = document.createElement('div')
+        DPIPane.append(div)
+
+        let span = document.createElement('span')
+        span.innerText = 'Level ' + (i + 1)
+
+        let select = document.createElement('select')
+        select.setAttribute('id', 'dpi-select-' + i)
+
+        const levelKeys = Object.keys(capabilities.levels)
+        for (let k of levelKeys) {
+            let v = capabilities.levels[k]
+
+            let option = document.createElement('option')
+            option.setAttribute('value', k)
+            option.innerText = v
+
+            select.append(option)
+
+            if (v == levels[i]) {
+                select.value = k
+            }
+        }
+
+        select.addEventListener('change', (e) => {
+            let select = e.currentTarget
+            let index = parseInt(select.id.split('-')[2])
+            Manager.setDPILevel(index, select.value)
+        })
+
+        let br = document.createElement('br')
+        div.append(span, select, br)
+    }
+}
 
 // RGB
 function zone_to_id_fragment(zone) {
@@ -232,11 +274,4 @@ buttonsButton1.addEventListener('change', () => {
 
 buttonsButton2.addEventListener('change', () => {
     Manager.setButton(Buttons.Button2, buttonsButton2.value)
-})
-
-// DPI
-const dpiLevels = document.querySelector('#dpi-levels')
-
-dpiLevels.addEventListener('change', () => {
-    Manager.setDPILevel(dpiLevels.value)
 })

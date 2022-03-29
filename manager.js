@@ -60,12 +60,12 @@ class ManagerSingleton {
         this.handlersMap = handlersMap
     }
 
-    notify(eventName, data) {
+    notify(eventName, ...data) {
         if (!eventName in this.handlersMap) {
             return
         }
 
-        this.handlersMap[eventName](data)
+        this.handlersMap[eventName].apply(null, data)
     }
 
     // Basics
@@ -88,8 +88,28 @@ class ManagerSingleton {
         console.log(`button: ${button.name} action: ${action}`)
     }
 
-    setDPILevel(level) {
-        console.log(`DPI level: ${level}`)
+    // DPI
+
+    dpiCapabilities() {
+        return this.backend.dpiCapabilities()
+    }
+
+    requestDPILevels() {
+        this.backend.requestDPILevels()
+    }
+
+    gotDPILevels(count, current, levels) {
+        this.notify('dpi-levels', count, current, levels)
+    }
+
+    setDPILevel(index, level) {
+        this.backend.setDPILevel(index, level)
+    }
+
+    // levels: an array with the CPI for each enabled level, based off of the levels
+    // available from the mouse
+    setDPILevels(levels) {
+        this.backend.setDPILevels(levels)
     }
 
     // RGB
@@ -159,6 +179,15 @@ export class ProtocolHelper {
                 parseInt(rgb.substring(5, 7), 16),
             )
         }
+    }
+}
+
+export class DPICapabilities {
+    // count: number of DPI indexes
+    // levels: map with values and names for the various levels
+    constructor(count, levels) {
+        this.count = count
+        this.levels = levels
     }
 }
 

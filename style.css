@@ -123,6 +123,14 @@ div#main-content {
     display: block;
 }
 
+#DPIPane > div {
+    margin-bottom: 20px;
+}
+
+#DPIPane > div > span {
+    margin-right: 20px;
+}
+
 #RGBPane > div {
     display: none;
 }

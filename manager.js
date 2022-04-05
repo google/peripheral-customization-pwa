@@ -83,9 +83,16 @@ class ManagerSingleton {
     }
 
     // Buttons
+    requestButtons() {
+        this.backend.requestButtons()
+    }
 
-    setButton(button, action) {
-        console.log(`button: ${button.name} action: ${action}`)
+    gotButtons(buttons) {
+        this.notify('buttons', buttons)
+    }
+
+    setButton(position, bind_type, bind_to) {
+        this.backend.setButton(position, bind_type, bind_to)
     }
 
     // DPI
@@ -179,6 +186,50 @@ export class ProtocolHelper {
                 parseInt(rgb.substring(5, 7), 16),
             )
         }
+    }
+}
+
+export class ButtonBindings {
+    static DEFAULT = 0
+    static MOUSE_BUTTON = 1
+    static DPI_CHANGE = 2
+    static KEYBOARD_KEY = 3
+    static MACRO = 4
+}
+
+export class MouseButtonPosition {
+    static LEFT = 0
+    static RIGHT = 1
+    static MIDDLE = 2
+    static SCROLL_DOWN = 3
+    static SCROLL_UP = 4
+    static LEFT_FRONT = 5
+    static LEFT_BACK = 6
+    static RIGHT_FRONT = 7
+    static RIGHT_BACK = 8
+    static TOP = 9
+}
+
+export class MouseButtonBinding {
+    constructor(bound_to) {
+        this.bound_to = bound_to
+    }
+}
+
+export class Button {
+    constructor(position, bindings) {
+        this.position = position
+        this.bindings = bindings
+    }
+}
+
+export class ButtonsCapabilities {
+    constructor() {
+        this.buttons = []
+    }
+
+    add_button(button) {
+        this.buttons(button)
     }
 }
 

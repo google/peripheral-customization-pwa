@@ -154,9 +154,16 @@ div#main-content {
     text-align: center;
 }
 
-#buttonsPane > table td {
-    border-top: 1px solid lightgray;
-    padding: 5px;
+#buttonsPane > div > select {
+    display: none;
+}
+
+#buttonsPane > div > input {
+    display: none;
+}
+
+#buttonsPane > div > .shown {
+    display: block;
 }
 
 #device-image {

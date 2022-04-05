@@ -1,4 +1,12 @@
-import { Manager, Buttons, LEDZones, LEDColorRange } from './manager.js'
+import {
+    Manager,
+    Button,
+    LEDZones,
+    LEDColorRange,
+    MouseButtonPosition,
+    ButtonBindings,
+    MouseButtonBinding,
+} from './manager.js'
 import '/devices/vendor2-model21.js'
 import '/devices/vendor1-model11.js'
 
@@ -93,12 +101,132 @@ Manager.subscribe({
     connected: () => {
         wireLEDs()
     },
+    buttons: wireButtons,
     'dpi-levels': wireDPI,
     'fw-version': (version) => {
         let div = document.querySelector('#fw-version')
         div.innerText = version
     },
 })
+
+// Buttons
+function updateMappingVisibility(select) {
+    let position = parseInt(select.id.split('-')[1])
+
+    let mouse_select = document.querySelector(
+        'select#button-' + position + '-mouse',
+    )
+    mouse_select.classList.remove('shown')
+
+    let key_input = document.querySelector('input#button-' + position + '-key')
+    key_input.classList.remove('shown')
+
+    switch (parseInt(select.value)) {
+        case ButtonBindings.MOUSE_BUTTON:
+            mouse_select.classList.add('shown')
+            break
+        case ButtonBindings.KEYBOARD_KEY:
+            key_input.classList.add('shown')
+            break
+        default:
+            console.error('Unknown value: ', select.value)
+    }
+}
+
+function wireButtons(buttons) {
+    const ButtonsPane = document.querySelector('#ButtonsPane')
+
+    for (let i = 0; i < buttons.length; i++) {
+        let div = document.createElement('div')
+        ButtonsPane.append(div)
+
+        let span = document.createElement('span')
+        span.innerText = 'Button ' + buttons[i].position
+
+        let type_select = document.createElement('select')
+        type_select.setAttribute('id', 'button-' + buttons[i].position)
+        type_select.classList.add('shown')
+
+        let types = {}
+        types[ButtonBindings.DEFAULT] = 'Default'
+        types[ButtonBindings.MOUSE_BUTTON] = 'Mouse action'
+        //types[ButtonBindings.DPI_CHANGE] = 'Change DPI'
+        types[ButtonBindings.KEYBOARD_KEY] = 'Keyboard key'
+        //types[ButtonBindings.MACRO] = 'Macro'
+        for (let k of Object.keys(types)) {
+            let v = types[k]
+
+            let option = document.createElement('option')
+            option.setAttribute('value', k)
+            option.innerText = v
+
+            type_select.append(option)
+
+            if (k == buttons[i].bind_type) {
+                type_select.value = k
+            }
+        }
+
+        // Mouse buttons
+        let mouse_select = document.createElement('select')
+        mouse_select.setAttribute(
+            'id',
+            'button-' + buttons[i].position + '-mouse',
+        )
+        mouse_select.classList.add('button-mouse-select')
+
+        let mouse_mappings = {}
+        mouse_mappings[MouseButtonPosition.LEFT] = 'Left Click'
+        mouse_mappings[MouseButtonPosition.RIGHT] = 'Right Click'
+        mouse_mappings[MouseButtonPosition.MIDDLE] = 'Middle Click'
+        mouse_mappings[MouseButtonPosition.SCROLL_DOWN] = 'Scroll Down'
+        mouse_mappings[MouseButtonPosition.SCROLL_UP] = 'Scroll Up'
+        for (let k of Object.keys(mouse_mappings)) {
+            let v = mouse_mappings[k]
+
+            let option = document.createElement('option')
+            option.setAttribute('value', k)
+            option.innerText = v
+
+            mouse_select.append(option)
+
+            if (k == buttons[i].bind_to) {
+                mouse_select.value = k
+            }
+        }
+
+        mouse_select.addEventListener('change', (e) => {
+            let select = e.currentTarget
+            let position = parseInt(select.id.split('-')[1])
+            Manager.setButton(
+                position,
+                ButtonBindings.MOUSE_BUTTON,
+                parseInt(select.value),
+            )
+        })
+
+        // Keyboard keys
+        let key_input = document.createElement('input')
+        key_input.setAttribute('id', 'button-' + buttons[i].position + '-key')
+
+        key_input.addEventListener('keydown', (e) => {
+            let select = e.currentTarget
+            let position = parseInt(select.id.split('-')[1])
+            Manager.setButton(position, ButtonBindings.KEYBOARD_KEY, e.code)
+        })
+
+        // Show or hide mapping elements based on the type selection.
+        type_select.addEventListener('change', (e) => {
+            let select = e.currentTarget
+            updateMappingVisibility(select)
+        })
+
+        let br = document.createElement('br')
+        div.append(span, type_select, mouse_select, key_input, br)
+
+        updateMappingVisibility(type_select)
+    }
+}
 
 // DPI
 function wireDPI(count, current, levels) {
@@ -243,35 +371,3 @@ function wireLEDs() {
         wireLEDsForZone(LEDZones.SIDES_FRONT, range)
     }
 }
-
-// Buttons
-const buttonsLeft = document.querySelector('#buttons-left')
-const buttonsRight = document.querySelector('#buttons-right')
-const buttonsScrollUp = document.querySelector('#buttons-scroll-up')
-const buttonsScrollDown = document.querySelector('#buttons-scroll-down')
-const buttonsButton1 = document.querySelector('#buttons-button1')
-const buttonsButton2 = document.querySelector('#buttons-button2')
-
-buttonsLeft.addEventListener('change', () => {
-    Manager.setButton(Buttons.Left, buttonsLeft.value)
-})
-
-buttonsRight.addEventListener('change', () => {
-    Manager.setButton(Buttons.Right, buttonsRight.value)
-})
-
-buttonsScrollUp.addEventListener('change', () => {
-    Manager.setButton(Buttons.ScrollUp, buttonsScrollUp.value)
-})
-
-buttonsScrollDown.addEventListener('change', () => {
-    Manager.setButton(Buttons.ScrollDown, buttonsScrollDown.value)
-})
-
-buttonsButton1.addEventListener('change', () => {
-    Manager.setButton(Buttons.Button1, buttonsButton1.value)
-})
-
-buttonsButton2.addEventListener('change', () => {
-    Manager.setButton(Buttons.Button2, buttonsButton2.value)
-})

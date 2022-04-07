@@ -1,14 +1,12 @@
 import {
     Manager,
-    Button,
     LEDZones,
     LEDColorRange,
     MouseButtonPosition,
     ButtonBindings,
-    MouseButtonBinding,
 } from './manager.js'
-import '/devices/vendor2-model21.js'
-import '/devices/vendor1-model11.js'
+import './devices/vendor2-model21.js'
+import './devices/vendor1-model11.js'
 
 const connectScreen = document.querySelector('div#connect-screen')
 const connectButton = document.querySelector('button#connect-hid')

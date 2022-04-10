@@ -195,6 +195,7 @@ export class ButtonBindings {
     static DPI_CHANGE = 2
     static KEYBOARD_KEY = 3
     static MACRO = 4
+    static UNDEFINED = 0xFF
 }
 
 export class MouseButtonPosition {
@@ -208,6 +209,7 @@ export class MouseButtonPosition {
     static RIGHT_FRONT = 7
     static RIGHT_BACK = 8
     static TOP = 9
+    static UNDEFINED = 0xFF
 }
 
 export class MouseButtonBinding {

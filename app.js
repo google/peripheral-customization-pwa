@@ -148,9 +148,10 @@ function wireButtons(buttons) {
         let types = {}
         types[ButtonBindings.DEFAULT] = 'Default'
         types[ButtonBindings.MOUSE_BUTTON] = 'Mouse action'
-        //types[ButtonBindings.DPI_CHANGE] = 'Change DPI'
+        types[ButtonBindings.DPI_CHANGE] = 'Change DPI'
         types[ButtonBindings.KEYBOARD_KEY] = 'Keyboard key'
         //types[ButtonBindings.MACRO] = 'Macro'
+        types[ButtonBindings.UNDEFINED] = 'Not set'
         for (let k of Object.keys(types)) {
             let v = types[k]
 
@@ -179,6 +180,10 @@ function wireButtons(buttons) {
         mouse_mappings[MouseButtonPosition.MIDDLE] = 'Middle Click'
         mouse_mappings[MouseButtonPosition.WHEEL_DOWN] = 'Wheel Down'
         mouse_mappings[MouseButtonPosition.WHEEL_UP] = 'Wheel Up'
+        mouse_mappings[MouseButtonPosition.LEFT_FRONT] = 'Left front'
+        mouse_mappings[MouseButtonPosition.LEFT_BACK] = 'Left back'
+        mouse_mappings[MouseButtonPosition.RIGHT_FRONT] = 'Right front'
+        mouse_mappings[MouseButtonPosition.RIGHT_BACK] = 'Right back'
         for (let k of Object.keys(mouse_mappings)) {
             let v = mouse_mappings[k]
 

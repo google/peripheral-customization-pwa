@@ -177,8 +177,8 @@ function wireButtons(buttons) {
         mouse_mappings[MouseButtonPosition.LEFT] = 'Left Click'
         mouse_mappings[MouseButtonPosition.RIGHT] = 'Right Click'
         mouse_mappings[MouseButtonPosition.MIDDLE] = 'Middle Click'
-        mouse_mappings[MouseButtonPosition.SCROLL_DOWN] = 'Scroll Down'
-        mouse_mappings[MouseButtonPosition.SCROLL_UP] = 'Scroll Up'
+        mouse_mappings[MouseButtonPosition.WHEEL_DOWN] = 'Wheel Down'
+        mouse_mappings[MouseButtonPosition.WHEEL_UP] = 'Wheel Up'
         for (let k of Object.keys(mouse_mappings)) {
             let v = mouse_mappings[k]
 

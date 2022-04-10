@@ -156,8 +156,8 @@ const strView = (data) => {
 export class Buttons {
     static Left = new Buttons('buttons-left')
     static Right = new Buttons('buttons-right')
-    static ScrollUp = new Buttons('buttons-scroll-up')
-    static ScrollDown = new Buttons('buttons-scroll-down')
+    static WheelUp = new Buttons('buttons-wheel-up')
+    static WheelDown = new Buttons('buttons-wheel-down')
     static Button1 = new Buttons('buttons-button1')
     static Button2 = new Buttons('buttons-button2')
 
@@ -201,8 +201,8 @@ export class MouseButtonPosition {
     static LEFT = 0
     static RIGHT = 1
     static MIDDLE = 2
-    static SCROLL_DOWN = 3
-    static SCROLL_UP = 4
+    static WHEEL_DOWN = 3
+    static WHEEL_UP = 4
     static LEFT_FRONT = 5
     static LEFT_BACK = 6
     static RIGHT_FRONT = 7

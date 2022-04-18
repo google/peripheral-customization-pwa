@@ -74,6 +74,7 @@ window.addEventListener('load', async (e) => {
         try {
             await Manager.connect()
         } catch (e) {
+            throw e
             connectionError(e)
             return
         }
@@ -98,8 +99,9 @@ window.addEventListener('load', async (e) => {
 Manager.subscribe({
     connected: () => {
         wireLEDs()
+        wireButtons()
     },
-    buttons: wireButtons,
+    buttons: updateButtons,
     'dpi-levels': wireDPI,
     'fw-version': (version) => {
         let div = document.querySelector('#fw-version')
@@ -116,25 +118,54 @@ function updateMappingVisibility(select) {
     )
     mouse_select.classList.remove('shown')
 
-    let key_input = document.querySelector('input#button-' + position + '-key')
-    key_input.classList.remove('shown')
+    let key_select = document.querySelector(
+        'select#button-' + position + '-key',
+    )
+    key_select.classList.remove('shown')
 
     switch (parseInt(select.value)) {
         case ButtonBindings.MOUSE_BUTTON:
             mouse_select.classList.add('shown')
             break
         case ButtonBindings.KEYBOARD_KEY:
-            key_input.classList.add('shown')
+            key_select.classList.add('shown')
             break
         default:
             console.error('Unknown value: ', select.value)
     }
 }
 
-function wireButtons(buttons) {
+function updateButtons(buttons) {
+    for (let i = 0; i < buttons.length; i++) {
+        let type_select = document.querySelector(
+            'select#button-' + buttons[i].position,
+        )
+        switch (buttons[i].bind_type) {
+            case ButtonBindings.MOUSE_BUTTON:
+                var bind_select = document.querySelector(
+                    'select#button-' + buttons[i].position + '-mouse',
+                )
+                bind_select.value = buttons[i].bind_to
+                break
+            case ButtonBindings.KEYBOARD_KEY:
+                var bind_select = document.querySelector(
+                    'select#button-' + buttons[i].position + '-key',
+                )
+                bind_select.value = buttons[i].bind_to
+                break
+            default:
+                console.warn('Unsupported type: ', buttons[i].bind_type)
+        }
+    }
+}
+
+function wireButtons() {
     const ButtonsPane = document.querySelector('#ButtonsPane')
+    let capabilities = Manager.buttonsCapabilities()
+    let buttons = capabilities.buttons()
 
     for (let i = 0; i < buttons.length; i++) {
+        let button = buttons[i]
         let div = document.createElement('div')
         ButtonsPane.append(div)
 
@@ -152,7 +183,7 @@ function wireButtons(buttons) {
         types[ButtonBindings.KEYBOARD_KEY] = 'Keyboard key'
         //types[ButtonBindings.MACRO] = 'Macro'
         types[ButtonBindings.UNDEFINED] = 'Not set'
-        for (let k of Object.keys(types)) {
+        for (let k of button.bind_types()) {
             let v = types[k]
 
             let option = document.createElement('option')
@@ -184,7 +215,7 @@ function wireButtons(buttons) {
         mouse_mappings[MouseButtonPosition.LEFT_BACK] = 'Left back'
         mouse_mappings[MouseButtonPosition.RIGHT_FRONT] = 'Right front'
         mouse_mappings[MouseButtonPosition.RIGHT_BACK] = 'Right back'
-        for (let k of Object.keys(mouse_mappings)) {
+        for (let k of button.bindings_for_type(ButtonBindings.MOUSE_BUTTON)) {
             let v = mouse_mappings[k]
 
             let option = document.createElement('option')
@@ -192,10 +223,6 @@ function wireButtons(buttons) {
             option.innerText = v
 
             mouse_select.append(option)
-
-            if (k == buttons[i].bind_to) {
-                mouse_select.value = k
-            }
         }
 
         mouse_select.addEventListener('change', (e) => {
@@ -209,13 +236,29 @@ function wireButtons(buttons) {
         })
 
         // Keyboard keys
-        let key_input = document.createElement('input')
-        key_input.setAttribute('id', 'button-' + buttons[i].position + '-key')
+        let key_select = document.createElement('select')
+        key_select.setAttribute('id', 'button-' + buttons[i].position + '-key')
 
-        key_input.addEventListener('keydown', (e) => {
+        let key_map = button.keyboard_map()
+        console.log(key_map)
+        for (let key of Object.keys(key_map)) {
+            let value = key_map[key]
+
+            let option = document.createElement('option')
+            option.setAttribute('value', value)
+            option.innerText = key
+
+            key_select.append(option)
+        }
+
+        key_select.addEventListener('change', (e) => {
             let select = e.currentTarget
             let position = parseInt(select.id.split('-')[1])
-            Manager.setButton(position, ButtonBindings.KEYBOARD_KEY, e.code)
+            Manager.setButton(
+                position,
+                ButtonBindings.KEYBOARD_KEY,
+                select.value,
+            )
         })
 
         // Show or hide mapping elements based on the type selection.
@@ -225,7 +268,7 @@ function wireButtons(buttons) {
         })
 
         let br = document.createElement('br')
-        div.append(span, type_select, mouse_select, key_input, br)
+        div.append(span, type_select, mouse_select, key_select, br)
 
         updateMappingVisibility(type_select)
     }

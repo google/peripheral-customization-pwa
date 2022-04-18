@@ -61,7 +61,7 @@ class ManagerSingleton {
     }
 
     notify(eventName, ...data) {
-        if (!eventName in this.handlersMap) {
+        if (!(eventName in this.handlersMap)) {
             return
         }
 
@@ -83,6 +83,11 @@ class ManagerSingleton {
     }
 
     // Buttons
+
+    buttonsCapabilities() {
+        return this.backend.buttonsCapabilities()
+    }
+
     requestButtons() {
         this.backend.requestButtons()
     }
@@ -195,7 +200,7 @@ export class ButtonBindings {
     static DPI_CHANGE = 2
     static KEYBOARD_KEY = 3
     static MACRO = 4
-    static UNDEFINED = 0xFF
+    static UNDEFINED = 0xff
 }
 
 export class MouseButtonPosition {
@@ -209,29 +214,61 @@ export class MouseButtonPosition {
     static RIGHT_FRONT = 7
     static RIGHT_BACK = 8
     static TOP = 9
-    static UNDEFINED = 0xFF
-}
-
-export class MouseButtonBinding {
-    constructor(bound_to) {
-        this.bound_to = bound_to
-    }
+    static UNDEFINED = 0xff
 }
 
 export class Button {
-    constructor(position, bindings) {
+    constructor(position) {
         this.position = position
-        this.bindings = bindings
+        this.bindings = {}
+        this._keyboard_map = {}
+    }
+
+    add_binding(bind_type, bind_to) {
+        if (bind_type in this.bindings) {
+            this.bindings[bind_type].push(bind_to)
+        } else {
+            this.bindings[bind_type] = [bind_to]
+        }
+    }
+
+    // map of description to code used internally by the backend
+    add_keyboard_map(map) {
+        this._keyboard_map = map
+    }
+
+    keyboard_map() {
+        return this._keyboard_map
+    }
+
+    bind_types() {
+        return Object.keys(this.bindings)
+    }
+
+    bindings_for_type(bind_type) {
+        if (bind_type in this.bindings) {
+            return this.bindings[bind_type]
+        }
+
+        return []
+    }
+
+    bindings_for_keyboard() {
+        return this.keyboard_map
     }
 }
 
 export class ButtonsCapabilities {
     constructor() {
-        this.buttons = []
+        this._buttons = []
     }
 
     add_button(button) {
-        this.buttons(button)
+        this._buttons.push(button)
+    }
+
+    buttons() {
+        return this._buttons
     }
 }
 

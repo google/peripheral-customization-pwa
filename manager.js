@@ -4,9 +4,8 @@ class ManagerSingleton {
     }
 
     async connect() {
-        // FIXME: get USB IDs for filters from the backend classes.
         const devices = await navigator.hid.requestDevice({
-            filters: [],
+            filters: this.supportedDevices.map((item) => item[1]).flat(),
         })
 
         if (devices.length == 0) {

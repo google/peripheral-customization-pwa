@@ -22,8 +22,8 @@ class ManagerSingleton {
         // Initialize the UI with capabilities, information and current settings.
         this.notify('connected')
 
-        this.requestFWVersion()
-        this.requestCurrentConfig()
+        await this.requestFWVersion()
+        await this.requestCurrentConfig()
 
         console.log('Selected backend: ', this.backend)
     }
@@ -69,16 +69,16 @@ class ManagerSingleton {
 
     // Basics
 
-    requestFWVersion() {
-        this.backend.requestFWVersion()
+    async requestFWVersion() {
+        await this.backend.requestFWVersion()
     }
 
     gotFWVersion(version) {
         this.notify('fw-version', strView(version))
     }
 
-    requestCurrentConfig() {
-        this.backend.requestCurrentConfig()
+    async requestCurrentConfig() {
+        await this.backend.requestCurrentConfig()
     }
 
     // Buttons
@@ -87,16 +87,16 @@ class ManagerSingleton {
         return this.backend.buttonsCapabilities()
     }
 
-    requestButtons() {
-        this.backend.requestButtons()
+    async requestButtons() {
+        await this.backend.requestButtons()
     }
 
     gotButtons(buttons) {
         this.notify('buttons', buttons)
     }
 
-    setButton(position, bind_type, bind_to) {
-        this.backend.setButton(position, bind_type, bind_to)
+    async setButton(position, bind_type, bind_to) {
+        await this.backend.setButton(position, bind_type, bind_to)
     }
 
     // DPI
@@ -105,22 +105,22 @@ class ManagerSingleton {
         return this.backend.dpiCapabilities()
     }
 
-    requestDPILevels() {
-        this.backend.requestDPILevels()
+    async requestDPILevels() {
+        await this.backend.requestDPILevels()
     }
 
     gotDPILevels(count, current, levels) {
         this.notify('dpi-levels', count, current, levels)
     }
 
-    setDPILevel(index, level) {
-        this.backend.setDPILevel(index, level)
+    async setDPILevel(index, level) {
+        await this.backend.setDPILevel(index, level)
     }
 
     // levels: an array with the CPI for each enabled level, based off of the levels
     // available from the mouse
-    setDPILevels(levels) {
-        this.backend.setDPILevels(levels)
+    async setDPILevels(levels) {
+        await this.backend.setDPILevels(levels)
     }
 
     // RGB
@@ -137,9 +137,9 @@ class ManagerSingleton {
     // mode: some mice support modes like 'colorful', 'breathing', etc.
     // zone: a LEDZones specifying which zone to set the color to, or LEDZones.ALL for
     // setting to all of them
-    setLED(rgb, zone, mode) {
+    async setLED(rgb, zone, mode) {
         if (this.backend != undefined) {
-            this.backend.setLED(rgb, zone, mode)
+            await this.backend.setLED(rgb, zone, mode)
         }
     }
 

@@ -6,7 +6,7 @@ import {
     ButtonBindings,
 } from './manager.js'
 import './devices/vendor2-model21.js'
-import './devices/vendor1-model11.js'
+import './devices/vendor1-model11-wired.js'
 
 const connectScreen = document.querySelector('div#connect-screen')
 const connectButton = document.querySelector('button#connect-hid')
@@ -140,6 +140,7 @@ function updateButtons(buttons) {
         let type_select = document.querySelector(
             'select#button-' + buttons[i].position,
         )
+        if (type_select === null) continue
         switch (buttons[i].bind_type) {
             case ButtonBindings.MOUSE_BUTTON:
                 var bind_select = document.querySelector(

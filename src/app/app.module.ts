@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatTabsModule } from '@angular/material/tabs';
-
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -28,6 +28,7 @@ import { DummyComponent } from './dummy/dummy.component';
     BrowserAnimationsModule,
     FlexLayoutModule,
     MatTabsModule,
+    MatButtonToggleModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

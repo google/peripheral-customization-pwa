@@ -1,14 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { NavLink } from '../model/nav-link';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
 })
-export class MenuComponent implements OnInit {
-  // TODO: implement component and remove eslint disable comments
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor() {}
-  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method, @typescript-eslint/no-empty-function
-  ngOnInit(): void {}
+export class MenuComponent {
+  navLinks: Array<NavLink>;
+  constructor(private router: Router) {
+    this.navLinks = [
+      {
+        label: 'Set RGB Lighting',
+        link: './rgb',
+      },
+      {
+        label: 'Customize buttons',
+        link: './buttons',
+      },
+      {
+        label: 'Adjust DPI',
+        link: './dpi',
+      },
+    ];
+  }
 }

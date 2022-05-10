@@ -1,0 +1,32 @@
+<span fxLayout="row" fxLayoutAlign="center center">
+  <div class="customize">
+    <p class="titles">Mapping</p>
+    <p>{{selectedButton.name}}</p>
+    <mat-button-toggle-group
+      #macroGroup="matButtonToggleGroup"
+      vertical="true"
+      value={{selectedButtonMacro}}
+      (change)="setMacro(macroGroup.value)"
+    >
+      <mat-button-toggle value="left">Left</mat-button-toggle>
+      <mat-button-toggle value="right">Right</mat-button-toggle>
+      <mat-button-toggle value="forward">Forward</mat-button-toggle>
+      <mat-button-toggle value="back">Back</mat-button-toggle>
+      <mat-button-toggle value="none">None</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  <img src={{mouseTopImg}}>
+  <div class="buttons">
+    <p class="titles">Buttons</p>
+    <mat-button-toggle-group
+      #buttonGroup="matButtonToggleGroup"
+      vertical="true"
+      value={{selectedButton.id}}
+      (change)="chooseButton(buttonGroup.value)"
+    >
+      <mat-button-toggle *ngFor="let button of buttons" value={{button.id}}>
+        {{button.name}}
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+</span>

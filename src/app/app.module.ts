@@ -12,6 +12,7 @@ import { HeaderComponent } from './header/header.component';
 import { MenuComponent } from './menu/menu.component';
 import { FooterComponent } from './footer/footer.component';
 import { DummyComponent } from './dummy/dummy.component';
+import { CustomizeButtonsComponent } from './pane/customize-buttons/customize-buttons.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { DummyComponent } from './dummy/dummy.component';
     MenuComponent,
     FooterComponent,
     DummyComponent,
+    CustomizeButtonsComponent,
   ],
   imports: [
     BrowserModule,

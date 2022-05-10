@@ -7,6 +7,7 @@ import {
 } from './manager.js'
 import './devices/vendor2-model21.js'
 import './devices/vendor1-model11-wired.js'
+import './devices/vendor1-model11-protocol.js'
 
 const connectScreen = document.querySelector('div#connect-screen')
 const connectButton = document.querySelector('button#connect-hid')

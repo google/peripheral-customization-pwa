@@ -1,0 +1,9 @@
+export enum Buttons {
+  LEFT = 'LEFT',
+  RIGHT = 'RIGHT',
+  SCROLL_UP = 'SCROLL_UP',
+  SCROLL_DOWN = 'SCROLL_DOWN',
+  SCROLL_WHEEL = 'SCROLL_WHEEL',
+  MACRO_1 = 'MACRO_1',
+  MACRO_2 = 'MACRO_2',
+}

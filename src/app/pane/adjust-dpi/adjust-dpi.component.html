@@ -1,0 +1,54 @@
+<div fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign="center center">
+  <div fxLayout="column" fxLayoutAlign="">
+    <p>DPI Stages</p>
+    <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign="center center">
+      <mat-button-toggle-group
+        #dpiGroup="matButtonToggleGroup"
+        (change)="changeStage(dpiGroup.value)"
+        value="{{selectedStage}}"
+      >
+        <mat-button-toggle
+          #matButtonToggle="matButtonToggle"
+          *ngFor="let stage of stages; let i = index"
+          class="toggle"
+          (change)="changeButton(matButtonToggle.checked)"
+          disableRipple="true"
+          value="{{i}}"
+        >
+          <mat-form-field class="form-field" appearance="fill">
+            <mat-label>Stage {{i + 1}}</mat-label>
+            <input
+              #matInput="matInput"
+              matInput
+              (change)="setDpiInput(i, matInput.value)"
+              (input)="stages[i]"
+              type="text"
+              value="{{stages[i]}}"
+              min="{{minDpi}}"
+              max="{{maxDpi}}"/>
+            <span matSuffix>DPI</span>
+          </mat-form-field>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+    <span>
+      <span>{{minDpi}}</span>
+      <mat-slider
+        class="slider"
+        #matSlider="matSlider"
+        (change)="setDpiSlider(matSlider.value)"
+        min="{{minDpi}}"
+        max="{{maxDpi}}"
+        value="{{selectedDpi}}"
+      >
+      </mat-slider>
+      <span>{{maxDpi}}</span>
+    </span>
+  </div>
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <img src="{{mouseBottomImg}}">
+    <button mat-button (click)="resetToDefault()">
+      Default settings reset
+    </button>
+  </div>
+</div>

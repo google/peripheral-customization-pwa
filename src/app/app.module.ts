@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatButtonModule } from '@angular/material/button';
 
+import { MatListModule } from '@angular/material/list';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -19,6 +20,7 @@ import { FooterComponent } from './footer/footer.component';
 import { DummyComponent } from './dummy/dummy.component';
 import { CustomizeButtonsComponent } from './pane/customize-buttons/customize-buttons.component';
 import { AdjustDpiComponent } from './pane/adjust-dpi/adjust-dpi.component';
+import { RgbProfileComponent } from './pane/rgb-profile/rgb-profile.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { AdjustDpiComponent } from './pane/adjust-dpi/adjust-dpi.component';
     DummyComponent,
     CustomizeButtonsComponent,
     AdjustDpiComponent,
+    RgbProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +45,7 @@ import { AdjustDpiComponent } from './pane/adjust-dpi/adjust-dpi.component';
     MatInputModule,
     MatSliderModule,
     MatButtonModule,
+    MatListModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

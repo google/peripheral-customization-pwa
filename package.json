@@ -7,7 +7,7 @@
     "build": "ng build",
     "build-lib": "tsc -p ./tsconfig.lib.json",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "test": "ng test --watch=false",
     "lint": "ng lint"
   },
   "private": true,

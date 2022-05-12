@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { CustomizeButtonsComponent } from './customize-buttons.component';
 
 describe('CustomizeButtonsComponent', () => {
@@ -8,6 +8,7 @@ describe('CustomizeButtonsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [MatButtonToggleModule],
       declarations: [CustomizeButtonsComponent],
     }).compileComponents();
   });

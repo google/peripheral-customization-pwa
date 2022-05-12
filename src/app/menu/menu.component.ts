@@ -9,6 +9,7 @@ import { NavLink } from '../model/nav-link';
 })
 export class MenuComponent {
   navLinks: Array<NavLink>;
+
   constructor(private router: Router) {
     this.navLinks = [
       {

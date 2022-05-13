@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build-lib": "tsc -p ./tsconfig.lib.json",
+    "build-lib": "webpack -c ./webpack.config.lib.js",
     "watch": "ng build --watch --configuration development",
     "test": "ng test --watch=false",
     "lint": "ng lint",
@@ -50,6 +50,7 @@
     "eslint-import-resolver-typescript": "^2.7.1",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^8.0.0",
     "jasmine-core": "~4.0.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
@@ -57,7 +58,8 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
     "prettier": "^2.6.2",
+    "ts-loader": "^9.3.0",
     "typescript": "~4.6.2",
-    "husky": "^8.0.0"
+    "webpack-cli": "^4.9.2"
   }
 }

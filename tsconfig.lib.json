@@ -5,5 +5,5 @@
     "types": ["@types/w3c-web-hid"]
   },
   "files": ["src/lib/ts/manager.ts"],
-  "include": ["src/lib/**/*.d.ts"]
+  "include": ["src/lib/ts/**/*.d.ts"]
 }

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DummyComponent } from './dummy/dummy.component';
 import { CustomizeButtonsComponent } from './pane/customize-buttons/customize-buttons.component';
 import { AdjustDpiComponent } from './pane/adjust-dpi/adjust-dpi.component';
 import { RgbProfileComponent } from './pane/rgb-profile/rgb-profile.component';

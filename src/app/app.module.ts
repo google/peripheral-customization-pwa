@@ -17,7 +17,6 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { MenuComponent } from './menu/menu.component';
 import { FooterComponent } from './footer/footer.component';
-import { DummyComponent } from './dummy/dummy.component';
 import { CustomizeButtonsComponent } from './pane/customize-buttons/customize-buttons.component';
 import { AdjustDpiComponent } from './pane/adjust-dpi/adjust-dpi.component';
 import { RgbProfileComponent } from './pane/rgb-profile/rgb-profile.component';
@@ -29,7 +28,6 @@ import { RgbProfileComponent } from './pane/rgb-profile/rgb-profile.component';
     HeaderComponent,
     MenuComponent,
     FooterComponent,
-    DummyComponent,
     CustomizeButtonsComponent,
     AdjustDpiComponent,
     RgbProfileComponent,

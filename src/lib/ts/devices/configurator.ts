@@ -1,6 +1,7 @@
 import type Manager from '../manager';
 
 import type { Color, LEDCapabilities, LEDModes, LEDZones } from './led';
+import type { DPILevels, DPICapabilities } from './dpi';
 
 export type DeviceFilter = Required<
   Pick<HIDDeviceFilter, 'productId' | 'vendorId'>
@@ -57,6 +58,18 @@ export abstract class HIDDeviceConfigurator {
   ledForZone?(zone: LEDZones): Promise<Color>;
 
   setLed?(color: Color, zone: LEDZones, mode: LEDModes): Promise<void>;
+
+  // DPI
+  dpiCapabilities?(): DPICapabilities;
+
+  requestDPILevels?(): Promise<void>;
+
+  setDPILevel?(level: number, cpi: number): Promise<void>;
+
+  setDPILevels?(levels: DPILevels): Promise<void>;
+
+  // Profiles
+  requestProfile?(id: number): Promise<void>;
 
   protected async defaultRequestCurrentLedConfig(
     ledCapabilities: LEDCapabilities,

@@ -1,5 +1,6 @@
 import SupportedDevices from './devices';
 import type { HIDDeviceConfigurator } from './devices/configurator';
+import { DPILevels } from './devices/dpi';
 
 import type { Color, LEDCapabilities, LEDModes, LEDZones } from './devices/led';
 import { Buttons } from './devices/buttons';
@@ -7,7 +8,7 @@ import { Buttons } from './devices/buttons';
 import { byteArrayToString } from './util';
 
 class Manager {
-  handlersMap: Record<string, (data: any) => void> = {};
+  handlersMap: Record<string, (data: any[]) => void> = {};
 
   backend?: HIDDeviceConfigurator;
 
@@ -65,7 +66,7 @@ class Manager {
     this.handlersMap = handlersMap;
   }
 
-  notify(eventName: string, data?: any): void {
+  notify(eventName: string, ...data: any): void {
     const handler = this.handlersMap[eventName];
     if (!handler) {
       throw Error('No handler fot this event');
@@ -78,6 +79,10 @@ class Manager {
   setButton(button: Buttons, action: string): void {
     // eslint-disable-next-line no-console
     console.log(`button: ${button} action: ${action}`);
+  }
+
+  receiveDPILevels(count: number, current: number, levels: DPILevels): void {
+    this.notify('dpi-levels', count, current, levels);
   }
 
   setDPILevel(level: number): void {

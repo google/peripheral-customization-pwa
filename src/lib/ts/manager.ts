@@ -1,18 +1,13 @@
 import SupportedDevices from './devices';
-import type { HIDDeviceConfigurator } from './devices/configurator';
-import { DPILevels } from './devices/dpi';
-
-import type { Color, LEDCapabilities, LEDModes, LEDZones } from './devices/led';
-import { Buttons } from './devices/buttons';
-
-import { byteArrayToString } from './util';
+import {
+  ConfiguratorEvents,
+  HIDDeviceConfigurator,
+} from './devices/configurator';
 
 class Manager {
-  handlersMap: Record<string, (data: any[]) => void> = {};
-
   backend?: HIDDeviceConfigurator;
 
-  async connect(): Promise<void> {
+  async connect(): Promise<HIDDeviceConfigurator> {
     // FIXME: get USB IDs for filters from the backend classes.
     const devices = await navigator.hid.requestDevice({
       filters: [],
@@ -24,16 +19,15 @@ class Manager {
     console.log(`Looking for backend for: ${devices}`);
     this.backend = await this.createBackendForDevices(devices);
 
-    // Initialize the UI with capabilities, information and current settings.
-    this.notify('connected');
+    // Initialize UI with capabilities, information and current settings
+    this.backend.emit(ConfiguratorEvents.CONNECT);
 
     await Promise.all([
-      this.requestFirmwareVersion(),
-      this.requestCurrentLedConfig(),
+      this.backend.requestFirmwareVersion(),
+      this.backend.requestCurrentLedConfig?.(),
     ]);
 
-    // eslint-disable-next-line no-console
-    console.log(`Selected backend: ${this.backend}`);
+    return this.backend;
   }
 
   async createBackendForDevices(
@@ -48,72 +42,6 @@ class Manager {
     const backend = new constructor(this, devices);
     await backend.open();
     return backend;
-  }
-
-  // Basics
-  requestFirmwareVersion(): Promise<Uint8Array> {
-    if (!this.backend) throw Error('Backend is undefined');
-    return this.backend.requestFirmwareVersion();
-  }
-
-  receiveFirmwareVersion(version: Uint8Array): void {
-    // Need to solve how this is going to be integrated with the FE
-    // eslint-disable-next-line no-console
-    console.log(`fw-version : ${byteArrayToString(version)}`);
-  }
-
-  subscribe(handlersMap: Record<string, () => void>): void {
-    this.handlersMap = handlersMap;
-  }
-
-  notify(eventName: string, ...data: any): void {
-    const handler = this.handlersMap[eventName];
-    if (!handler) {
-      throw Error('No handler fot this event');
-    }
-
-    handler(data);
-  }
-
-  // Buttons
-  setButton(button: Buttons, action: string): void {
-    // eslint-disable-next-line no-console
-    console.log(`button: ${button} action: ${action}`);
-  }
-
-  receiveDPILevels(count: number, current: number, levels: DPILevels): void {
-    this.notify('dpi-levels', count, current, levels);
-  }
-
-  setDPILevel(level: number): void {
-    // eslint-disable-next-line no-console
-    console.log(`DPI level: ${level}`);
-  }
-
-  // RGB
-  requestCurrentLedConfig(): Promise<Partial<Record<LEDZones, Color>>> {
-    if (!this.backend?.requestCurrentLedConfig)
-      throw Error("Backend doesn't support this functionality");
-
-    return this.backend.requestCurrentLedConfig();
-  }
-
-  ledCapabilities(): LEDCapabilities {
-    if (!this.backend?.ledCapabilities)
-      throw Error("Backend doesn't support LED functionality");
-    return this.backend.ledCapabilities();
-  }
-
-  ledForZone(zone: LEDZones): Promise<Color> {
-    if (!this.backend?.ledForZone)
-      throw Error("Backend doesn't support ledForZone()");
-    return this.backend.ledForZone(zone);
-  }
-
-  setLED(color: Color, zone: LEDZones, mode: LEDModes): void {
-    if (!this.backend?.setLed) return;
-
-    this.backend.setLed(color, zone, mode);
   }
 }
 

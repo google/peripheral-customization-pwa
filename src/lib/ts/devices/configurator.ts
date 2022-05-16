@@ -1,3 +1,5 @@
+import { EventEmitter } from 'events';
+
 import type Manager from '../manager';
 
 import type { Color, LEDCapabilities, LEDModes, LEDZones } from './led';
@@ -7,7 +9,13 @@ export type DeviceFilter = Required<
   Pick<HIDDeviceFilter, 'productId' | 'vendorId'>
 >;
 
-export abstract class HIDDeviceConfigurator {
+export enum ConfiguratorEvents {
+  CONNECT = 'connected',
+  RECEIVED_FIRMWARE_VERSION = 'receivedFirmwareVersion',
+}
+
+export abstract class HIDDeviceConfigurator extends EventEmitter {
+  // PROPERTIES
   abstract hidDevice: HIDDevice;
 
   abstract manager: typeof Manager;
@@ -37,7 +45,7 @@ export abstract class HIDDeviceConfigurator {
     return this.hidDevice.close();
   }
 
-  abstract requestFirmwareVersion(): Promise<Uint8Array>;
+  abstract requestFirmwareVersion(): Promise<void>;
 
   sendReport(reportId: number, outputReport: Uint8Array): Promise<void> {
     return this.hidDevice.sendReport(reportId, outputReport);
@@ -53,11 +61,19 @@ export abstract class HIDDeviceConfigurator {
   // RGB
   ledCapabilities?(): LEDCapabilities;
 
-  requestCurrentLedConfig?(): Promise<Partial<Record<LEDZones, Color>>>;
+  requestCurrentLedConfig?(): Promise<void[]>;
 
-  ledForZone?(zone: LEDZones): Promise<Color>;
+  ledForZone?(zone: LEDZones): Promise<void>;
 
   setLed?(color: Color, zone: LEDZones, mode: LEDModes): Promise<void>;
+
+  protected defaultRequestCurrentLedConfig(
+    ledCapabilities: LEDCapabilities,
+    ledForZone: (zone: LEDZones) => Promise<void>,
+  ): Promise<void[]> {
+    const zones = Object.keys(ledCapabilities) as LEDZones[];
+    return Promise.all(zones.map(zone => ledForZone(zone)));
+  }
 
   // DPI
   dpiCapabilities?(): DPICapabilities;
@@ -70,17 +86,6 @@ export abstract class HIDDeviceConfigurator {
 
   // Profiles
   requestProfile?(id: number): Promise<void>;
-
-  protected async defaultRequestCurrentLedConfig(
-    ledCapabilities: LEDCapabilities,
-    ledForZone: (zone: LEDZones) => Promise<Color>,
-  ): Promise<Partial<Record<LEDZones, Color>>> {
-    const zones = Object.keys(ledCapabilities) as LEDZones[];
-    const colors = await Promise.all(zones.map(zone => ledForZone(zone)));
-    return Object.fromEntries(
-      zones.map((zone, index) => [zone, colors[index]]),
-    );
-  }
 }
 
 export interface HIDDeviceConfiguratorConstructor {

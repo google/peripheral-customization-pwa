@@ -3,7 +3,15 @@ import { EventEmitter } from 'events';
 import type Manager from '../manager';
 
 import type { Color, LEDCapabilities, LEDModes, LEDZones } from './led';
+
 import type { DPILevels, DPICapabilities } from './dpi';
+
+import type {
+  BindTo,
+  ButtonBindings,
+  ButtonsCapabilities,
+  MouseButtonPosition,
+} from './buttons';
 
 export type DeviceFilter = Required<
   Pick<HIDDeviceFilter, 'productId' | 'vendorId'>
@@ -58,6 +66,8 @@ export abstract class HIDDeviceConfigurator extends EventEmitter {
     return this.hidDevice.sendFeatureReport(reportId, featureReport);
   }
 
+  requestCurrentConfig?(): Promise<void>;
+
   // RGB
   ledCapabilities?(): LEDCapabilities;
 
@@ -83,6 +93,17 @@ export abstract class HIDDeviceConfigurator extends EventEmitter {
   setDPILevel?(level: number, cpi: number): Promise<void>;
 
   setDPILevels?(levels: DPILevels): Promise<void>;
+
+  // Buttons
+  buttonsCapabilities?(): ButtonsCapabilities;
+
+  requestButtons?(): Promise<void>;
+
+  setButton?(
+    position: MouseButtonPosition,
+    bindType: ButtonBindings,
+    bindTo: BindTo,
+  ): Promise<void>;
 
   // Profiles
   requestProfile?(id: number): Promise<void>;

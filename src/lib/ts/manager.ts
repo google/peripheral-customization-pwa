@@ -49,4 +49,4 @@ class Manager {
 export default new Manager();
 
 export { LEDColorRange, LEDZones } from './devices/led';
-export { Buttons } from './devices/buttons';
+export { MouseButtonPosition } from './devices/buttons';

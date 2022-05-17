@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AssetsService } from 'src/app/assets.service';
 
 @Component({
   selector: 'app-header',
@@ -10,5 +11,8 @@ export class HeaderComponent {
 
   firmwareVersion = '0.0.00';
 
-  title = 'Model11';
+  title = this.assetsService.getDeviceName();
+
+  // eslint-disable-next-line no-useless-constructor
+  constructor(private assetsService: AssetsService) {}
 }

@@ -1,4 +1,5 @@
 import { Component, Input, ChangeDetectorRef } from '@angular/core';
+import { AssetsService } from 'src/app/assets.service';
 
 @Component({
   selector: 'app-adjust-dpi',
@@ -14,14 +15,17 @@ export class AdjustDpiComponent {
 
   @Input() maxDpi = 9000;
 
-  @Input() mouseBottomImg = 'assets/images/vendor1/model11_bottom.png';
+  mouseBottomImg = this.assetsService.getDeviceBottomImgUri();
 
   selectedDpi = this.stages[0];
 
   selectedStage = 0;
 
   // eslint-disable-next-line no-useless-constructor
-  constructor(private changeDetectorRef: ChangeDetectorRef) {}
+  constructor(
+    private changeDetectorRef: ChangeDetectorRef,
+    private assetsService: AssetsService,
+  ) {}
 
   changeStage(stage: number): void {
     this.selectedStage = stage;

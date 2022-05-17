@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { AssetsService } from 'src/app/assets.service';
 
 @Component({
   selector: 'app-footer',
@@ -6,5 +7,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent {
-  @Input() imgSource = 'assets/images/vendor1/footer-logo.svg';
+  imgSource = this.assetsService.getDeviceLogo();
+
+  // eslint-disable-next-line no-useless-constructor
+  constructor(private assetsService: AssetsService) {}
 }

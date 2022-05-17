@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatSelectionListChange } from '@angular/material/list';
 import { Zone } from 'src/app/model/zone';
+import { AssetsService } from 'src/app/assets.service';
 
 @Component({
   selector: 'app-rgb-profile',
@@ -16,7 +17,7 @@ export class RgbProfileComponent {
     'Brightness',
   ];
 
-  @Input() mouseFrontImg = 'assets/images/vendor1/model11_top.png';
+  mouseFrontImg = this.assetsService.getDeviceTopImgUri();
 
   @Input() zones: Array<Zone> = [
     {
@@ -42,6 +43,9 @@ export class RgbProfileComponent {
     id: '0',
     value: 'default',
   };
+
+  // eslint-disable-next-line no-useless-constructor
+  constructor(private assetsService: AssetsService) {}
 
   chooseZone(id: string): void {
     this.selectedZone = this.zonesMap.get(id);

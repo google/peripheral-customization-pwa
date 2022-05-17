@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { AssetsService } from 'src/app/assets.service';
 
 @Component({
   selector: 'app-customize-buttons',
@@ -29,7 +30,7 @@ export class CustomizeButtonsComponent {
     },
   ];
 
-  @Input() mouseTopImg = 'assets/images/vendor1/model11_top.png';
+  mouseTopImg = this.assetsService.getDeviceTopImgUri();
 
   buttonsMap = this.buttons.reduce(
     (map, btn) => map.set(btn.id, btn),
@@ -39,6 +40,9 @@ export class CustomizeButtonsComponent {
   selectedButton = this.buttons[0];
 
   selectedButtonMacro = this.buttons[0].macro;
+
+  // eslint-disable-next-line no-useless-constructor
+  constructor(private assetsService: AssetsService) {}
 
   chooseButton(id: string): void {
     this.selectedButton = this.buttonsMap.get(id);

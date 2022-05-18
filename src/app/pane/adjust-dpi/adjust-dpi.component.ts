@@ -1,31 +1,65 @@
-import { Component, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
+
 import { AssetsService } from 'src/app/assets.service';
+import { ManagerService } from 'src/app/manager.service';
 
 @Component({
   selector: 'app-adjust-dpi',
   templateUrl: './adjust-dpi.component.html',
   styleUrls: ['./adjust-dpi.component.scss'],
 })
-export class AdjustDpiComponent {
-  @Input() stages = [800, 4500, 8000];
+export class AdjustDpiComponent implements OnInit {
+  stages!: number[];
 
-  @Input() defaultDpiValues = [800, 1000, 1200];
+  defaultDpiValues!: number[];
 
-  @Input() minDpi = 100;
+  minDpi!: number;
 
-  @Input() maxDpi = 9000;
+  maxDpi!: number;
+
+  step!: number;
 
   mouseBottomImg = this.assetsService.getDeviceBottomImgUri();
 
-  selectedDpi = this.stages[0];
+  selectedDpi!: number;
 
   selectedStage = 0;
+
+  invertedLevels!: Record<number, number>;
 
   // eslint-disable-next-line no-useless-constructor
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private assetsService: AssetsService,
+    private manager: ManagerService,
   ) {}
+
+  ngOnInit(): void {
+    if (this.manager.dpiCapabilities) {
+      this.stages = [...Array(this.manager.dpiCapabilities.count)];
+      this.defaultDpiValues = [...Array(this.manager.dpiCapabilities.count)];
+      // TODO: get the current mouse dpi stage values and default values
+      this.stages.forEach((_, i) => {
+        this.stages[i] = 1500;
+        this.defaultDpiValues[i] = 1500;
+      });
+
+      const levelsValues = Object.values(this.manager.dpiCapabilities.levels);
+      this.maxDpi = Math.max(...levelsValues);
+      this.minDpi = Math.min(...levelsValues);
+
+      this.step = (this.maxDpi - this.minDpi) / (levelsValues.length - 1);
+
+      this.selectedDpi = this.stages[0];
+
+      this.invertedLevels = Object.entries(
+        this.manager.dpiCapabilities.levels,
+      ).reduce(
+        (acc, [key, value]) => ({ ...acc, [value]: parseInt(key, 2) }),
+        {},
+      );
+    }
+  }
 
   changeStage(stage: number): void {
     this.selectedStage = stage;
@@ -40,23 +74,30 @@ export class AdjustDpiComponent {
 
     const parsedValue = dpiValue.match(/\d+/g)?.join(''); // Get only numbers
     const value = parsedValue ? Number(parsedValue) : oldValue;
-    if (value > this.maxDpi) {
+    const filteredValue = Math.round(value / this.step) * this.step;
+    if (filteredValue > this.maxDpi) {
       this.stages[stage] = this.maxDpi;
-    } else if (value < this.minDpi) {
+    } else if (filteredValue < this.minDpi) {
       this.stages[stage] = this.minDpi;
     } else {
-      this.stages[stage] = value;
+      this.stages[stage] = filteredValue;
     }
     this.selectedDpi = this.stages[stage];
     // eslint-disable-next-line no-console
     console.log(`Stage ${stage} set to ${this.stages[stage]} dpi value`);
+    this.manager.setDpiLevel(
+      stage,
+      this.getKeyFromDpiValue(this.stages[stage]),
+    );
   }
 
   setDpiSlider(dpiValue: number): void {
     this.stages[this.selectedStage] = dpiValue;
     // eslint-disable-next-line no-console
-    console.log(
-      `Stage ${this.selectedStage} set to ${this.stages[dpiValue]} dpi value`,
+    console.log(`Stage ${this.selectedStage} set to ${dpiValue} dpi value`);
+    this.manager.setDpiLevel(
+      this.selectedStage,
+      this.getKeyFromDpiValue(dpiValue),
     );
   }
 
@@ -75,5 +116,15 @@ export class AdjustDpiComponent {
 
     // eslint-disable-next-line no-console
     console.log('Reset to default settings');
+    this.stages.forEach((_, i) => {
+      this.manager.setDpiLevel(
+        i,
+        this.getKeyFromDpiValue(this.defaultDpiValues[i]),
+      );
+    });
+  }
+
+  private getKeyFromDpiValue(dpiValue: number): number {
+    return this.invertedLevels[dpiValue];
   }
 }

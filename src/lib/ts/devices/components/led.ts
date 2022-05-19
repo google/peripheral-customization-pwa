@@ -37,7 +37,7 @@ const charToColor: Record<string, keyof Color> = {
 } as const;
 
 export const colorToArray = (color: Color, order = 'rgb'): number[] => {
-  if (rgbRegx.test(order)) throw Error('Invalid color order');
+  if (!rgbRegx.test(order)) throw Error('Invalid color order');
 
   return Array.from(order).map(char => color[charToColor[char]]);
 };

@@ -77,7 +77,7 @@ export abstract class HIDDeviceConfigurator extends EventEmitter {
 
   ledForZone?(zone: LEDZones): Promise<void>;
 
-  setLed?(color: Color, zone: LEDZones, mode: LEDModes): Promise<void>;
+  setLed?(color: Color, zone: LEDZones, mode?: LEDModes): Promise<void>;
 
   protected defaultRequestCurrentLedConfig(
     ledCapabilities: LEDCapabilities,

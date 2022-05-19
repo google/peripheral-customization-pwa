@@ -10,6 +10,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatButtonModule } from '@angular/material/button';
 
 import { MatListModule } from '@angular/material/list';
+import { ColorPickerModule } from 'ngx-color-picker';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -37,6 +38,7 @@ import { ConnectComponent } from './connect/connect.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ColorPickerModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
     MatTabsModule,

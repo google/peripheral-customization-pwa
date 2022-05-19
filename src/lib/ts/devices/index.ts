@@ -1,8 +1,8 @@
 import type { HIDDeviceConfiguratorConstructor } from './configurator';
 
 // eslint-disable-next-line import/no-cycle
-import Vendor1SupportedDevices from './vendor1';
-import Vendor2SupportedDevices from './vendor2';
+import Vendor1SupportedDevices from './devices/vendor1';
+import Vendor2SupportedDevices from './devices/vendor2';
 
 export type SupportedDevicesMap = Record<
   number,

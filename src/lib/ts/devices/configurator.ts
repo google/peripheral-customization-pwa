@@ -1,17 +1,14 @@
 import { EventEmitter } from 'events';
 
-import type Manager from '../manager';
-
-import type { Color, LEDCapabilities, LEDModes, LEDZones } from './led';
-
-import type { DPILevels, DPICapabilities } from './dpi';
-
 import type {
-  BindTo,
-  ButtonBindings,
-  ButtonsCapabilities,
-  MouseButtonPosition,
-} from './buttons';
+  Color,
+  LEDCapabilities,
+  LEDModes,
+  LEDZones,
+} from './components/led';
+
+import type { DPILevels, DPICapabilities } from './components/dpi';
+import { InputCapabilities, KeyBinding } from './components/inputs';
 
 export type DeviceFilter = Required<
   Pick<HIDDeviceFilter, 'productId' | 'vendorId'>
@@ -20,13 +17,18 @@ export type DeviceFilter = Required<
 export enum ConfiguratorEvents {
   CONNECT = 'connected',
   RECEIVED_FIRMWARE_VERSION = 'receivedFirmwareVersion',
+  RECEIVED_BUTTONS_BINDINGS = 'receivedButtonBindings',
+  RECEIVED_BUTTONS_LEVELS = 'receivedButtonLevels',
+  BUTTON_WAS_SET = 'buttonWasSet',
+  RECEIVED_DPI_LEVELS = 'receivedDpiLevels',
+  DPI_WAS_SET = 'dpiWasSet',
+  RECEIVED_LED = 'receivedLed',
+  LED_WAS_SET = 'ledWasSet',
 }
 
 export abstract class HIDDeviceConfigurator extends EventEmitter {
   // PROPERTIES
   abstract hidDevice: HIDDevice;
-
-  abstract manager: typeof Manager;
 
   // BASICS
   abstract handleInputReport(e: HIDInputReportEvent): void;
@@ -66,7 +68,7 @@ export abstract class HIDDeviceConfigurator extends EventEmitter {
     return this.hidDevice.sendFeatureReport(reportId, featureReport);
   }
 
-  requestCurrentConfig?(): Promise<void>;
+  requestCurrentConfig?(): Promise<void[]>;
 
   // RGB
   ledCapabilities?(): LEDCapabilities;
@@ -88,28 +90,24 @@ export abstract class HIDDeviceConfigurator extends EventEmitter {
   // DPI
   dpiCapabilities?(): DPICapabilities;
 
-  requestDPILevels?(): Promise<void>;
+  requestDpiLevels?(): Promise<void>;
 
-  setDPILevel?(level: number, cpi: number): Promise<void>;
+  setDpiLevel?(level: number, cpi: number): Promise<void>;
 
-  setDPILevels?(levels: DPILevels): Promise<void>;
+  setDpiLevels?(levels: DPILevels): Promise<void>;
 
-  // Buttons
-  buttonsCapabilities?(): ButtonsCapabilities;
+  // Inputs
+  inputCapabilities?(): InputCapabilities;
 
-  requestButtons?(): Promise<void>;
+  requestInputs?(): Promise<void[]>;
 
-  setButton?(
-    position: MouseButtonPosition,
-    bindType: ButtonBindings,
-    bindTo: BindTo,
-  ): Promise<void>;
+  setInput?(keyBinding: KeyBinding): Promise<void>;
 
   // Profiles
   requestProfile?(id: number): Promise<void>;
 }
 
 export interface HIDDeviceConfiguratorConstructor {
-  new (manager: typeof Manager, devices: HIDDevice[]): HIDDeviceConfigurator;
+  new (devices: HIDDevice[]): HIDDeviceConfigurator;
   FILTER: DeviceFilter;
 }

@@ -39,7 +39,7 @@ class Manager {
 
     if (!constructor) throw Error('No supported devices were found');
 
-    const backend = new constructor(this, devices);
+    const backend = new constructor(devices);
     await backend.open();
     return backend;
   }
@@ -47,6 +47,3 @@ class Manager {
 
 // Singleton
 export default new Manager();
-
-export { LEDColorRange, LEDZones } from './devices/led';
-export { MouseButtonPosition } from './devices/buttons';

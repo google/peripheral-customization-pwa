@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { DPICapabilities } from 'src/lib/ts/devices/dpi';
+import { DPICapabilities } from 'src/lib/ts/devices/components/dpi';
 import {
   Color,
   LEDCapabilities,
   LEDModes,
   LEDZones,
-} from 'src/lib/ts/devices/led';
+} from 'src/lib/ts/devices/components/led';
 
 import { HIDDeviceConfigurator } from 'src/lib/ts/devices/configurator';
 import manager from 'src/lib/ts/manager';
@@ -50,6 +50,6 @@ export class ManagerService {
   }
 
   setDpiLevel(level: number, cpi: number): void {
-    this.device?.setDPILevel?.(level, cpi);
+    this.device?.setDpiLevel?.(level, cpi);
   }
 }

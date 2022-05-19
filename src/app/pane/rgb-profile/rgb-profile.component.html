@@ -1,16 +1,40 @@
 <div class="container" fxLayout="row" fxLayoutAlign="center center">
-    <div class="list">
-        <span class="mat-h2 title-padding">RGB Lighting</span>
-        <mat-divider class="divider"></mat-divider>
-        <mat-selection-list [multiple]="false" 
-        (selectionChange)="setRGBValue($event)">
-            <mat-list-option class="option-color" *ngFor="let setting of settings" [value]="setting" >
-                {{setting}}
-            </mat-list-option>
-        </mat-selection-list>
-    </div>    
-    <img class="img" src={{mouseFrontImg}}>
-    <mat-button-toggle-group fxLayout="column" #zoneButton="matButtonToggleGroup" (change)="chooseZone(zoneButton.value)">
-        <mat-button-toggle value={{zone.id}} *ngFor="let zone of zones" >Zone: {{zone.id}} RGB: {{zone.value}}</mat-button-toggle>
-    </mat-button-toggle-group>
+  <div class="list">
+    <span class="mat-h2 title-padding">RGB Lighting</span>
+    <mat-divider class="divider"></mat-divider>
+    <mat-selection-list
+      [multiple]="false"
+      (selectionChange)="setRGBValue($event)"
+    >
+      <span class="mat-h3 title-padding" *ngIf="settings && !hasColorPicker">
+        No Zone Selected
+      </span>
+      <mat-list-option
+        class="option-color"
+        *ngFor="let setting of settings"
+        [value]="setting"
+      >
+        R: {{ setting.red }} G: {{ setting.green }} B: {{ setting.blue }}
+      </mat-list-option>
+      <input
+        *ngIf="hasColorPicker"
+        [value]="color"
+        [style.background]="color"
+        (colorPickerSelect)="handleColorPickClose(color)"
+        [cpOutputFormat]="'rgba'"
+        [(colorPicker)]="color"
+      />
+    </mat-selection-list>
+  </div>
+  <img class="img" src="{{ mouseFrontImg }}" />
+  <mat-button-toggle-group
+    fxLayout="column"
+    #zoneButton="matButtonToggleGroup"
+    (change)="chooseZone(zoneButton.value)"
+  >
+    <mat-button-toggle [value]="zone" *ngFor="let zone of zones">
+      Zone: {{ zone.zone }} R: {{ zone.color?.red }} G:
+      {{ zone.color?.green }} B: {{ zone.color?.blue }}
+    </mat-button-toggle>
+  </mat-button-toggle-group>
 </div>

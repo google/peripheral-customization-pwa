@@ -1,1 +1,4 @@
-<app-home> </app-home>
+<app-home *ngIf="device$ | async; else connect"></app-home>
+<ng-template #connect>
+  <app-connect></app-connect>
+</ng-template>

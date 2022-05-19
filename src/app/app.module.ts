@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -20,6 +20,7 @@ import { FooterComponent } from './footer/footer.component';
 import { CustomizeButtonsComponent } from './pane/customize-buttons/customize-buttons.component';
 import { AdjustDpiComponent } from './pane/adjust-dpi/adjust-dpi.component';
 import { RgbProfileComponent } from './pane/rgb-profile/rgb-profile.component';
+import { ConnectComponent } from './connect/connect.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { RgbProfileComponent } from './pane/rgb-profile/rgb-profile.component';
     CustomizeButtonsComponent,
     AdjustDpiComponent,
     RgbProfileComponent,
+    ConnectComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +47,7 @@ import { RgbProfileComponent } from './pane/rgb-profile/rgb-profile.component';
     MatButtonModule,
     MatListModule,
   ],
-  providers: [],
+  providers: [Title],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

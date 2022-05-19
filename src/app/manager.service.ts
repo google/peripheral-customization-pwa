@@ -24,6 +24,7 @@ export class ManagerService {
       const device = await manager.connect();
       this.deviceSubject.next(device);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(`Error connecting to device:`, error);
     }
   }

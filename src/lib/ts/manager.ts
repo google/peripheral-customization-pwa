@@ -1,6 +1,7 @@
 import SupportedDevices from './devices';
 import {
   ConfiguratorEvents,
+  DeviceFilter,
   HIDDeviceConfigurator,
 } from './devices/configurator';
 
@@ -8,10 +9,12 @@ class Manager {
   backend?: HIDDeviceConfigurator;
 
   async connect(): Promise<HIDDeviceConfigurator> {
-    // FIXME: get USB IDs for filters from the backend classes.
-    const devices = await navigator.hid.requestDevice({
-      filters: [],
-    });
+    const filters = Object.values(SupportedDevices).reduce((acc, devices) => {
+      const vendorDevices = Object.values(devices).map(device => device.FILTER);
+      return [...acc, ...vendorDevices];
+    }, [] as DeviceFilter[]);
+
+    const devices = await navigator.hid.requestDevice({ filters });
 
     if (!devices.length) throw Error('No device was selected');
 

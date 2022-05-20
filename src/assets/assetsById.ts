@@ -15,6 +15,14 @@ const assetsById: AssetsById = {
       deviceBottomImgUri: 'assets/images/vendor1/model11_bottom.png',
     },
   },
+  '0003': {
+    '3001': {
+      deviceName: 'Model21 RGB',
+      logoUri: 'assets/images/vendor2/vendor2.jpeg',
+      deviceTopImgUri: 'assets/images/vendor1/model11_top.png',
+      deviceBottomImgUri: 'assets/images/vendor1/model11_bottom.png',
+    },
+  },
 };
 
 export default assetsById;

@@ -1,21 +1,19 @@
 import { Injectable } from '@angular/core';
 import assetsById from 'src/assets/assetsById';
 import type { Assets } from 'src/assets/assetsById';
+import { ManagerService } from './manager.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AssetsService {
-  // TODO: get vendorId and deviceId from local storage.
-  vendorId = '0002';
-
-  deviceId = '2001';
-
   device!: Assets;
 
-  constructor() {
+  constructor(private managerService: ManagerService) {
     try {
-      this.device = assetsById[this.vendorId][this.deviceId];
+      const vendorId = this.managerService.device?.hidDevice.vendorId ?? 0;
+      const productId = this.managerService.device?.hidDevice.productId ?? 0;
+      this.device = assetsById[vendorId][productId];
     } catch (e) {
       throw new Error('vendorId or deviceId not found');
     }

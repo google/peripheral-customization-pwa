@@ -2,9 +2,27 @@ export enum InputType {
   DEFAULT = 'DEFAULT',
   MOUSE_BUTTON = 'MOUSE_BUTTON',
   DPI_CHANGE = 'DPI_CHANGE',
-  KEYBOARD_KEY = 'KEYBOARD_KEY',
+  KEYBOARD = 'KEYBOARD',
   MACRO = 'MACRO',
   UNDEFINED = 'UNDEFINED',
+  // TODO: What are key functions in the model11 mice ?
+  // Should they be here ?
+  // Why does it have a single function for keyboard but one for each mouse button ?
+  // Is it possible to abstract input types or is it necessary for each mice to handle it on their own way ?
+  MOUSE_BUTTON_1 = 'MOUSE_BUTTON_1',
+  MOUSE_BUTTON_2 = 'MOUSE_BUTTON_2',
+  MOUSE_BUTTON_3 = 'MOUSE_BUTTON_3',
+  MOUSE_BUTTON_4 = 'MOUSE_BUTTON_4',
+  MOUSE_BUTTON_5 = 'MOUSE_BUTTON_5',
+  MOUSE_BUTTON_6 = 'MOUSE_BUTTON_6',
+  MOUSE_BUTTON_7 = 'MOUSE_BUTTON_7',
+  MOUSE_BUTTON_8 = 'MOUSE_BUTTON_8',
+  MOUSE_WHEEL_UP = 'MOUSE_WHEEL_UP',
+  MOUSE_WHEEL_DOWN = 'MOUSE_WHEEL_DOWN',
+  AC_PAN_LEFT = 'AC_PAN_LEFT',
+  AC_PAN_RIGHT = 'AC_PAN_RIGHT',
+  CONSUMER = 'CONSUMER',
+  META = 'META',
 }
 
 export enum MouseInput {
@@ -229,7 +247,7 @@ export type KeyBinding = {
 // TODO: Optimization, missing types
 export const getInputType = (input: Input): InputType => {
   if (input in MouseInput) return InputType.MOUSE_BUTTON;
-  if (input in KeyboardInput) return InputType.KEYBOARD_KEY;
+  if (input in KeyboardInput) return InputType.KEYBOARD;
 
   return InputType.UNDEFINED;
 };

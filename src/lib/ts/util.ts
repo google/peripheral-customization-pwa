@@ -1,9 +1,9 @@
-import type { Color } from './devices/led';
+import type { Color } from 'src/lib/ts/devices/components/led';
 
-const htmlRgbRegx = /^#([0-9a-fA-F]){6}$/;
+const htmlRgbRegex = /^#([0-9a-fA-F]){6}$/;
 
 export const htmlRGBToColor = (rgbString: string): Color => {
-  if (!htmlRgbRegx.test(rgbString)) {
+  if (!htmlRgbRegex.test(rgbString)) {
     // eslint-disable-next-line no-console
     console.log('Bad color provided, setting LED to red...');
     return { red: 0xff, green: 0x00, blue: 0x00 };

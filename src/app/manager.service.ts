@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { DPICapabilities } from 'src/lib/ts/devices/components/dpi';
 import {
+  InputCapabilities,
+  KeyBinding,
+} from 'src/lib/ts/devices/components/inputs';
+import {
   Color,
   LEDCapabilities,
   LEDModes,
@@ -41,12 +45,22 @@ export class ManagerService {
     return this.deviceSubject.getValue();
   }
 
+  // LED
   get ledCapabilities(): LEDCapabilities | undefined {
     return this.device?.ledCapabilities?.();
   }
 
   setLed(color: Color, zone: LEDZones, mode?: LEDModes): void {
     this.device?.setLed?.(color, zone, mode);
+  }
+
+  // INPUT
+  get inputCapabilities(): InputCapabilities | undefined {
+    return this.device?.inputCapabilities?.();
+  }
+
+  setInput(keyBinding: KeyBinding): void {
+    this.device?.setInput?.(keyBinding);
   }
 
   // DPI

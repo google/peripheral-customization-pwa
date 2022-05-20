@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
 
 import { MatListModule } from '@angular/material/list';
 import { ColorPickerModule } from 'ngx-color-picker';
@@ -48,6 +49,7 @@ import { ConnectComponent } from './connect/connect.component';
     MatSliderModule,
     MatButtonModule,
     MatListModule,
+    MatSelectModule,
   ],
   providers: [Title],
   bootstrap: [AppComponent],

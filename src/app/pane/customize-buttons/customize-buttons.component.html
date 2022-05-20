@@ -1,30 +1,42 @@
 <span fxLayout="row" fxLayoutAlign="center center">
-  <div class="customize">
-    <p class="titles">Mapping {{ selectedDeviceInput }} button to</p>
-    <mat-select [(value)]="selectedBindTo" (selectionChange)="changeBindTo()">
-      <mat-option disabled="true" value="">Select</mat-option>
-      <mat-option [value]="selectedDeviceInput">Default</mat-option>
-      <mat-option
-        *ngFor="let input of bindToList | keyvalue"
-        [value]="input.key"
+  <div>
+    <h3>Mapping {{ selectedKey }} button to</h3>
+    <mat-form-field>
+      <mat-label>Select an input type</mat-label>
+      <mat-select
+        [(value)]="selectedBindToType"
+        (selectionChange)="filterType()"
       >
-        {{ input.key }}
-      </mat-option>
-    </mat-select>
+        <mat-option *ngFor="let type of bindToTypes" [value]="type">
+          {{ type }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Select a bind key</mat-label>
+      <mat-select [(value)]="selectedBindTo" (selectionChange)="changeBindTo()">
+        <mat-option [value]="bindToDefault">Default</mat-option>
+        <mat-divider></mat-divider>
+        <mat-option *ngFor="let input of bindToList" [value]="input">
+          {{ input.key }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
 
   <img src="{{ mouseTopImg }}" />
 
-  <div class="buttons">
-    <p class="titles">Buttons</p>
+  <div>
+    <h3>Buttons</h3>
     <mat-button-toggle-group
       #buttonGroup="matButtonToggleGroup"
       vertical="true"
-      [value]="selectedDeviceInput"
-      (change)="selectDeviceInput(buttonGroup.value)"
+      [value]="selectedKey"
+      (change)="selectKey(buttonGroup.value)"
     >
-      <mat-button-toggle *ngFor="let input of deviceInputs" value="{{ input }}">
-        {{ input }}
+      <mat-button-toggle *ngFor="let key of keys" value="{{ key }}">
+        {{ key }}
       </mat-button-toggle>
     </mat-button-toggle-group>
   </div>

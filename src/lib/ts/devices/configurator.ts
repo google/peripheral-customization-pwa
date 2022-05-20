@@ -99,7 +99,7 @@ export abstract class HIDDeviceConfigurator extends EventEmitter {
   // Inputs
   inputCapabilities?(): InputCapabilities;
 
-  requestInputs?(): Promise<void[]>;
+  requestInputs?(): Promise<void[] | void>;
 
   setInput?(keyBinding: KeyBinding): Promise<void>;
 

@@ -27,7 +27,7 @@ class Manager {
 
     await Promise.all([
       this.backend.requestFirmwareVersion(),
-      this.backend.requestCurrentLedConfig?.(),
+      this.backend.requestCurrentConfig?.(),
     ]);
 
     return this.backend;

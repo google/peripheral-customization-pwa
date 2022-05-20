@@ -1,4 +1,4 @@
-export enum InputTypes {
+export enum InputType {
   DEFAULT = 'DEFAULT',
   MOUSE_BUTTON = 'MOUSE_BUTTON',
   DPI_CHANGE = 'DPI_CHANGE',
@@ -7,7 +7,7 @@ export enum InputTypes {
   UNDEFINED = 'UNDEFINED',
 }
 
-export enum MouseInputs {
+export enum MouseInput {
   LEFT = 'LEFT',
   RIGHT = 'RIGHT',
   MIDDLE = 'MIDDLE',
@@ -20,7 +20,7 @@ export enum MouseInputs {
   TOP = 'TOP',
 }
 
-export enum KeyboardInputs {
+export enum KeyboardInput {
   // TODO: Fill w/ all the keys
   KEYBOARD_KEY_CHANGE = 'KEYBOARD_KEY_CHANGE',
   SHORT_KEY = 'SHORT_KEY',
@@ -58,19 +58,26 @@ export enum KeyboardInputs {
   MACROS_ID = 'MACROS_ID',
 }
 
-export type Inputs = MouseInputs | KeyboardInputs;
+export type Input = MouseInput | KeyboardInput;
 
-export type InputsMap = Partial<Record<Inputs, number>>;
+export type InputMap = Partial<Record<Input, number>>;
 
-export type InputCapabilities = Partial<Record<Inputs, Inputs[]>>;
+export type InputCapability = {
+  key: Input;
+  type: InputType;
+};
+
+export type InputCapabilities = Partial<Record<Input, InputCapability[]>>;
 
 export type KeyBinding = {
-  source: {
-    key: Inputs;
-    type: InputTypes;
-  };
-  bindTo: {
-    key: Inputs;
-    type: InputTypes;
-  };
+  key: Input;
+  bindTo: InputCapability;
+};
+
+// TODO: Optimization, missing types
+export const getInputType = (input: Input): InputType => {
+  if (input in MouseInput) return InputType.MOUSE_BUTTON;
+  if (input in KeyboardInput) return InputType.KEYBOARD_KEY;
+
+  return InputType.UNDEFINED;
 };

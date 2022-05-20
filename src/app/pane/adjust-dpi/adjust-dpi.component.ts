@@ -2,6 +2,7 @@ import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 
 import { AssetsService } from 'src/app/assets.service';
 import { ManagerService } from 'src/app/manager.service';
+import { dpi } from 'src/app/model/dpi';
 
 @Component({
   selector: 'app-adjust-dpi',
@@ -9,6 +10,8 @@ import { ManagerService } from 'src/app/manager.service';
   styleUrls: ['./adjust-dpi.component.scss'],
 })
 export class AdjustDpiComponent implements OnInit {
+  currentDpi: dpi | undefined;
+
   stages!: number[];
 
   defaultDpiValues!: number[];
@@ -35,30 +38,37 @@ export class AdjustDpiComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.manager.dpiCapabilities) {
-      this.stages = [...Array(this.manager.dpiCapabilities.count)];
-      this.defaultDpiValues = [...Array(this.manager.dpiCapabilities.count)];
-      // TODO: get the current mouse dpi stage values and default values
-      this.stages.forEach((_, i) => {
-        this.stages[i] = 1500;
-        this.defaultDpiValues[i] = 1500;
-      });
+    if (!this.manager.dpiCapabilities) return;
+    const { dpiCapabilities } = this.manager;
 
-      const levelsValues = Object.values(this.manager.dpiCapabilities.levels);
+    this.manager.requestDpiLevels().then(currentDpi => {
+      this.currentDpi = currentDpi;
+
+      this.stages = Array.from(
+        { length: currentDpi.count },
+        (_, i) => dpiCapabilities.levels[currentDpi.levels[i]],
+      );
+
+      this.defaultDpiValues = Array.from(
+        { length: currentDpi.count },
+        () => 1500,
+      );
+
+      const levelsValues = Object.values(dpiCapabilities.levels);
       this.maxDpi = Math.max(...levelsValues);
       this.minDpi = Math.min(...levelsValues);
 
       this.step = (this.maxDpi - this.minDpi) / (levelsValues.length - 1);
 
-      this.selectedDpi = this.stages[0];
+      this.selectedStage = currentDpi.current;
+      this.selectedDpi =
+        dpiCapabilities.levels[currentDpi.levels[this.selectedStage]];
 
-      this.invertedLevels = Object.entries(
-        this.manager.dpiCapabilities.levels,
-      ).reduce(
-        (acc, [key, value]) => ({ ...acc, [value]: parseInt(key, 2) }),
+      this.invertedLevels = Object.entries(dpiCapabilities.levels).reduce(
+        (acc, [key, value]) => ({ ...acc, [value]: parseInt(key, 10) }),
         {},
       );
-    }
+    });
   }
 
   changeStage(stage: number): void {

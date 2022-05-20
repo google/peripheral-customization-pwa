@@ -8,8 +8,12 @@ import {
   LEDZones,
 } from 'src/lib/ts/devices/components/led';
 
-import { HIDDeviceConfigurator } from 'src/lib/ts/devices/configurator';
+import {
+  ConfiguratorEvents,
+  HIDDeviceConfigurator,
+} from 'src/lib/ts/devices/configurator';
 import manager from 'src/lib/ts/manager';
+import { dpi } from './model/dpi';
 
 @Injectable({
   providedIn: 'root',
@@ -45,11 +49,22 @@ export class ManagerService {
     this.device?.setLed?.(color, zone, mode);
   }
 
+  // DPI
   get dpiCapabilities(): DPICapabilities | undefined {
     return this.device?.dpiCapabilities?.();
   }
 
-  setDpiLevel(level: number, cpi: number): void {
-    this.device?.setDpiLevel?.(level, cpi);
+  setDpiLevel(index: number, level: number): void {
+    this.device?.setDpiLevel?.(index, level);
+  }
+
+  requestDpiLevels(): Promise<dpi> {
+    return new Promise(resolve => {
+      this.device?.once(
+        ConfiguratorEvents.RECEIVED_DPI_LEVELS,
+        (count, current, levels) => resolve({ count, current, levels }),
+      );
+      this.device?.requestDpiLevels?.();
+    });
   }
 }

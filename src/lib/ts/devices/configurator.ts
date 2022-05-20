@@ -92,7 +92,7 @@ export abstract class HIDDeviceConfigurator extends EventEmitter {
 
   requestDpiLevels?(): Promise<void>;
 
-  setDpiLevel?(level: number, cpi: number): Promise<void>;
+  setDpiLevel?(index: number, level: number): Promise<void>;
 
   setDpiLevels?(levels: DPILevels): Promise<void>;
 

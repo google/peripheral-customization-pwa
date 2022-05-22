@@ -1,14 +1,14 @@
 export enum InputType {
   DEFAULT = 'DEFAULT',
   MOUSE_BUTTON = 'MOUSE_BUTTON',
-  DPI_CHANGE = 'DPI_CHANGE',
   KEYBOARD = 'KEYBOARD',
+  MEDIA = 'MEDIA', // CONSUMER
+  DPI_CHANGE = 'DPI_CHANGE',
   MACRO = 'MACRO',
-  UNDEFINED = 'UNDEFINED',
   AC_PAN_LEFT = 'AC_PAN_LEFT',
   AC_PAN_RIGHT = 'AC_PAN_RIGHT',
   META = 'META',
-  MEDIA = 'MEDIA', // CONSUMER
+  UNDEFINED = 'UNDEFINED',
 }
 
 export enum MouseInput {
@@ -22,6 +22,7 @@ export enum MouseInput {
   RIGHT_FRONT = 'RIGHT_FRONT',
   RIGHT_BACK = 'RIGHT_BACK',
   TOP = 'TOP',
+  DOUBLE_CLICK_LEFT = 'DOUBLE_CLICK_LEFT',
 }
 
 export enum KeyboardInput {
@@ -150,7 +151,7 @@ export enum KeyboardInput {
   CONTROL_LEFT = 'CONTROL_LEFT',
   SHIFT_LEFT = 'SHIFT_LEFT',
   ALT_LEFT = 'ALT_LEFT',
-  OS_LEFT = 'OSLEFT',
+  OS_LEFT = 'OS_LEFT',
   CONTROL_RIGHT = 'CONTROL_RIGHT',
   SHIFT_RIGHT = 'SHIFT_RIGHT',
   ALT_RIGHT = 'ALT_RIGHT',
@@ -192,14 +193,24 @@ export enum MediaInput {
   K5_BUTTON = 'K5_BUTTON',
   LEFT_MOVE = 'LEFT_MOVE',
   RIGHT_MOVE = 'RIGHT_MOVE',
-  DOUBLE_CLICK_LEFT = 'DOUBLE_CLICK_LEFT',
-  CICLE_DPI = 'CICLE_DPI',
+}
+
+export enum DpiChangeInput {
+  CYCLE_DPI = 'CYCLE_DPI',
   DPI_UP = 'DPI_UP',
   DPI_DOWN = 'DPI_DOWN',
+}
+
+export enum MacroInput {
   MACROS_ID = 'MACROS_ID',
 }
 
-export type Input = MouseInput | KeyboardInput | MediaInput;
+export type Input =
+  | MouseInput
+  | KeyboardInput
+  | MediaInput
+  | DpiChangeInput
+  | MacroInput;
 
 export type InputMap = Partial<Record<Input, number>>;
 
@@ -215,11 +226,15 @@ export type KeyBinding = {
   bindTo: InputCapability;
 };
 
+export type InputBindings = Partial<Record<Input, KeyBinding>>;
+
 // TODO: Optimization, missing types
 export const getInputType = (input: Input): InputType => {
   if (input in MouseInput) return InputType.MOUSE_BUTTON;
   if (input in KeyboardInput) return InputType.KEYBOARD;
   if (input in MediaInput) return InputType.MEDIA;
+  if (input in DpiChangeInput) return InputType.DPI_CHANGE;
+  if (input in MacroInput) return InputType.MACRO;
 
   return InputType.UNDEFINED;
 };

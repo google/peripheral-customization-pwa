@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { DPICapabilities } from 'src/lib/ts/devices/components/dpi';
 import {
+  InputBindings,
   InputCapabilities,
   KeyBinding,
 } from 'src/lib/ts/devices/components/inputs';
@@ -61,6 +62,16 @@ export class ManagerService {
 
   setInput(keyBinding: KeyBinding): void {
     this.device?.setInput?.(keyBinding);
+  }
+
+  requestInputBindings(): Promise<InputBindings> {
+    return new Promise(resolve => {
+      this.device?.once(
+        ConfiguratorEvents.RECEIVED_INPUT_BINDINGS,
+        (inputs: InputBindings) => resolve(inputs),
+      );
+      this.device?.requestInputBindings?.();
+    });
   }
 
   // DPI

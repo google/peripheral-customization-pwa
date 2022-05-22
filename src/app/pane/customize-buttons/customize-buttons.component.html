@@ -1,13 +1,13 @@
 <span fxLayout="row" fxLayoutAlign="center center">
-  <div>
-    <h3>Mapping {{ selectedKey }} button to</h3>
+  <div *ngIf="selectedButton$ | async as selectedButton; else select_input">
+    <h3>Mapping {{ selectedButton }} button</h3>
     <mat-form-field>
       <mat-label>Select an input type</mat-label>
-      <mat-select
-        [(value)]="selectedBindToType"
-        (selectionChange)="filterType()"
-      >
-        <mat-option *ngFor="let type of bindToTypes" [value]="type">
+      <mat-select [(value)]="selectedBindToType">
+        <mat-option
+          *ngFor="let type of bindToTypes(selectedButton)"
+          [value]="type"
+        >
           {{ type }}
         </mat-option>
       </mat-select>
@@ -15,15 +15,24 @@
 
     <mat-form-field>
       <mat-label>Select a bind key</mat-label>
-      <mat-select [(value)]="selectedBindTo" (selectionChange)="changeBindTo()">
-        <mat-option [value]="bindToDefault">Default</mat-option>
+      <mat-select
+        [(value)]="selectedBindToKey"
+        (selectionChange)="changeBindTo(selectedButton)"
+      >
+        <mat-option [value]="selectedButton">Default</mat-option>
         <mat-divider></mat-divider>
-        <mat-option *ngFor="let input of bindToList" [value]="input">
-          {{ input.key }}
+        <mat-option
+          *ngFor="let input of bindToKeys(selectedButton)"
+          [value]="input"
+        >
+          {{ input }}
         </mat-option>
       </mat-select>
     </mat-form-field>
   </div>
+  <ng-template #select_input>
+    <div>Select a button to configure</div>
+  </ng-template>
 
   <img src="{{ mouseTopImg }}" />
 
@@ -32,11 +41,13 @@
     <mat-button-toggle-group
       #buttonGroup="matButtonToggleGroup"
       vertical="true"
-      [value]="selectedKey"
       (change)="selectKey(buttonGroup.value)"
     >
-      <mat-button-toggle *ngFor="let key of keys" value="{{ key }}">
-        {{ key }}
+      <mat-button-toggle
+        *ngFor="let button of inputButtons"
+        value="{{ button }}"
+      >
+        {{ button }}
       </mat-button-toggle>
     </mat-button-toggle-group>
   </div>

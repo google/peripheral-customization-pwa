@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 import { AssetsService } from 'src/app/assets.service';
 import { ManagerService } from 'src/app/manager.service';
 
 import {
   Input,
-  InputCapability,
+  InputBindings,
   InputType,
   KeyBinding,
 } from 'src/lib/ts/devices/components/inputs';
@@ -18,19 +19,15 @@ import {
 export class CustomizeButtonsComponent implements OnInit {
   inputCapabilities = this.managerService.inputCapabilities ?? {};
 
-  keys = Object.keys(this.inputCapabilities) as Input[];
+  inputButtons = Object.keys(this.inputCapabilities) as Input[];
 
-  bindToTypes: InputType[] = [];
+  inputBindings?: InputBindings;
 
-  bindToList: InputCapability[] = [];
-
-  bindToDefault?: InputCapability;
-
-  selectedKey?: Input;
+  selectedButton$ = new BehaviorSubject<Input | undefined>(undefined);
 
   selectedBindToType?: InputType;
 
-  selectedBindTo?: InputCapability;
+  selectedBindToKey?: Input;
 
   mouseTopImg = this.assetsService.getDeviceTopImgUri();
 
@@ -41,36 +38,51 @@ export class CustomizeButtonsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.selectKey(this.keys[0]);
+    this.managerService.requestInputBindings().then(inputBindings => {
+      this.inputBindings = inputBindings;
+    });
   }
 
-  selectKey(key: Input): void {
-    this.selectedKey = key;
-    this.bindToList = this.inputCapabilities[key] ?? [];
-    this.bindToTypes = [...new Set(this.bindToList.map(input => input.type))];
-    this.bindToDefault = { key, type: InputType.MOUSE_BUTTON };
+  selectKey(button: Input): void {
+    this.selectedButton$.next(button);
 
-    this.selectedBindToType = undefined;
-    this.selectedBindTo = undefined;
+    this.selectedBindToType = this.inputBindings?.[button]?.bindTo.type;
+    this.selectedBindToKey = this.inputBindings?.[button]?.bindTo.key;
   }
 
-  filterType(): void {
-    if (!this.selectedKey) return;
+  bindToTypes(selectedButton: Input): InputType[] {
+    const bindToList = this.inputCapabilities[selectedButton];
+    return [...new Set(bindToList?.map(input => input.type))];
+  }
 
-    this.bindToList =
-      this.inputCapabilities[this.selectedKey]?.filter(
+  bindToKeys(selectedButton: Input): Input[] {
+    if (!this.selectedBindToType) return [];
+
+    const inputs =
+      this.inputCapabilities[selectedButton]?.filter(
         input => input.type === this.selectedBindToType,
       ) ?? [];
+
+    return inputs.map(input => input.key);
   }
 
-  changeBindTo(): void {
-    if (!this.selectedKey || !this.selectedBindTo) return;
+  changeBindTo(selectedButton: Input): void {
+    if (!selectedButton || !this.selectedBindToKey) return;
+
+    if (selectedButton === this.selectedBindToKey) {
+      this.selectedBindToType = InputType.MOUSE_BUTTON;
+    }
+
+    if (!this.selectedBindToType) return;
 
     const keyBinding: KeyBinding = {
-      key: this.selectedKey,
-      bindTo: this.selectedBindTo,
+      key: selectedButton,
+      bindTo: { key: this.selectedBindToKey, type: this.selectedBindToType },
     };
 
     this.managerService.setInput(keyBinding);
+
+    // TODO: update only after confirm success in the response
+    if (this.inputBindings) this.inputBindings[selectedButton] = keyBinding;
   }
 }

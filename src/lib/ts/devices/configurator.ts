@@ -17,8 +17,7 @@ export type DeviceFilter = Required<
 export enum ConfiguratorEvents {
   CONNECT = 'connected',
   RECEIVED_FIRMWARE_VERSION = 'receivedFirmwareVersion',
-  RECEIVED_BUTTONS_BINDINGS = 'receivedButtonBindings',
-  RECEIVED_BUTTONS_LEVELS = 'receivedButtonLevels',
+  RECEIVED_INPUT_BINDINGS = 'receivedInputBindings',
   BUTTON_WAS_SET = 'buttonWasSet',
   RECEIVED_DPI_LEVELS = 'receivedDpiLevels',
   DPI_WAS_SET = 'dpiWasSet',
@@ -99,7 +98,7 @@ export abstract class HIDDeviceConfigurator extends EventEmitter {
   // Inputs
   inputCapabilities?(): InputCapabilities;
 
-  requestInputs?(): Promise<void[] | void>;
+  requestInputBindings?(): Promise<void[] | void>;
 
   setInput?(keyBinding: KeyBinding): Promise<void>;
 

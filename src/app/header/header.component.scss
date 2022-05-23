@@ -1,4 +1,10 @@
 .text-container {
-    padding: 25px;
+    padding: var(--spacing-size24);
+    padding-left: var(--spacing-size128);
+    padding-right: var(--spacing-size128);
     color: var(--primary-color);
+}
+
+.text {
+    color: var(--accent-color);
 }

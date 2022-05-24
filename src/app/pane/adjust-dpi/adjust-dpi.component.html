@@ -1,37 +1,45 @@
-<div fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign="center center">
-  <div fxLayout="column" fxLayoutAlign="">
-    <p>DPI Stages</p>
-    <div fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign="center center">
-      <mat-button-toggle-group
-        #dpiGroup="matButtonToggleGroup"
-        (change)="changeStage(dpiGroup.value)"
-        value="{{selectedStage}}"
+<div
+  class="container"
+  fxLayout="column"
+  fxLayout.gt-xs="row"
+  fxLayoutAlign="center center"
+>
+  <div fxLayout="column" fxLayoutAlign="center">
+    <h1 class="title mat-h1">DPI Stages</h1>
+    <div class="stages" fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign="">
+      <div
+        class="stage-container"
+        *ngFor="let stage of stages; let i = index"
+        [ngClass]="{'stage-background': selectedStage === i}"
       >
-        <mat-button-toggle
-          #matButtonToggle="matButtonToggle"
-          *ngFor="let stage of stages; let i = index"
-          class="toggle"
-          (change)="changeButton(matButtonToggle.checked)"
-          disableRipple="true"
-          value="{{i}}"
-        >
-          <mat-form-field class="form-field" appearance="fill">
-            <mat-label>Stage {{i + 1}}</mat-label>
-            <input
-              #matInput="matInput"
-              matInput
-              (change)="setDpiInput(i, matInput.value)"
-              (input)="stages[i]"
-              type="text"
-              value="{{stages[i]}}"
-              min="{{minDpi}}"
-              max="{{maxDpi}}"/>
-            <span matSuffix>DPI</span>
-          </mat-form-field>
-        </mat-button-toggle>
-      </mat-button-toggle-group>
+        <mat-card
+          class="stage"
+          [ngClass]="{'card-red-background': true, 'card-green-background': (i + 1) % 2 === 0, 'card-blue-background': (i + 1) % 3 === 0}"
+          matRipple
+          (click)="changeStage(i)"
+          >
+          <span class="stage-title body-1" fxLayoutAlign="center center">
+              Stage {{i + 1}}
+          </span>
+          <mat-card-content class="card-content">
+            <mat-form-field class="form-field" appearance="outline">
+              <input
+                #matInput="matInput"
+                matInput
+                class="mat-input dpi-input"
+                (change)="setDpiInput(i, matInput.value)"
+                type="text"
+                [value]="stage"
+                placeholder=""
+              />
+              <span>DPI</span>
+            </mat-form-field>
+          </mat-card-content>
+        </mat-card>
+      </div>
     </div>
-    <span>
+
+    <span class="slider-container">
       <span>{{minDpi}}</span>
       <mat-slider
         class="slider"
@@ -40,15 +48,17 @@
         min="{{minDpi}}"
         max="{{maxDpi}}"
         step="{{step}}"
-        value="{{selectedDpi}}"
+        [value]="selectedDpi"
+        tickInterval=10
       >
       </mat-slider>
       <span>{{maxDpi}}</span>
     </span>
   </div>
-  <div fxLayout="column" fxLayoutAlign="center center">
-    <img src="{{mouseBottomImg}}">
-    <button mat-button (click)="resetToDefault()">
+  <div class="device-container" fxLayout="column" fxLayoutAlign="center center">
+    <img class="device" src="{{mouseBottomImg}}">
+    <div class="device-shadow"></div>
+    <button class="mat-h2 default-reset" mat-button (click)="resetToDefault()">
       Default settings reset
     </button>
   </div>

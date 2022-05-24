@@ -27,7 +27,7 @@ $fontConfig: (
   body-1: mat.define-typography-level(20px, 20px, 400, 'Mukta', 0.0179em),
   button: mat.define-typography-level(14px, 14px, 500, 'Mukta', 0.0893em),
   caption: mat.define-typography-level(12px, 20px, 400, 'Mukta', 0.0333em),
-  input: mat.define-typography-level(inherit, 1.125, 400, 'Mukta', 1.5px)
+  input: mat.define-typography-level(16px, 1.125, 300, 'Mukta', 0.0179em)
 );
 
 // Foreground Elements
@@ -264,4 +264,23 @@ $altTheme: (
 
 .mat-tab-label, .mat-tab-link {
   font-size: 32px;
+}
+
+.mat-form-field-infix {
+  border-top: 0px;
+}
+
+.card-red-background {
+  background-color: #9A2424;
+}
+.card-green-background {
+  background-color: #45A143;
+}
+.card-blue-background {
+  background-color: #3C77BD;
+}
+
+.mat-form-field-outline {
+  border-radius: 5px;
+  background-color: $dark-background;
 }

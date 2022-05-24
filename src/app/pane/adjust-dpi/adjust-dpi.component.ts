@@ -49,6 +49,7 @@ export class AdjustDpiComponent implements OnInit {
         (_, i) => dpiCapabilities.levels[currentDpi.levels[i]],
       );
 
+      // MOCK
       this.defaultDpiValues = Array.from(
         { length: currentDpi.count },
         () => 1500,
@@ -69,10 +70,6 @@ export class AdjustDpiComponent implements OnInit {
         {},
       );
     });
-  }
-
-  changeStage(stage: number): void {
-    this.selectedStage = stage;
   }
 
   setDpiInput(stage: number, dpiValue: string): void {
@@ -102,6 +99,7 @@ export class AdjustDpiComponent implements OnInit {
   }
 
   setDpiSlider(dpiValue: number): void {
+    this.selectedDpi = dpiValue;
     this.stages[this.selectedStage] = dpiValue;
     // eslint-disable-next-line no-console
     console.log(`Stage ${this.selectedStage} set to ${dpiValue} dpi value`);
@@ -111,8 +109,9 @@ export class AdjustDpiComponent implements OnInit {
     );
   }
 
-  changeButton(checked: boolean): void {
-    if (checked) this.selectedDpi = this.stages[this.selectedStage];
+  changeStage(stage: number): void {
+    this.selectedStage = stage;
+    this.selectedDpi = this.stages[stage];
   }
 
   resetToDefault(): void {

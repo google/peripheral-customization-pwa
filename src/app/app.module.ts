@@ -9,6 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
+import { MatRippleModule } from '@angular/material/core';
 
 import { MatListModule } from '@angular/material/list';
 import { ColorPickerModule } from 'ngx-color-picker';
@@ -50,6 +52,8 @@ import { ConnectComponent } from './connect/connect.component';
     MatButtonModule,
     MatListModule,
     MatSelectModule,
+    MatCardModule,
+    MatRippleModule,
   ],
   providers: [Title],
   bootstrap: [AppComponent],

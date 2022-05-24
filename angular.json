@@ -31,8 +31,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/delish-theme.scss",
-              "src/styles.scss"
+              "src/styles/delish-theme.scss",
+              "src/styles/styles.scss",
+              "src/styles/variables.scss"
             ],
             "scripts": []
           },

@@ -26,7 +26,10 @@
       />
     </mat-selection-list>
   </div>
-  <img class="img" src="{{ mouseFrontImg }}" />
+  <div class="device-container" fxLayout="column" fxLayoutAlign="center">
+    <img class="device" src="{{ mouseFrontImg }}" />
+    <div class="device-shadow"></div>
+  </div>
   <mat-button-toggle-group
     fxLayout="column"
     #zoneButton="matButtonToggleGroup"

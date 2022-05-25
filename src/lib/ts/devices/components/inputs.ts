@@ -26,7 +26,6 @@ export enum MouseInput {
 }
 
 export enum KeyboardInput {
-  // TODO: Fill w/ all the keys
   NONE = 'NONE',
   KEY_A = 'KEY_A',
   KEY_B = 'KEY_B',
@@ -228,7 +227,6 @@ export type KeyBinding = {
 
 export type InputBindings = Partial<Record<Input, KeyBinding>>;
 
-// TODO: Optimization, missing types
 export const getInputType = (input: Input): InputType => {
   if (input in MouseInput) return InputType.MOUSE_BUTTON;
   if (input in KeyboardInput) return InputType.KEYBOARD;

@@ -1,0 +1,19 @@
+.device-container {
+  position: relative;
+}
+
+.device {
+  z-index: 10;
+}
+
+.device-shadow {
+  top: 90%;
+  left: 50%;
+  position: absolute;
+  box-shadow:
+    0px
+    var(--dimensions-size50)
+    var(--dimensions-size55)
+    var(--dimensions-size55)
+    rgba(255, 255, 255, 1);
+}

@@ -1,13 +1,15 @@
 <nav mat-tab-nav-bar mat-stretch-tabs>
   <a
     mat-tab-link
+    class="device-container"
     *ngFor="let link of navLinks"
     routerLinkActive
     #rla="routerLinkActive"
     [active]="rla.isActive"
     [routerLink]="link.link"
   >
-    {{ link.label }}
+    <div class="device">{{ link.label }}</div>
+    <div [ngClass]="{'device-shadow': rla.isActive}"></div>
   </a>
 </nav>
 <router-outlet></router-outlet>

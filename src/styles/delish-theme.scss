@@ -262,8 +262,15 @@ $altTheme: (
   }
 }
 
-.mat-tab-label, .mat-tab-link {
+.mat-tab-links > .mat-tab-link {
+  min-width: 27vw;
+  height: var(--dimensions-size60);
   font-size: 32px;
+  border-bottom: 1px solid var(--primary-color);
+}
+
+.mat-tab-nav-bar {
+  border-bottom: none;
 }
 
 .mat-form-field-infix {

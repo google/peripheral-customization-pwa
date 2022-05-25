@@ -34,7 +34,10 @@
     <div>Select a button to configure</div>
   </ng-template>
 
-  <img src="{{ mouseTopImg }}" />
+  <div class="device-container"  fxLayout="column" fxLayoutAlign="center">
+    <img class="img device" src="{{ mouseTopImg }}" />
+    <div class="device-shadow"></div>
+  </div>
 
   <div>
     <h3>Buttons</h3>

@@ -20,11 +20,11 @@ $fontConfig: (
   display-2: mat.define-typography-level(45px, 48px, 400, 'Mukta', 0.0000em),
   display-1: mat.define-typography-level(34px, 40px, 400, 'Mukta', 0.0074em),
   headline: mat.define-typography-level(30px, 32px, 300, 'Mukta', 0.0000em),
-  title: mat.define-typography-level(20px, 32px, 300, 'Mukta', 0.0075em),
-  subheading-2: mat.define-typography-level(16px, 28px, 400, 'Mukta', 0.0094em),
+  title: mat.define-typography-level(28px, 32px, 300, 'Mukta', 0.0075em),
+  subheading-2: mat.define-typography-level(20px, 28px, 400, 'Mukta', 0.0094em),
   subheading-1: mat.define-typography-level(15px, 24px, 500, 'Mukta', 0.0067em),
   body-2: mat.define-typography-level(20px, 24px, 500, 'Mukta', 0.0179em),
-  body-1: mat.define-typography-level(20px, 20px, 400, 'Mukta', 0.0179em),
+  body-1: mat.define-typography-level(24px, 20px, 400, 'Mukta', 0.0179em),
   button: mat.define-typography-level(14px, 14px, 500, 'Mukta', 0.0893em),
   caption: mat.define-typography-level(12px, 20px, 400, 'Mukta', 0.0333em),
   input: mat.define-typography-level(16px, 1.125, 300, 'Mukta', 0.0179em)
@@ -283,4 +283,10 @@ $altTheme: (
 .mat-form-field-outline {
   border-radius: 5px;
   background-color: $dark-background;
+}
+
+.mat-list-single-selected-option,
+.mat-list-single-selected-option:hover,
+.mat-list-single-selected-option:focus {
+  background-color: rgba(250, 250, 250, 0);
 }

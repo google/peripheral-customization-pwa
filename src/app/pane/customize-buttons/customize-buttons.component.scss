@@ -22,3 +22,44 @@ mat-form-field {
     var(--dimensions-size80)
     rgba(255, 255, 255, 0.6);
 }
+.buttons-container {
+  min-width: var(--dimensions-size340);
+}
+
+.title {
+  margin-bottom: var(--spacing-size16);
+  border-bottom: 1px solid var(--primary-color);
+  padding-bottom: var(--spacing-size08);
+}
+
+.buttons-list {
+  height: var(--dimensions-size260);
+  direction: rtl;
+  overflow-y: hidden;
+  margin-left: var(--spacing-size04);
+  -webkit-mask-image: linear-gradient(180deg, #000000 95%, transparent);
+}
+
+.buttons-list:hover {
+  margin-left: 0px;
+  overflow-y: scroll;
+}
+
+.option {
+  margin-left: var(--spacing-size04);
+}
+
+.button {
+  direction: ltr;
+  color: var(--primary-color);
+  margin-left: var(--spacing-size04);
+}
+
+.button-selected {
+  color: inherit;
+  border-left: 1px solid;
+}
+
+.mapping, #select_input {
+  min-width: var(--dimensions-size290);
+}

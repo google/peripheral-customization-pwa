@@ -1,5 +1,35 @@
 <span fxLayout="row" fxLayoutAlign="center center">
-  <div *ngIf="selectedButton$ | async as selectedButton; else select_input">
+  <div class="buttons-container">
+    <div class="title mat-title">Buttons</div>
+    <mat-selection-list
+      #buttons
+      class="buttons-list"
+      [multiple]="false"
+      (selectionChange)="selectKey(buttons.selectedOptions.selected[0]?.value)"
+    >
+      <div class="option">
+      <mat-list-option
+        #matButton
+        class="button"
+        [ngClass]="{'button-selected': matButton.selected}"
+        *ngFor="let button of inputButtons"
+        [value]="button"
+      >
+        {{button[0] + button.replace('_', ' ').toLowerCase().slice(1)}}
+      </mat-list-option>
+      </div>
+    </mat-selection-list>
+  </div>
+
+  <div class="device-container"  fxLayout="column" fxLayoutAlign="center">
+    <img class="img device" src="{{ mouseTopImg }}" />
+    <div class="device-shadow"></div>
+  </div>
+
+  <div
+    class="mapping"
+    *ngIf="selectedButton$ | async as selectedButton; else select_input"
+  >
     <h3>Mapping {{ selectedButton }} button</h3>
     <mat-form-field>
       <mat-label>Select an input type</mat-label>
@@ -33,25 +63,4 @@
   <ng-template #select_input>
     <div>Select a button to configure</div>
   </ng-template>
-
-  <div class="device-container"  fxLayout="column" fxLayoutAlign="center">
-    <img class="img device" src="{{ mouseTopImg }}" />
-    <div class="device-shadow"></div>
-  </div>
-
-  <div>
-    <h3>Buttons</h3>
-    <mat-button-toggle-group
-      #buttonGroup="matButtonToggleGroup"
-      vertical="true"
-      (change)="selectKey(buttonGroup.value)"
-    >
-      <mat-button-toggle
-        *ngFor="let button of inputButtons"
-        value="{{ button }}"
-      >
-        {{ button }}
-      </mat-button-toggle>
-    </mat-button-toggle-group>
-  </div>
 </span>

@@ -1,43 +1,51 @@
 <div fxLayout="row" fxLayoutAlign="center center">
   <div class="list">
-    <div class="mat-title title">RGB Lighting</div>
+    <div class="title mat-title">
+      RGB Lighting{{ zones.length > 1 ? ': ' + selectedZone.zone : '' }}
+    </div>
     <mat-selection-list
+      class="buttons-list"
       [multiple]="false"
       (selectionChange)="setRGBValue($event)"
     >
-      <span class="mat-h3" *ngIf="settings && !hasColorPicker">
+      <span class="mat-h3 no-zone" *ngIf="!hasZoneSelected">
         No Zone Selected
       </span>
-      <mat-list-option
-        class="option-color"
-        *ngFor="let setting of settings"
-        [value]="setting"
-      >
-        R: {{ setting.red }} G: {{ setting.green }} B: {{ setting.blue }}
-      </mat-list-option>
-      <input
-        *ngIf="hasColorPicker"
-        [value]="color"
-        [style.background]="color"
-        (colorPickerSelect)="handleColorPickClose(color)"
-        [cpOutputFormat]="'rgba'"
-        [(colorPicker)]="color"
-      />
+      <div class="option">
+        <mat-list-option
+          #matButton
+          class="button"
+          *ngFor="let setting of settings"
+          [ngClass]="{ 'button-selected': matButton.selected }"
+          [value]="setting"
+        >
+          {{ setting.name }}
+        </mat-list-option>
+      </div>
     </mat-selection-list>
   </div>
   <div class="device-container" fxLayout="column" fxLayoutAlign="center">
     <img class="device" src="{{ mouseFrontImg }}" />
     <div class="device-shadow"></div>
   </div>
-  <mat-button-toggle-group
-    class="zones"
-    fxLayout="column"
-    #zoneButton="matButtonToggleGroup"
-    (change)="chooseZone(zoneButton.value)"
-  >
-    <mat-button-toggle [value]="zone" *ngFor="let zone of zones">
-      Zone: {{ zone.zone }} R: {{ zone.color?.red }} G:
-      {{ zone.color?.green }} B: {{ zone.color?.blue }}
-    </mat-button-toggle>
-  </mat-button-toggle-group>
+  <div class="zones">
+    <div *ngIf="!hasSingleZone()">
+      <div class="title mat-title">Zones</div>
+      <mat-selection-list
+        class="buttons-list"
+        [multiple]="false"
+        (selectionChange)="chooseZone($event.options[0].value)"
+      >
+        <mat-list-option
+          #matListOption
+          class="button"
+          [value]="zone"
+          *ngFor="let zone of zones"
+          [ngClass]="{ 'button-selected': matListOption.selected }"
+        >
+          {{ zone.zone }}
+        </mat-list-option>
+      </mat-selection-list>
+    </div>
+  </div>
 </div>

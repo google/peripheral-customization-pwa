@@ -21,15 +21,34 @@
   left: 50%;
   position: absolute;
   border-radius: 50%;
-  box-shadow: 0 0 var(--dimensions-size80) var(--dimensions-size80) rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 var(--dimensions-size80) var(--dimensions-size80)
+    rgba(255, 255, 255, 0.6);
+}
+
+.no-zone {
+  margin-top: var(--spacing-size12);
+}
+
+.buttons-list {
+  height: var(--dimensions-size150);
+}
+
+.button {
+  color: var(--primary-color);
+  margin-left: var(--spacing-size12);
+}
+
+.button-selected {
+  color: inherit;
+  border-left: 1px solid;
+}
+
+.option {
+  margin-left: var(--spacing-size04);
 }
 
 .list {
   width: 20vw;
-}
-
-.title-padding {
-  padding-left: var(--spacing-size16);
 }
 
 .zones {

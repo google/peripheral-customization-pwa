@@ -67,6 +67,10 @@ export abstract class HIDDeviceConfigurator extends EventEmitter {
     return this.hidDevice.sendFeatureReport(reportId, featureReport);
   }
 
+  receiveFeatureReport(reportId: number): Promise<DataView> {
+    return this.hidDevice.receiveFeatureReport(reportId);
+  }
+
   requestCurrentConfig?(): Promise<void[]>;
 
   // RGB

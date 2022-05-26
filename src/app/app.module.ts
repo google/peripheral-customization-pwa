@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatRippleModule } from '@angular/material/core';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { MatListModule } from '@angular/material/list';
 import { ColorPickerModule } from 'ngx-color-picker';
@@ -54,6 +55,7 @@ import { ConnectComponent } from './connect/connect.component';
     MatSelectModule,
     MatCardModule,
     MatRippleModule,
+    ScrollingModule,
   ],
   providers: [Title],
   bootstrap: [AppComponent],

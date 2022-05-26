@@ -42,23 +42,23 @@ export class RgbProfileComponent {
   };
 
   setZones(): Map<LEDZones, Color> | undefined {
-    if (this.managerService.ledCapabilities) {
-      Object.entries(this.managerService.ledCapabilities).forEach(pairs =>
-        this.zones.push({
-          zone: pairs[0] as LEDZones,
-          colorRange: pairs[1],
-          color: { red: 0, green: 0, blue: 0 },
-        }),
-      );
-      const zonesMap: Map<LEDZones, Color> = this.zones.reduce(
-        (map, zone) => map.set(zone.zone, zone.color),
-        new Map(),
-      );
-      return zonesMap;
+    if (!this.managerService.ledCapabilities) {
+      // eslint-disable-next-line no-console
+      console.log('No zones found');
+      return undefined;
     }
-    // eslint-disable-next-line no-console
-    console.log('No zones found');
-    return undefined;
+    Object.entries(this.managerService.ledCapabilities).forEach(pairs =>
+      this.zones.push({
+        zone: pairs[0] as LEDZones,
+        colorRange: pairs[1],
+        color: { red: 0, green: 0, blue: 0 },
+      }),
+    );
+    const zonesMap: Map<LEDZones, Color> = this.zones.reduce(
+      (map, zone) => map.set(zone.zone, zone.color),
+      new Map(),
+    );
+    return zonesMap;
   }
 
   setRgbList(zone: Zone): void {

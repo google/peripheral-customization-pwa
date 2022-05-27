@@ -1,10 +1,11 @@
 .text-container {
-    padding: var(--spacing-size24);
-    padding-left: var(--spacing-size128);
-    padding-right: var(--spacing-size128);
-    color: var(--primary-color);
+  width: 80vw;
+  margin: auto;
+  padding-top: var(--spacing-size36);
+  color: var(--primary-color);
+  vertical-align: middle;
 }
 
 .text {
-    color: var(--accent-color);
+  color: var(--accent-color);
 }

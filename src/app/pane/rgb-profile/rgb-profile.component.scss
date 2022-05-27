@@ -1,14 +1,19 @@
-.container {
-    padding-top: 20px;
+.title {
+  margin-bottom: var(--spacing-size16);
+  border-bottom: 1px solid var(--primary-color);
+  padding-bottom: var(--spacing-size08);
 }
 
 .device-container {
   position: relative;
-  margin-left: var(--spacing-size20);
+  min-width: 25vw;
 }
 
 .device {
   z-index: 10;
+  width: var(--dimensions-size350);
+  height: var(--dimensions-size480);
+  margin: auto;
 }
 
 .device-shadow {
@@ -16,18 +21,17 @@
   left: 50%;
   position: absolute;
   border-radius: 50%;
-  box-shadow:
-    0px
-    0px
-    var(--dimensions-size80)
-    var(--dimensions-size80)
-    rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 var(--dimensions-size80) var(--dimensions-size80) rgba(255, 255, 255, 0.6);
 }
 
 .list {
-    width: 15%;
+  width: 20vw;
 }
 
 .title-padding {
-    padding-left: 16px;
+  padding-left: var(--spacing-size16);
+}
+
+.zones {
+  width: 20vw;
 }

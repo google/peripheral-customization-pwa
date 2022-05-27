@@ -1,12 +1,11 @@
-<div class="container" fxLayout="row" fxLayoutAlign="center center">
+<div fxLayout="row" fxLayoutAlign="center center">
   <div class="list">
-    <span class="mat-h2 title-padding">RGB Lighting</span>
-    <mat-divider class="divider"></mat-divider>
+    <div class="mat-title title">RGB Lighting</div>
     <mat-selection-list
       [multiple]="false"
       (selectionChange)="setRGBValue($event)"
     >
-      <span class="mat-h3 title-padding" *ngIf="settings && !hasColorPicker">
+      <span class="mat-h3" *ngIf="settings && !hasColorPicker">
         No Zone Selected
       </span>
       <mat-list-option
@@ -31,6 +30,7 @@
     <div class="device-shadow"></div>
   </div>
   <mat-button-toggle-group
+    class="zones"
     fxLayout="column"
     #zoneButton="matButtonToggleGroup"
     (change)="chooseZone(zoneButton.value)"

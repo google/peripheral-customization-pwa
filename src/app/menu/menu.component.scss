@@ -1,4 +1,19 @@
 .nav-bar {
-    margin-top: var(--spacing-size08);
-    margin-bottom: var(--spacing-size48);
+  margin-top: var(--spacing-size36);
+  margin-bottom: var(--spacing-size72);
+}
+
+.device-container {
+  position: relative;
+}
+
+.device {
+  z-index: 10;
+}
+
+.device-shadow {
+  top: 90%;
+  left: 50%;
+  position: absolute;
+  box-shadow: 0 var(--dimensions-size50) var(--dimensions-size40) var(--dimensions-size40) rgba(255, 255, 255, 1);
 }

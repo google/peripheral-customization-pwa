@@ -26,41 +26,43 @@
     <div class="device-shadow"></div>
   </div>
 
-  <div
-    class="mapping"
-    *ngIf="selectedButton$ | async as selectedButton; else select_input"
-  >
-    <h3>Mapping {{ selectedButton }} button</h3>
-    <mat-form-field>
-      <mat-label>Select an input type</mat-label>
-      <mat-select [(value)]="selectedBindToType">
-        <mat-option
-          *ngFor="let type of bindToTypes(selectedButton)"
-          [value]="type"
-        >
-          {{ type }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+  <div class="map-container">
+    <div
+      class="mapping"
+      *ngIf="selectedButton$ | async as selectedButton; else select_input"
+    >
+      <h3>Mapping {{ selectedButton }} button</h3>
+      <mat-form-field>
+        <mat-label>Select an input type</mat-label>
+        <mat-select [(value)]="selectedBindToType">
+          <mat-option
+            *ngFor="let type of bindToTypes(selectedButton)"
+            [value]="type"
+          >
+            {{ type }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Select a bind key</mat-label>
-      <mat-select
-        [(value)]="selectedBindToKey"
-        (selectionChange)="changeBindTo(selectedButton)"
-      >
-        <mat-option [value]="selectedButton">Default</mat-option>
-        <mat-divider></mat-divider>
-        <mat-option
-          *ngFor="let input of bindToKeys(selectedButton)"
-          [value]="input"
+      <mat-form-field>
+        <mat-label>Select a bind key</mat-label>
+        <mat-select
+          [(value)]="selectedBindToKey"
+          (selectionChange)="changeBindTo(selectedButton)"
         >
-          {{ input }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+          <mat-option [value]="selectedButton">Default</mat-option>
+          <mat-divider></mat-divider>
+          <mat-option
+            *ngFor="let input of bindToKeys(selectedButton)"
+            [value]="input"
+          >
+            {{ input }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <ng-template #select_input>
+      <div>Select a button to configure</div>
+    </ng-template>
   </div>
-  <ng-template #select_input>
-    <div>Select a button to configure</div>
-  </ng-template>
 </span>

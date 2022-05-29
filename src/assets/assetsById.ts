@@ -7,9 +7,23 @@ export interface Assets {
 export type AssetsById = Record<string, Record<string, Assets>>;
 
 const assetsById: AssetsById = {
+  '0001': {
+    '2003': {
+      deviceName: 'Model11 Wireless (BlueTooth)',
+      logoUri: 'assets/images/vendor1/footer-logo.svg',
+      deviceTopImgUri: 'assets/images/vendor1/model11_top.png',
+      deviceBottomImgUri: 'assets/images/vendor1/model11_bottom.png',
+    },
+  },
   '0002': {
     '2001': {
       deviceName: 'Model11',
+      logoUri: 'assets/images/vendor1/footer-logo.svg',
+      deviceTopImgUri: 'assets/images/vendor1/model11_top.png',
+      deviceBottomImgUri: 'assets/images/vendor1/model11_bottom.png',
+    },
+    '2002': {
+      deviceName: 'Model11 Wireless via dongle',
       logoUri: 'assets/images/vendor1/footer-logo.svg',
       deviceTopImgUri: 'assets/images/vendor1/model11_top.png',
       deviceBottomImgUri: 'assets/images/vendor1/model11_bottom.png',

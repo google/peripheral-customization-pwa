@@ -28,14 +28,24 @@ export class ManagerService {
     undefined,
   );
 
+  currentDpiStageSubject = new BehaviorSubject<number | undefined>(undefined);
+
   async connectToDevice(): Promise<void> {
     try {
       const device = await manager.connect();
       this.deviceSubject.next(device);
+      this.addEventListeners();
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(`Error connecting to device:`, error);
     }
+  }
+
+  addEventListeners(): void {
+    this.device?.on(
+      ConfiguratorEvents.CHANGED_CURRENT_DPI,
+      (level: number, value: number) => this.dpiLevelWasChanged(level, value),
+    );
   }
 
   get device$(): Observable<HIDDeviceConfigurator | undefined> {
@@ -140,5 +150,11 @@ export class ManagerService {
       );
       this.device?.requestCurrentDpi?.();
     });
+  }
+
+  dpiLevelWasChanged(level: number, value: number): void {
+    this.currentDpiStageSubject.next(level);
+    // eslint-disable-next-line no-console
+    console.log(`Changed to level ${level + 1}, current DPI value is ${value}`);
   }
 }

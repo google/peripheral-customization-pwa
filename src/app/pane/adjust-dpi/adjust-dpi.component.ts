@@ -1,15 +1,16 @@
-import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
 
 import { AssetsService } from 'src/app/assets.service';
 import { ManagerService } from 'src/app/manager.service';
 import { dpi, DpiValue } from 'src/app/model/dpi';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-adjust-dpi',
   templateUrl: './adjust-dpi.component.html',
   styleUrls: ['./adjust-dpi.component.scss'],
 })
-export class AdjustDpiComponent implements OnInit {
+export class AdjustDpiComponent implements OnInit, OnDestroy {
   currentDpi: dpi | undefined;
 
   stages!: number[];
@@ -26,9 +27,11 @@ export class AdjustDpiComponent implements OnInit {
 
   selectedDpi!: number;
 
-  selectedStage = 0;
+  selectedStage!: number;
 
   invertedLevels!: Record<number, number>;
+
+  deviceSubscription!: Subscription;
 
   // eslint-disable-next-line no-useless-constructor
   constructor(
@@ -69,7 +72,17 @@ export class AdjustDpiComponent implements OnInit {
         (acc, [key, value]) => ({ ...acc, [value]: parseInt(key, 10) }),
         {},
       );
+
+      this.deviceSubscription = this.manager.currentDpiStageSubject.subscribe(
+        value => {
+          this.changeStage(value ?? this.selectedStage);
+        },
+      );
     });
+  }
+
+  ngOnDestroy(): void {
+    this.deviceSubscription.unsubscribe();
   }
 
   setDpiInput(stage: number, dpiValue: string): void {

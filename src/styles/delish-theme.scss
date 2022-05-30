@@ -151,10 +151,10 @@ $mat-dark-theme-background: (
 
 body {
   --primary-color: #656565;
-  --primary-lighter-color: #d1d1d1;
+  --primary-lighter-color: #a1a1a1;
   --primary-darker-color: #494949;
-  --text-primary-color: #{$light-primary-text};
-  --text-primary-lighter-color: #{$dark-primary-text};
+  --text-primary-color: #656565;
+  --text-primary-lighter-color: #a1a1a1;
   --text-primary-darker-color: #{$light-primary-text};
 }
 $mat-primary: (
@@ -173,7 +173,7 @@ $mat-primary: (
 $theme-primary: mat.define-palette($mat-primary, main, lighter, darker);
 
 body {
-  --accent-color: #797979;
+  --accent-color: #808080;
   --accent-lighter-color: #d7d7d7;
   --accent-darker-color: #5c5c5c;
   --text-accent-color: #{$light-primary-text};
@@ -269,8 +269,17 @@ $altTheme: (
 .mat-tab-links > .mat-tab-link {
   min-width: 27vw;
   height: var(--dimensions-size60);
+  color: var(--text-primary-lighter-color);
   font-size: 32px;
   border-bottom: 1px solid var(--primary-color);
+}
+
+.mat-tab-link.mat-tab-label-active {
+  color: $light-text;
+}
+
+.mat-h1 {
+  color: var(--text-primary-color);
 }
 
 .mat-tab-nav-bar {

@@ -19,7 +19,8 @@ mat-form-field {
   left: 50%;
   position: absolute;
   border-radius: 50%;
-  box-shadow: 0 0 var(--dimensions-size80) var(--dimensions-size80) rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 var(--dimensions-size80) var(--dimensions-size80)
+    rgba(255, 255, 255, 0.6);
 }
 
 .buttons-container {
@@ -51,7 +52,7 @@ mat-form-field {
 
 .button {
   direction: ltr;
-  color: var(--primary-color);
+  color: var(--text-primary-lighter-color);
   margin-left: var(--spacing-size04);
 }
 

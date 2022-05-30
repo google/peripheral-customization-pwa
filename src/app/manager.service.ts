@@ -61,8 +61,12 @@ export class ManagerService {
     return this.device?.ledCapabilities?.();
   }
 
-  setLed(color: Color, zone: LEDZones, mode?: LEDModes): void {
-    this.device?.setLed?.(color, zone, mode);
+  setLed(color: Color, zone: LEDZones, mode?: LEDModes): Promise<void> {
+    // TODO: update this function once a handler for setting LEDs is created on the BE
+    return new Promise(resolve => {
+      this.device?.once(ConfiguratorEvents.LED_WAS_SET, () => resolve());
+      this.device?.setLed?.(color, zone, mode);
+    });
   }
 
   // INPUT

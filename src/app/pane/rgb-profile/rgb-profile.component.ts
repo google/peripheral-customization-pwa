@@ -85,7 +85,13 @@ export class RgbProfileComponent implements OnInit {
 
   setRGBValue(event: MatSelectionListChange): void {
     const simpleColor = event.options[0].value as SimpleColor;
-    this.managerService.setLed(simpleColor.color, this.selectedZone.zone);
+    this.managerService
+      .setLed(simpleColor.color, this.selectedZone.zone)
+      .then(() => {
+        // TODO: Add proper component for user feedback
+        // eslint-disable-next-line no-console
+        console.log('LED was set');
+      });
     this.selectedZone.color = simpleColor.color;
   }
 

@@ -7,36 +7,36 @@ export interface Assets {
 export type AssetsById = Record<string, Record<string, Assets>>;
 
 const assetsById: AssetsById = {
-  '0001': {
-    '2003': {
+  0x0001: {
+    0x2003: {
       deviceName: 'Model11 Wireless (BlueTooth)',
       logoUri: 'assets/images/vendor1/footer-logo.svg',
       deviceTopImgUri: 'assets/images/vendor1/model11_top.png',
       deviceBottomImgUri: 'assets/images/vendor1/model11_bottom.png',
     },
   },
-  '0002': {
-    '2001': {
+  0x0002: {
+    0x2001: {
       deviceName: 'Model11',
       logoUri: 'assets/images/vendor1/footer-logo.svg',
       deviceTopImgUri: 'assets/images/vendor1/model11_top.png',
       deviceBottomImgUri: 'assets/images/vendor1/model11_bottom.png',
     },
-    '2002': {
+    0x2002: {
       deviceName: 'Model11 Wireless via dongle',
       logoUri: 'assets/images/vendor1/footer-logo.svg',
       deviceTopImgUri: 'assets/images/vendor1/model11_top.png',
       deviceBottomImgUri: 'assets/images/vendor1/model11_bottom.png',
     },
-    '2003': {
+    0x2003: {
       deviceName: 'Model11 Wireless',
       logoUri: 'assets/images/vendor1/footer-logo.svg',
       deviceTopImgUri: 'assets/images/vendor1/model11_top.png',
       deviceBottomImgUri: 'assets/images/vendor1/model11_bottom.png',
     },
   },
-  '0003': {
-    '3001': {
+  0x0003: {
+    0x3001: {
       deviceName: 'Model21 RGB',
       logoUri: 'assets/images/vendor2/vendor2.jpeg',
       deviceTopImgUri: 'assets/images/vendor1/model11_top.png',

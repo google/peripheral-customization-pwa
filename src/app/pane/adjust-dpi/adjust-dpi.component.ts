@@ -2,7 +2,7 @@ import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 
 import { AssetsService } from 'src/app/assets.service';
 import { ManagerService } from 'src/app/manager.service';
-import { dpi } from 'src/app/model/dpi';
+import { dpi, DpiValue } from 'src/app/model/dpi';
 
 @Component({
   selector: 'app-adjust-dpi',
@@ -90,23 +90,29 @@ export class AdjustDpiComponent implements OnInit {
       this.stages[stage] = filteredValue;
     }
     this.selectedDpi = this.stages[stage];
-    // eslint-disable-next-line no-console
-    console.log(`Stage ${stage} set to ${this.stages[stage]} dpi value`);
-    this.manager.setDpiLevel(
-      stage,
-      this.getKeyFromDpiValue(this.stages[stage]),
-    );
+    this.manager
+      .setDpiLevel(stage, this.getKeyFromDpiValue(this.stages[stage]))
+      .then((setDpiValue: DpiValue) => {
+        // TODO: Add proper component for user feedback
+        // eslint-disable-next-line no-console
+        console.log(
+          `DPI for id ${setDpiValue.id + 1} was set to ${setDpiValue.level}`,
+        );
+      });
   }
 
   setDpiSlider(dpiValue: number): void {
     this.selectedDpi = dpiValue;
     this.stages[this.selectedStage] = dpiValue;
-    // eslint-disable-next-line no-console
-    console.log(`Stage ${this.selectedStage} set to ${dpiValue} dpi value`);
-    this.manager.setDpiLevel(
-      this.selectedStage,
-      this.getKeyFromDpiValue(dpiValue),
-    );
+    this.manager
+      .setDpiLevel(this.selectedStage, this.getKeyFromDpiValue(dpiValue))
+      .then((setDpiValue: DpiValue) => {
+        // TODO: Add proper component for user feedback
+        // eslint-disable-next-line no-console
+        console.log(
+          `DPI for id ${setDpiValue.id + 1} was set to ${setDpiValue.level}`,
+        );
+      });
   }
 
   changeStage(stage: number): void {
@@ -130,10 +136,15 @@ export class AdjustDpiComponent implements OnInit {
     // eslint-disable-next-line no-console
     console.log('Reset to default settings');
     this.stages.forEach((_, i) => {
-      this.manager.setDpiLevel(
-        i,
-        this.getKeyFromDpiValue(this.defaultDpiValues[i]),
-      );
+      this.manager
+        .setDpiLevel(i, this.getKeyFromDpiValue(this.defaultDpiValues[i]))
+        .then((setDpiValue: DpiValue) => {
+          // TODO: Add proper component for user feedback
+          // eslint-disable-next-line no-console
+          console.log(
+            `DPI for id ${setDpiValue.id + 1} was set to ${setDpiValue.level}`,
+          );
+        });
     });
   }
 

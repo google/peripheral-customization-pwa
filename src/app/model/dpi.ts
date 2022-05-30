@@ -5,3 +5,8 @@ export type dpi = {
   current: number;
   levels: CurrentLevels;
 };
+
+export type DpiValue = {
+  id: number;
+  level: number;
+};

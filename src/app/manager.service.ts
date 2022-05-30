@@ -18,7 +18,7 @@ import {
   HIDDeviceConfigurator,
 } from 'src/lib/ts/devices/configurator';
 import manager from 'src/lib/ts/manager';
-import { dpi } from './model/dpi';
+import { dpi, DpiValue } from './model/dpi';
 
 @Injectable({
   providedIn: 'root',
@@ -97,8 +97,15 @@ export class ManagerService {
     return this.device?.dpiCapabilities?.();
   }
 
-  setDpiLevel(index: number, level: number): void {
-    this.device?.setDpiLevel?.(index, level);
+  setDpiLevel(index: number, level: number): Promise<DpiValue> {
+    return new Promise(resolve => {
+      this.device?.once(
+        ConfiguratorEvents.DPI_WAS_SET,
+        (setId: number, setLevel: number) =>
+          resolve({ id: setId, level: setLevel }),
+      );
+      this.device?.setDpiLevel?.(index, level);
+    });
   }
 
   requestDpiLevels(): Promise<dpi> {

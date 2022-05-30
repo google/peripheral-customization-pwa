@@ -80,7 +80,11 @@ export class CustomizeButtonsComponent implements OnInit {
       bindTo: { key: this.selectedBindToKey, type: this.selectedBindToType },
     };
 
-    this.managerService.setInput(keyBinding);
+    this.managerService.setInput(keyBinding).then(() => {
+      // TODO: Add proper component for user feedback
+      // eslint-disable-next-line no-console
+      console.log('Input was set');
+    });
 
     // TODO: update only after confirm success in the response
     if (this.inputBindings) this.inputBindings[selectedButton] = keyBinding;

@@ -70,8 +70,12 @@ export class ManagerService {
     return this.device?.inputCapabilities?.();
   }
 
-  setInput(keyBinding: KeyBinding): void {
-    this.device?.setInput?.(keyBinding);
+  setInput(keyBinding: KeyBinding): Promise<void> {
+    // TODO: update this function once a handler for setting buttons is created on the BE
+    return new Promise(resolve => {
+      this.device?.once(ConfiguratorEvents.BUTTON_WAS_SET, () => resolve());
+      this.device?.setInput?.(keyBinding);
+    });
   }
 
   requestInputBindings(): Promise<InputBindings> {

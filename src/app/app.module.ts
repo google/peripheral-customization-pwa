@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ServiceWorkerModule } from '@angular/service-worker';
+
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,10 +15,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatRippleModule } from '@angular/material/core';
-import { ScrollingModule } from '@angular/cdk/scrolling';
-
 import { MatListModule } from '@angular/material/list';
+
 import { ColorPickerModule } from 'ngx-color-picker';
+
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -26,6 +30,8 @@ import { CustomizeButtonsComponent } from './pane/customize-buttons/customize-bu
 import { AdjustDpiComponent } from './pane/adjust-dpi/adjust-dpi.component';
 import { RgbProfileComponent } from './pane/rgb-profile/rgb-profile.component';
 import { ConnectComponent } from './connect/connect.component';
+
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -56,6 +62,12 @@ import { ConnectComponent } from './connect/connect.component';
     MatCardModule,
     MatRippleModule,
     ScrollingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ],
   providers: [Title],
   bootstrap: [AppComponent],

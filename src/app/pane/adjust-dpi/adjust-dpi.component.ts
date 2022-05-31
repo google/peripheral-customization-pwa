@@ -112,6 +112,7 @@ export class AdjustDpiComponent implements OnInit {
   changeStage(stage: number): void {
     this.selectedStage = stage;
     this.selectedDpi = this.stages[stage];
+    this.manager.changeCurrentDpi(stage);
   }
 
   resetToDefault(): void {

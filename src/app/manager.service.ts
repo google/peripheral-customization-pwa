@@ -92,4 +92,28 @@ export class ManagerService {
       this.device?.requestDpiLevels?.();
     });
   }
+
+  changeCurrentDpi(toIndex: number): Promise<void> {
+    return new Promise(resolve => {
+      this.device?.once(ConfiguratorEvents.CHANGED_CURRENT_DPI, () => {
+        // eslint-disable-next-line no-console
+        console.info('Success on change current DPI');
+        this.requestCurrentDpi().then(currentDpi => {
+          // eslint-disable-next-line no-console
+          console.info('Current DPI index is', currentDpi);
+          resolve();
+        });
+      });
+      this.device?.changeCurrentDpi?.(toIndex);
+    });
+  }
+
+  requestCurrentDpi(): Promise<number> {
+    return new Promise(resolve => {
+      this.device?.once(ConfiguratorEvents.RECEIVED_CURRENT_DPI, current =>
+        resolve(current),
+      );
+      this.device?.requestCurrentDpi?.();
+    });
+  }
 }

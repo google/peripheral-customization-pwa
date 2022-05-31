@@ -21,6 +21,8 @@ export enum ConfiguratorEvents {
   BUTTON_WAS_SET = 'buttonWasSet',
   RECEIVED_DPI_LEVELS = 'receivedDpiLevels',
   DPI_WAS_SET = 'dpiWasSet',
+  CHANGED_CURRENT_DPI = 'dpiChangedCurrent',
+  RECEIVED_CURRENT_DPI = 'receivedCurrentDpi',
   RECEIVED_LED = 'receivedLed',
   LED_WAS_SET = 'ledWasSet',
 }
@@ -98,6 +100,10 @@ export abstract class HIDDeviceConfigurator extends EventEmitter {
   setDpiLevel?(index: number, level: number): Promise<void>;
 
   setDpiLevels?(levels: DPILevels): Promise<void>;
+
+  changeCurrentDpi?(toIndex: number): Promise<void>;
+
+  requestCurrentDpi?(): Promise<void>;
 
   // Inputs
   inputCapabilities?(): InputCapabilities;

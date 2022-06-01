@@ -46,6 +46,16 @@ export class ManagerService {
     return this.deviceSubject.getValue();
   }
 
+  requestFirmwareVersion(): Promise<string> {
+    return new Promise(resolve => {
+      this.device?.once(
+        ConfiguratorEvents.RECEIVED_FIRMWARE_VERSION,
+        firmware => resolve(String.fromCharCode(...firmware)),
+      );
+      this.device?.requestFirmwareVersion();
+    });
+  }
+
   // LED
   get ledCapabilities(): LEDCapabilities | undefined {
     return this.device?.ledCapabilities?.();

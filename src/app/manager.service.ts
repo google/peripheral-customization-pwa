@@ -93,7 +93,7 @@ export class ManagerService {
     });
   }
 
-  changeCurrentDpi(toIndex: number): Promise<void> {
+  changeCurrentDpi(toIndex: number, withValue: number): Promise<void> {
     return new Promise(resolve => {
       this.device?.once(ConfiguratorEvents.CHANGED_CURRENT_DPI, () => {
         // eslint-disable-next-line no-console
@@ -104,7 +104,7 @@ export class ManagerService {
           resolve();
         });
       });
-      this.device?.changeCurrentDpi?.(toIndex);
+      this.device?.changeCurrentDpi?.(toIndex, withValue);
     });
   }
 

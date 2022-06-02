@@ -10,9 +10,6 @@
 }
 
 .stage-background {
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
   box-shadow: 0 var(--dimensions-size10) var(--dimensions-size30) 0 rgba(255, 255, 255, 0.2);
 }
 
@@ -63,7 +60,8 @@
   left: 50%;
   position: absolute;
   border-radius: 50%;
-  box-shadow: 0 0 var(--dimensions-size80) var(--dimensions-size80) rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 var(--dimensions-size90) var(--dimensions-size90)
+    rgba(255, 255, 255, 0.6);
 }
 
 .default-reset {

@@ -17,12 +17,12 @@
 }
 
 .device-shadow {
-  top: 50%;
+  top: 65%;
   left: 50%;
   position: absolute;
   border-radius: 50%;
-  box-shadow: 0 0 var(--dimensions-size80) var(--dimensions-size80)
-    rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 var(--dimensions-size145) var(--dimensions-size115)
+    rgba(255, 255, 255, 0.5);
 }
 
 .no-zone {

@@ -44,7 +44,13 @@ export class ManagerService {
   addEventListeners(): void {
     this.device?.on(
       ConfiguratorEvents.CHANGED_CURRENT_DPI,
-      (level: number, value: number) => this.dpiLevelWasChanged(level, value),
+      (level: number, value: number) => this.currentDpiWasChanged(level, value),
+    );
+
+    this.device?.on(
+      ConfiguratorEvents.RECEIVED_DPI_LEVELS,
+      (_, current, levels) =>
+        this.currentDpiWasChanged(current, levels[current]),
     );
   }
 
@@ -128,19 +134,8 @@ export class ManagerService {
     });
   }
 
-  changeCurrentDpi(toIndex: number, withValue: number): Promise<void> {
-    return new Promise(resolve => {
-      this.device?.once(ConfiguratorEvents.CHANGED_CURRENT_DPI, () => {
-        // eslint-disable-next-line no-console
-        console.info('Success on change current DPI');
-        this.requestCurrentDpi().then(currentDpi => {
-          // eslint-disable-next-line no-console
-          console.info('Current DPI index is', currentDpi);
-          resolve();
-        });
-      });
-      this.device?.changeCurrentDpi?.(toIndex, withValue);
-    });
+  changeCurrentDpi(toIndex: number, withValue: number): void {
+    this.device?.changeCurrentDpi?.(toIndex, withValue);
   }
 
   requestCurrentDpi(): Promise<number> {
@@ -152,7 +147,7 @@ export class ManagerService {
     });
   }
 
-  dpiLevelWasChanged(level: number, value: number): void {
+  currentDpiWasChanged(level: number, value: number): void {
     this.currentDpiStageSubject.next(level);
     // eslint-disable-next-line no-console
     console.log(`Changed to level ${level + 1}, current DPI value is ${value}`);

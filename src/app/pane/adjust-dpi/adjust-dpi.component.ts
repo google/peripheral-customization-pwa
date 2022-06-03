@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./adjust-dpi.component.scss'],
 })
 export class AdjustDpiComponent implements OnInit, OnDestroy {
-  currentDpi: dpi | undefined;
+  currentDpi?: dpi;
 
   stages!: number[];
 
@@ -74,8 +74,10 @@ export class AdjustDpiComponent implements OnInit, OnDestroy {
       );
 
       this.deviceSubscription = this.manager.currentDpiStageSubject.subscribe(
-        value => {
-          this.changeStage(value ?? this.selectedStage);
+        stage => {
+          if (stage === undefined) return;
+          this.selectedStage = stage;
+          this.selectedDpi = this.stages[stage];
         },
       );
     });

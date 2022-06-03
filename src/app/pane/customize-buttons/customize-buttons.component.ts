@@ -84,9 +84,30 @@ export class CustomizeButtonsComponent implements OnInit {
       // TODO: Add proper component for user feedback
       // eslint-disable-next-line no-console
       console.log('Input was set');
+      if (this.inputBindings) this.inputBindings[selectedButton] = keyBinding;
+    });
+  }
+
+  resetToDefault(): void {
+    if (!this.inputBindings) return;
+    Object.entries(this.inputBindings).forEach(([button, biding]) => {
+      const defaultType = this.inputBindings?.[biding.key]?.bindTo.type;
+      if (!defaultType || biding.key === biding.bindTo.key) return;
+      const defaultKeyBiding: KeyBinding = {
+        key: biding.key,
+        bindTo: { key: biding.key, type: defaultType },
+      };
+      this.managerService.setInput(defaultKeyBiding).then(() => {
+        // TODO: Add proper component for user feedback
+        // eslint-disable-next-line no-console
+        console.log('Input was set');
+      });
+
+      if (!this.inputBindings) return;
+      this.inputBindings[button as Input] = defaultKeyBiding;
     });
 
-    // TODO: update only after confirm success in the response
-    if (this.inputBindings) this.inputBindings[selectedButton] = keyBinding;
+    if (!this.selectedButton$.value) return;
+    this.selectKey(this.selectedButton$.value);
   }
 }

@@ -21,9 +21,20 @@
     </mat-selection-list>
   </div>
 
-  <div class="device-container"  fxLayout="column" fxLayoutAlign="center">
-    <img class="img device" src="{{ mouseTopImg }}" />
-    <div class="device-shadow"></div>
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <div class="device-container" fxLayout="column" fxLayoutAlign="center">
+      <img class="img device" src="{{ mouseTopImg }}" />
+      <div class="device-shadow"></div>
+    </div>
+    <div class="reset-container">
+      <button
+        class="mat-body-1 reset-button"
+        mat-button
+        (click)="resetToDefault()"
+      >
+        Default settings reset
+      </button>
+    </div>
   </div>
 
   <div class="map-container">

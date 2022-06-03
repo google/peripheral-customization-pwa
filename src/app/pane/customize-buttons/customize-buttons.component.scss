@@ -23,6 +23,15 @@ mat-form-field {
     rgba(255, 255, 255, 0.5);
 }
 
+.reset-container {
+  margin-top: var(--spacing-size40);
+}
+
+.reset-button {
+  text-decoration: underline;
+  color: var(--text-primary-lighter-color);
+}
+
 .buttons-container {
   min-width: 20vw;
 }

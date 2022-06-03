@@ -274,6 +274,13 @@ $altTheme: (
   border-bottom: 1px solid var(--primary-color);
 }
 
+app-menu > .mat-tab-header,
+.mat-tab-header-pagination,
+nav > .mat-tab-link-container,
+.mat-tab-links > .mat-tab-link {
+  overflow: visible;
+}
+
 .mat-tab-link.mat-tab-label-active {
   color: $light-text;
 }

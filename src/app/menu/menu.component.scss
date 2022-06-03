@@ -12,9 +12,11 @@
 }
 
 .device-shadow {
-  top: 90%;
-  left: 50%;
   position: absolute;
-  box-shadow: 0 var(--dimensions-size50) var(--dimensions-size40)
-    var(--dimensions-size40) rgba(255, 255, 255, 1);
+  border-radius: 50%;
+  width: 45%;
+  height: var(--dimensions-size200);
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-filter: blur(var(--dimensions-size35));
+  -webkit-transform: scale(1, 0.5);
 }

@@ -11,28 +11,28 @@ const assetsById: AssetsById = {
     0x2003: {
       deviceName: 'Model11 Wireless (BlueTooth)',
       logoUri: 'assets/images/vendor1/footer-logo.svg',
-      deviceTopImgUri: 'assets/images/vendor1/model11_top.png',
-      deviceBottomImgUri: 'assets/images/vendor1/model11_bottom.png',
+      deviceTopImgUri: 'assets/images/vendor1/model11wireless_top.png',
+      deviceBottomImgUri: 'assets/images/vendor1/model11wireless_bottom.png',
     },
   },
   0x0002: {
     0x2001: {
       deviceName: 'Model11',
       logoUri: 'assets/images/vendor1/footer-logo.svg',
-      deviceTopImgUri: 'assets/images/vendor1/model11_top.png',
-      deviceBottomImgUri: 'assets/images/vendor1/model11_bottom.png',
+      deviceTopImgUri: 'assets/images/vendor1/model11wired_top.png',
+      deviceBottomImgUri: 'assets/images/vendor1/model11wired_bottom.png',
     },
     0x2002: {
       deviceName: 'Model11 Wireless via dongle',
       logoUri: 'assets/images/vendor1/footer-logo.svg',
-      deviceTopImgUri: 'assets/images/vendor1/model11_top.png',
-      deviceBottomImgUri: 'assets/images/vendor1/model11_bottom.png',
+      deviceTopImgUri: 'assets/images/vendor1/model11wireless_top.png',
+      deviceBottomImgUri: 'assets/images/vendor1/model11wireless_bottom.png',
     },
     0x2003: {
       deviceName: 'Model11 Wireless',
       logoUri: 'assets/images/vendor1/footer-logo.svg',
-      deviceTopImgUri: 'assets/images/vendor1/model11_top.png',
-      deviceBottomImgUri: 'assets/images/vendor1/model11_bottom.png',
+      deviceTopImgUri: 'assets/images/vendor1/model11wireless_top.png',
+      deviceBottomImgUri: 'assets/images/vendor1/model11wireless_bottom.png',
     },
   },
   0x0003: {

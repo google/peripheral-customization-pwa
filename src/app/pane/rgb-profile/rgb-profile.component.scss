@@ -54,3 +54,10 @@
 .zones {
   width: 20vw;
 }
+
+.box {
+  height: var(--dimensions-size20);
+  width: var(--dimensions-size20);
+  margin-left: var(--spacing-size12);
+  border: 1px solid black;
+}

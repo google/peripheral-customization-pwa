@@ -21,6 +21,26 @@
         >
           {{ setting.name }}
         </mat-list-option>
+        <mat-list-option
+          #matButton
+          *ngIf="hasColorPicker"
+          [value]="hasPickedColor ? colorPickerSetting : ''"
+          class="button"
+          [ngClass]="{ 'button-selected': matButton.selected }"
+          (colorPickerSelect)="handleColorPickClose(color)"
+          [(colorPicker)]="color"
+          cpOutputFormat="rgba"
+          cpAlphaChannel="disabled"
+        >
+          <div class="label" fxLayout="row" fxLayoutAlign="start center">
+            <span>Custom Color</span>
+            <div
+              *ngIf="color"
+              class="box"
+              [ngStyle]="{ 'background-color': color }"
+            ></div>
+          </div>
+        </mat-list-option>
       </div>
     </mat-selection-list>
   </div>

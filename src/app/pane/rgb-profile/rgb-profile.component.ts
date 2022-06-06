@@ -5,7 +5,11 @@ import { AssetsService } from 'src/app/assets.service';
 import { ManagerService } from 'src/app/manager.service';
 import { SimpleColor } from 'src/app/model/simple-color';
 import { Zone } from 'src/app/model/zone';
-import { LEDColorRange, LEDZones } from 'src/lib/ts/devices/components/led';
+import {
+  Color,
+  LEDColorRange,
+  LEDZones,
+} from 'src/lib/ts/devices/components/led';
 
 @Component({
   selector: 'app-rgb-profile',
@@ -25,6 +29,15 @@ export class RgbProfileComponent implements OnInit {
   zones: Array<Zone> = [];
 
   color = '';
+
+  colorPickerSetting: SimpleColor = {
+    name: 'none',
+    color: { red: 0, blue: 0, green: 0 },
+  };
+
+  hasColorPicker = false;
+
+  hasPickedColor = false;
 
   hasZoneSelected = false;
 
@@ -59,6 +72,7 @@ export class RgbProfileComponent implements OnInit {
 
   setRgbList(zone: Zone): void {
     this.settings = [];
+    this.hasColorPicker = false;
     switch (zone.colorRange) {
       case LEDColorRange.NONE:
         break;
@@ -67,6 +81,7 @@ export class RgbProfileComponent implements OnInit {
         break;
       case LEDColorRange.ALL_COLORS:
         this.addColorsToSettings();
+        this.hasColorPicker = true;
         break;
       default:
         break;
@@ -108,5 +123,29 @@ export class RgbProfileComponent implements OnInit {
       color: { red: 0, green: 0, blue: 255 },
       name: 'Blue Hues',
     });
+  }
+
+  handleColorPickClose(rgb: string): void {
+    const color = this.rgbToColor(rgb);
+    this.hasPickedColor = true;
+    this.colorPickerSetting = {
+      name: '',
+      color,
+    };
+    this.managerService.setLed(color, this.selectedZone.zone).then(() => {
+      // TODO: Add proper component for user feedback
+      // eslint-disable-next-line no-console
+      console.log('LED was set');
+    });
+    this.selectedZone.color = color;
+  }
+
+  rgbToColor(rgb: string): Color {
+    const array = rgb
+      .slice(3)
+      .slice(1, -1)
+      .split(',')
+      .map(string => Number(string));
+    return { red: array[0], green: array[1], blue: array[2] };
   }
 }

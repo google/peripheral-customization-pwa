@@ -17,6 +17,7 @@ export type DeviceFilter = Required<
 export enum ConfiguratorEvents {
   CONNECT = 'connected',
   RECEIVED_FIRMWARE_VERSION = 'receivedFirmwareVersion',
+  RECEIVED_BATTERY = 'receivedBattery',
   RECEIVED_INPUT_BINDINGS = 'receivedInputBindings',
   BUTTON_WAS_SET = 'buttonWasSet',
   RECEIVED_DPI_LEVELS = 'receivedDpiLevels',
@@ -57,6 +58,8 @@ export abstract class HIDDeviceConfigurator extends EventEmitter {
   }
 
   abstract requestFirmwareVersion(): Promise<void>;
+
+  abstract requestBatteryLife(): Promise<void>;
 
   sendReport(reportId: number, outputReport: Uint8Array): Promise<void> {
     return this.hidDevice.sendReport(reportId, outputReport);

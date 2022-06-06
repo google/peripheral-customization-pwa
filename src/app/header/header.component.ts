@@ -9,7 +9,7 @@ import { ManagerService } from 'src/app/manager.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  batteryLife = 0;
+  batteryLife = 'Wired Device';
 
   firmwareVersion = 'unknown';
 
@@ -24,6 +24,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.managerService.requestFirmwareVersion().then(firmwareVersion => {
       this.firmwareVersion = firmwareVersion;
+    });
+
+    this.managerService.requestBatteryLife().then(batteryLife => {
+      this.batteryLife = `Remaining Battery Life: ${batteryLife}%`;
     });
   }
 }

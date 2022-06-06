@@ -72,6 +72,15 @@ export class ManagerService {
     });
   }
 
+  requestBatteryLife(): Promise<string> {
+    return new Promise(resolve => {
+      this.device?.once(ConfiguratorEvents.RECEIVED_BATTERY, battery =>
+        resolve(String.fromCharCode(...battery)),
+      );
+      this.device?.requestBatteryLife();
+    });
+  }
+
   // LED
   get ledCapabilities(): LEDCapabilities | undefined {
     return this.device?.ledCapabilities?.();

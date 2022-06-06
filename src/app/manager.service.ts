@@ -75,7 +75,7 @@ export class ManagerService {
   requestBatteryLife(): Promise<string> {
     return new Promise(resolve => {
       this.device?.once(ConfiguratorEvents.RECEIVED_BATTERY, battery =>
-        resolve(String.fromCharCode(...battery)),
+        resolve(String(battery)),
       );
       this.device?.requestBatteryLife();
     });

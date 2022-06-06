@@ -39,8 +39,8 @@ const assetsById: AssetsById = {
     0x3001: {
       deviceName: 'Model21 RGB',
       logoUri: 'assets/images/vendor2/vendor2.jpeg',
-      deviceTopImgUri: 'assets/images/vendor1/model11_top.png',
-      deviceBottomImgUri: 'assets/images/vendor1/model11_bottom.png',
+      deviceTopImgUri: 'assets/images/vendor2/model21_top.png',
+      deviceBottomImgUri: 'assets/images/vendor2/model21_bottom.png',
     },
   },
 };

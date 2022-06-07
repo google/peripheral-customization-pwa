@@ -31,13 +31,11 @@ export class RgbProfileComponent implements OnInit {
   color = '';
 
   colorPickerSetting: SimpleColor = {
-    name: 'none',
-    color: { red: 0, blue: 0, green: 0 },
+    name: '',
+    color: { red: 255, blue: 255, green: 255 },
   };
 
   hasColorPicker = false;
-
-  hasPickedColor = false;
 
   hasZoneSelected = false;
 
@@ -99,15 +97,13 @@ export class RgbProfileComponent implements OnInit {
   }
 
   setRGBValue(event: MatSelectionListChange): void {
-    const simpleColor = event.options[0].value as SimpleColor;
-    this.managerService
-      .setLed(simpleColor.color, this.selectedZone.zone)
-      .then(() => {
-        // TODO: Add proper component for user feedback
-        // eslint-disable-next-line no-console
-        console.log('LED was set');
-      });
-    this.selectedZone.color = simpleColor.color;
+    const color = event.options[0].value.color as Color;
+    this.managerService.setLed(color, this.selectedZone.zone).then(() => {
+      // TODO: Add proper component for user feedback
+      // eslint-disable-next-line no-console
+      console.log('LED was set');
+    });
+    this.selectedZone.color = color;
   }
 
   addColorsToSettings(): void {
@@ -127,7 +123,6 @@ export class RgbProfileComponent implements OnInit {
 
   handleColorPickClose(rgb: string): void {
     const color = this.rgbToColor(rgb);
-    this.hasPickedColor = true;
     this.colorPickerSetting = {
       name: '',
       color,

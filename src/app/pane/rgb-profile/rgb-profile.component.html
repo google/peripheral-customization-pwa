@@ -24,7 +24,7 @@
         <mat-list-option
           #matButton
           *ngIf="hasColorPicker"
-          [value]="hasPickedColor ? colorPickerSetting : ''"
+          [value]="colorPickerSetting"
           class="button"
           [ngClass]="{ 'button-selected': matButton.selected }"
           (colorPickerSelect)="handleColorPickClose(color)"

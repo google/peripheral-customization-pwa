@@ -11,8 +11,9 @@
 
 .device {
   z-index: 10;
-  width: var(--dimensions-size350);
+  width: var(--dimensions-size360);
   height: var(--dimensions-size480);
+  object-fit: contain;
   margin: auto;
 }
 

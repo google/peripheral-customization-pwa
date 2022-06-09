@@ -75,6 +75,7 @@ export class ManagerService {
     setDpiLevel: ConfiguratorEvents.DPI_WAS_SET,
     requestDpiLevels: ConfiguratorEvents.RECEIVED_DPI_LEVELS,
     requestCurrentDpi: ConfiguratorEvents.RECEIVED_CURRENT_DPI,
+    changeCurrentDpi: ConfiguratorEvents.CHANGED_CURRENT_DPI,
   } as const;
 
   private addCommandBuffer<
@@ -166,8 +167,8 @@ export class ManagerService {
     );
   }
 
-  changeCurrentDpi(toIndex: number, withValue: number): void {
-    this.device?.changeCurrentDpi?.(toIndex, withValue);
+  changeCurrentDpi(toIndex: number, withValue: number): Promise<void> {
+    return this.addCommandBuffer('changeCurrentDpi', [toIndex, withValue]);
   }
 
   requestCurrentDpi(): Promise<number> {

@@ -1,0 +1,48 @@
+<div fxLayout="column" fxLayoutAlign="center center">
+  <div class="profiles-container">
+    <h1 class="title mat-title">Load profiles</h1>
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <div
+        *ngFor="let profile of profiles | keyvalue;"
+      >
+        <mat-card
+          class="profiles"
+          matRipple
+          [ngClass]="{'profiles-background': loadedProfile === profile.key}"
+          (click)="loadProfile(profile.key)"
+        >
+          {{profile.key}}
+        </mat-card>
+      </div>
+    </div>
+  </div>
+
+  <div class="profiles-container">
+    <h1 class="title mat-title">Save current settings</h1>
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <div
+        *ngFor="let profile of profiles | keyvalue"
+      >
+        <mat-card
+          class="profiles"
+          matRipple
+          [ngClass]="{'profiles-background': profileToSave === profile.key}"
+          (click)="changeProfileToSave(profile.key)"
+        >
+          {{profile.key}}
+        </mat-card>
+      </div>
+    </div>
+
+    <div class="options-container">
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <mat-card class="save" matRipple (click)="saveProfile()">
+          Save To Profile
+        </mat-card>
+        <mat-card class="clear" matRipple (click)="clearDeviceProfiles()">
+          Clear device profiles
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

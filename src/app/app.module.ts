@@ -31,6 +31,7 @@ import { CustomizeButtonsComponent } from './pane/customize-buttons/customize-bu
 import { AdjustDpiComponent } from './pane/adjust-dpi/adjust-dpi.component';
 import { RgbProfileComponent } from './pane/rgb-profile/rgb-profile.component';
 import { ConnectComponent } from './connect/connect.component';
+import { ProfilesComponent } from './profiles/profiles.component';
 
 import { environment } from '../environments/environment';
 
@@ -45,6 +46,7 @@ import { environment } from '../environments/environment';
     AdjustDpiComponent,
     RgbProfileComponent,
     ConnectComponent,
+    ProfilesComponent,
   ],
   imports: [
     BrowserModule,

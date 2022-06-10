@@ -104,7 +104,7 @@ export class AdjustDpiComponent implements OnInit, OnDestroy {
     } else {
       this.stages[stage] = filteredValue;
     }
-    this.selectedDpi = this.stages[stage];
+    if (stage !== this.selectedStage) this.changeStage(stage);
     this.manager
       .setDpiLevel(stage, this.getKeyFromDpiValue(this.stages[stage]))
       .then((setDpiValue: DpiValue) => {

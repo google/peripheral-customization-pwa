@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { createEventWaitPromiseAndDispatch } from 'src/lib/ts/devices/utils/promises/createEventWaitPromiseAndDispatch';
 import { DPICapabilities } from 'src/lib/ts/devices/components/dpi';
 import {
   InputBindings,
@@ -17,6 +18,7 @@ import {
   ConfiguratorEvents,
   HIDDeviceConfigurator,
 } from 'src/lib/ts/devices/configurator';
+import { createCommandBuffer } from 'src/lib/ts/devices/utils/command-util';
 import manager from 'src/lib/ts/manager';
 import { dpi, DpiValue } from './model/dpi';
 
@@ -29,6 +31,8 @@ export class ManagerService {
   );
 
   currentDpiStageSubject = new BehaviorSubject<number | undefined>(undefined);
+
+  commandBuffer = createCommandBuffer();
 
   async connectToDevice(): Promise<void> {
     try {
@@ -62,23 +66,57 @@ export class ManagerService {
     return this.deviceSubject.getValue();
   }
 
-  requestFirmwareVersion(): Promise<string> {
-    return new Promise(resolve => {
-      this.device?.once(
-        ConfiguratorEvents.RECEIVED_FIRMWARE_VERSION,
-        firmware => resolve(String.fromCharCode(...firmware)),
+  static readonly commandToEventMapping = {
+    requestFirmwareVersion: ConfiguratorEvents.RECEIVED_FIRMWARE_VERSION,
+    requestBatteryLife: ConfiguratorEvents.RECEIVED_BATTERY,
+    setLed: ConfiguratorEvents.LED_WAS_SET,
+    setInput: ConfiguratorEvents.BUTTON_WAS_SET,
+    requestInputBindings: ConfiguratorEvents.RECEIVED_INPUT_BINDINGS,
+    setDpiLevel: ConfiguratorEvents.DPI_WAS_SET,
+    requestDpiLevels: ConfiguratorEvents.RECEIVED_DPI_LEVELS,
+    requestCurrentDpi: ConfiguratorEvents.RECEIVED_CURRENT_DPI,
+  } as const;
+
+  private addCommandBuffer<
+    T,
+    C extends keyof typeof ManagerService.commandToEventMapping,
+    A extends unknown[],
+  >(
+    command: C,
+    args: Parameters<Exclude<HIDDeviceConfigurator[C], undefined>>,
+    parseEvent?: (...a: A) => T | PromiseLike<T>,
+  ): Promise<T> {
+    const { device } = this;
+    const method = device?.[command] as
+      | undefined
+      | ((
+          ...a: Parameters<Exclude<HIDDeviceConfigurator[C], undefined>>
+        ) => ReturnType<Exclude<HIDDeviceConfigurator[C], undefined>>);
+    if (!device || !method) {
+      return Promise.reject(new Error('unsupported operation'));
+    }
+
+    return this.commandBuffer.queue((signal?: AbortSignal) => {
+      return createEventWaitPromiseAndDispatch(
+        () => method.apply(device, args),
+        device,
+        ManagerService.commandToEventMapping[command],
+        signal,
+        parseEvent,
       );
-      this.device?.requestFirmwareVersion();
     });
   }
 
-  requestBatteryLife(): Promise<string> {
-    return new Promise(resolve => {
-      this.device?.once(ConfiguratorEvents.RECEIVED_BATTERY, battery =>
-        resolve(String(battery)),
-      );
-      this.device?.requestBatteryLife();
-    });
+  requestFirmwareVersion(): Promise<string> {
+    return this.addCommandBuffer(
+      'requestFirmwareVersion',
+      [],
+      (firmware: Uint8Array): string => String.fromCharCode(...firmware),
+    );
+  }
+
+  requestBatteryLife(): Promise<number> {
+    return this.addCommandBuffer('requestBatteryLife', []);
   }
 
   // LED
@@ -87,11 +125,7 @@ export class ManagerService {
   }
 
   setLed(color: Color, zone: LEDZones, mode?: LEDModes): Promise<void> {
-    // TODO: update this function once a handler for setting LEDs is created on the BE
-    return new Promise(resolve => {
-      this.device?.once(ConfiguratorEvents.LED_WAS_SET, () => resolve());
-      this.device?.setLed?.(color, zone, mode);
-    });
+    return this.addCommandBuffer('setLed', [color, zone, mode]);
   }
 
   // INPUT
@@ -100,21 +134,11 @@ export class ManagerService {
   }
 
   setInput(keyBinding: KeyBinding): Promise<void> {
-    // TODO: update this function once a handler for setting buttons is created on the BE
-    return new Promise(resolve => {
-      this.device?.once(ConfiguratorEvents.BUTTON_WAS_SET, () => resolve());
-      this.device?.setInput?.(keyBinding);
-    });
+    return this.addCommandBuffer('setInput', [keyBinding]);
   }
 
   requestInputBindings(): Promise<InputBindings> {
-    return new Promise(resolve => {
-      this.device?.once(
-        ConfiguratorEvents.RECEIVED_INPUT_BINDINGS,
-        (inputs: InputBindings) => resolve(inputs),
-      );
-      this.device?.requestInputBindings?.();
-    });
+    return this.addCommandBuffer('requestInputBindings', []);
   }
 
   // DPI
@@ -122,25 +146,24 @@ export class ManagerService {
     return this.device?.dpiCapabilities?.();
   }
 
-  setDpiLevel(index: number, level: number): Promise<DpiValue> {
-    return new Promise(resolve => {
-      this.device?.once(
-        ConfiguratorEvents.DPI_WAS_SET,
-        (setId: number, setLevel: number) =>
-          resolve({ id: setId, level: setLevel }),
-      );
-      this.device?.setDpiLevel?.(index, level);
-    });
+  setDpiLevel(index: number, stage: number): Promise<DpiValue> {
+    return this.addCommandBuffer(
+      'setDpiLevel',
+      [index, stage],
+      (id: number, level: number): DpiValue => ({ id, level }),
+    );
   }
 
   requestDpiLevels(): Promise<dpi> {
-    return new Promise(resolve => {
-      this.device?.once(
-        ConfiguratorEvents.RECEIVED_DPI_LEVELS,
-        (count, current, levels) => resolve({ count, current, levels }),
-      );
-      this.device?.requestDpiLevels?.();
-    });
+    return this.addCommandBuffer(
+      'requestDpiLevels',
+      [],
+      (count: number, current: number, levels: dpi['levels']): dpi => ({
+        count,
+        current,
+        levels,
+      }),
+    );
   }
 
   changeCurrentDpi(toIndex: number, withValue: number): void {
@@ -148,12 +171,7 @@ export class ManagerService {
   }
 
   requestCurrentDpi(): Promise<number> {
-    return new Promise(resolve => {
-      this.device?.once(ConfiguratorEvents.RECEIVED_CURRENT_DPI, current =>
-        resolve(current),
-      );
-      this.device?.requestCurrentDpi?.();
-    });
+    return this.addCommandBuffer('requestCurrentDpi', []);
   }
 
   currentDpiWasChanged(level: number, value: number): void {

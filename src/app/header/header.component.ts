@@ -22,12 +22,24 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.managerService.requestFirmwareVersion().then(firmwareVersion => {
-      this.firmwareVersion = firmwareVersion;
-    });
+    this.managerService
+      .requestFirmwareVersion()
+      .then(firmwareVersion => {
+        this.firmwareVersion = firmwareVersion;
+      })
+      .catch(reason => {
+        // eslint-disable-next-line no-console
+        console.log(reason);
+      });
 
-    this.managerService.requestBatteryLife().then(batteryLife => {
-      this.batteryLife = `Remaining Battery Life: ${batteryLife}%`;
-    });
+    this.managerService
+      .requestBatteryLife()
+      .then(batteryLife => {
+        this.batteryLife = `Remaining Battery Life: ${batteryLife}%`;
+      })
+      .catch(reason => {
+        // eslint-disable-next-line no-console
+        console.log(reason);
+      });
   }
 }

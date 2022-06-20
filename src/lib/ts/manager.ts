@@ -25,11 +25,6 @@ class Manager {
     // Initialize UI with capabilities, information and current settings
     this.backend.emit(ConfiguratorEvents.CONNECT);
 
-    await Promise.all([
-      this.backend.requestFirmwareVersion(),
-      this.backend.requestCurrentConfig?.(),
-    ]);
-
     return this.backend;
   }
 

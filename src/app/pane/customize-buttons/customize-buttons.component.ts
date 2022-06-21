@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { AssetsService } from 'src/app/assets.service';
@@ -35,6 +35,7 @@ export class CustomizeButtonsComponent implements OnInit {
   constructor(
     private assetsService: AssetsService,
     private managerService: ManagerService,
+    private changeDetectorRef: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -45,6 +46,11 @@ export class CustomizeButtonsComponent implements OnInit {
 
   selectKey(button: Input): void {
     this.selectedButton$.next(button);
+
+    // Temporarily change value to force re-render
+    this.selectedBindToType = undefined;
+    this.selectedBindToKey = undefined;
+    this.changeDetectorRef.detectChanges();
 
     this.selectedBindToType = this.inputBindings?.[button]?.bindTo.type;
     this.selectedBindToKey = this.inputBindings?.[button]?.bindTo.key;
@@ -81,7 +87,6 @@ export class CustomizeButtonsComponent implements OnInit {
     };
 
     this.managerService.setInput(keyBinding).then(() => {
-      // TODO: Add proper component for user feedback
       // eslint-disable-next-line no-console
       console.log('Input was set');
       if (this.inputBindings) this.inputBindings[selectedButton] = keyBinding;
@@ -98,7 +103,6 @@ export class CustomizeButtonsComponent implements OnInit {
         bindTo: { key: biding.key, type: defaultType },
       };
       this.managerService.setInput(defaultKeyBiding).then(() => {
-        // TODO: Add proper component for user feedback
         // eslint-disable-next-line no-console
         console.log('Input was set');
       });

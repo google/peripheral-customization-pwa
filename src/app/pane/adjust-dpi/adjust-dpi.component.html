@@ -44,9 +44,9 @@
         class="slider"
         #matSlider="matSlider"
         (change)="setDpiSlider(matSlider.value)"
-        min="{{minDpi}}"
-        max="{{maxDpi}}"
-        step="{{step}}"
+        [min]="minDpi"
+        [max]="maxDpi"
+        [step]="step"
         [value]="selectedDpi"
         tickInterval=10
       >

@@ -88,32 +88,28 @@ export class AdjustDpiComponent implements OnInit, OnDestroy {
   }
 
   setDpiInput(stage: number, dpiValue: string): void {
-    const oldValue = this.stages[stage];
-
     // Temporarily change value to force re-render
-    this.stages[stage] = 0;
+    const currentStages = this.stages;
+    this.stages = new Array(this.stages.length).fill(0);
     this.changeDetectorRef.detectChanges();
+    this.stages = currentStages;
 
-    const parsedValue = dpiValue.match(/\d+/g)?.join(''); // Get only numbers
-    const value = parsedValue ? Number(parsedValue) : oldValue;
+    if (!dpiValue.match(/^[0-9]*$/g)?.join('')) return; // Get only numbers
+    const value = Number(dpiValue);
     const filteredValue = Math.round(value / this.step) * this.step;
-    if (filteredValue > this.maxDpi) {
-      this.stages[stage] = this.maxDpi;
-    } else if (filteredValue < this.minDpi) {
-      this.stages[stage] = this.minDpi;
-    } else {
-      this.stages[stage] = filteredValue;
-    }
-    if (stage !== this.selectedStage) this.changeStage(stage);
+    if (filteredValue > this.maxDpi) this.stages[stage] = this.maxDpi;
+    else if (filteredValue < this.minDpi) this.stages[stage] = this.minDpi;
+    else this.stages[stage] = filteredValue;
     this.manager
       .setDpiLevel(stage, this.getKeyFromDpiValue(this.stages[stage]))
       .then((setDpiValue: DpiValue) => {
-        // TODO: Add proper component for user feedback
         // eslint-disable-next-line no-console
         console.log(
           `DPI for id ${setDpiValue.id + 1} was set to ${setDpiValue.level}`,
         );
       });
+    if (stage !== this.selectedStage) this.changeStage(stage);
+    this.selectedDpi = this.stages[stage];
   }
 
   setDpiSlider(dpiValue: number): void {
@@ -122,7 +118,6 @@ export class AdjustDpiComponent implements OnInit, OnDestroy {
     this.manager
       .setDpiLevel(this.selectedStage, this.getKeyFromDpiValue(dpiValue))
       .then((setDpiValue: DpiValue) => {
-        // TODO: Add proper component for user feedback
         // eslint-disable-next-line no-console
         console.log(
           `DPI for id ${setDpiValue.id + 1} was set to ${setDpiValue.level}`,
@@ -142,10 +137,6 @@ export class AdjustDpiComponent implements OnInit, OnDestroy {
   resetToDefault(): void {
     this.stages = [...this.defaultDpiValues];
 
-    // Temporarily change value to force re-render
-    this.selectedDpi = 0;
-    this.changeDetectorRef.detectChanges();
-
     this.selectedDpi = this.stages[this.selectedStage];
 
     // eslint-disable-next-line no-console
@@ -154,7 +145,6 @@ export class AdjustDpiComponent implements OnInit, OnDestroy {
       this.manager
         .setDpiLevel(i, this.getKeyFromDpiValue(this.defaultDpiValues[i]))
         .then((setDpiValue: DpiValue) => {
-          // TODO: Add proper component for user feedback
           // eslint-disable-next-line no-console
           console.log(
             `DPI for id ${setDpiValue.id + 1} was set to ${setDpiValue.level}`,

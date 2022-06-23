@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-constructor */
 import { Component, OnInit } from '@angular/core';
 import { MatSelectionListChange } from '@angular/material/list';
 import { AssetsService } from 'src/app/assets.service';
@@ -17,6 +16,7 @@ import {
   styleUrls: ['./rgb-profile.component.scss'],
 })
 export class RgbProfileComponent implements OnInit {
+  // eslint-disable-next-line no-useless-constructor
   constructor(
     private managerService: ManagerService,
     private assetsService: AssetsService,
@@ -99,7 +99,6 @@ export class RgbProfileComponent implements OnInit {
   setRGBValue(event: MatSelectionListChange): void {
     const color = event.options[0].value.color as Color;
     this.managerService.setLed(color, this.selectedZone.zone).then(() => {
-      // TODO: Add proper component for user feedback
       // eslint-disable-next-line no-console
       console.log('LED was set');
     });
@@ -128,7 +127,6 @@ export class RgbProfileComponent implements OnInit {
       color,
     };
     this.managerService.setLed(color, this.selectedZone.zone).then(() => {
-      // TODO: Add proper component for user feedback
       // eslint-disable-next-line no-console
       console.log('LED was set');
     });

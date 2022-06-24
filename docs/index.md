@@ -10,6 +10,7 @@
   - [Services](./services.md)
 - lib
   - [Manager](./lib-manager.md)
+  - [Command Buffer Util](./command-buffer.md)
   - Devices
     - [devices/index](./lib-devices-index.md)
     - [devices/configurator](./lib-devices-configurator.md)

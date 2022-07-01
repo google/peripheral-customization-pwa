@@ -94,13 +94,18 @@ export class CustomizeButtonsComponent implements OnInit {
   }
 
   resetToDefault(): void {
-    if (!this.inputBindings) return;
-    Object.entries(this.inputBindings).forEach(([button, biding]) => {
-      const defaultType = this.inputBindings?.[biding.key]?.bindTo.type;
-      if (!defaultType || biding.key === biding.bindTo.key) return;
+    const defaultBindings = this.managerService.defaultInputBindings;
+    if (defaultBindings === undefined) return;
+    Object.entries(defaultBindings).forEach(([button, binding]) => {
+      const defaultType = defaultBindings[binding.key]?.bindTo.type;
+      if (
+        !defaultType ||
+        binding.key === this.inputBindings?.[binding.key]?.bindTo.key
+      )
+        return;
       const defaultKeyBiding: KeyBinding = {
-        key: biding.key,
-        bindTo: { key: biding.key, type: defaultType },
+        key: binding.key,
+        bindTo: { key: binding.key, type: defaultType },
       };
       this.managerService.setInput(defaultKeyBiding).then(() => {
         // eslint-disable-next-line no-console

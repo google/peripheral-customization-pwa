@@ -8,7 +8,11 @@ import type {
 } from './components/led';
 
 import type { DPILevels, DPICapabilities } from './components/dpi';
-import { InputCapabilities, KeyBinding } from './components/inputs';
+import {
+  InputBindings,
+  InputCapabilities,
+  KeyBinding,
+} from './components/inputs';
 
 export type DeviceFilter = Required<
   Pick<HIDDeviceFilter, 'productId' | 'vendorId'>
@@ -31,6 +35,8 @@ export enum ConfiguratorEvents {
 export abstract class HIDDeviceConfigurator extends EventEmitter {
   // PROPERTIES
   abstract hidDevice: HIDDevice;
+
+  abstract defaultInputBindings: InputBindings;
 
   // BASICS
   abstract handleInputReport(e: HIDInputReportEvent): void;

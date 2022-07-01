@@ -142,6 +142,10 @@ export class ManagerService {
     return this.addCommandBuffer('requestInputBindings', []);
   }
 
+  get defaultInputBindings(): InputBindings | undefined {
+    return this.device?.defaultInputBindings;
+  }
+
   // DPI
   get dpiCapabilities(): DPICapabilities | undefined {
     return this.device?.dpiCapabilities?.();

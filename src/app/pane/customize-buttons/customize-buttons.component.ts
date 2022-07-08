@@ -103,17 +103,17 @@ export class CustomizeButtonsComponent implements OnInit {
         binding.key === this.inputBindings?.[binding.key]?.bindTo.key
       )
         return;
-      const defaultKeyBiding: KeyBinding = {
+      const defaultKeyBinding: KeyBinding = {
         key: binding.key,
         bindTo: { key: binding.key, type: defaultType },
       };
-      this.managerService.setInput(defaultKeyBiding).then(() => {
+      this.managerService.setInput(defaultKeyBinding).then(() => {
         // eslint-disable-next-line no-console
         console.log('Input was set');
       });
 
       if (!this.inputBindings) return;
-      this.inputBindings[button as Input] = defaultKeyBiding;
+      this.inputBindings[button as Input] = defaultKeyBinding;
     });
 
     if (!this.selectedButton$.value) return;

@@ -1,0 +1,36 @@
+# 
+# Build and deploy yarn-based project to GitLab Pages 
+#
+
+image: node:latest
+
+before_script:
+  - yarn install --cache-folder .yarn
+
+stages:
+  - build
+  - deploy
+
+cache:
+  paths:
+    - .yarn
+
+build:
+  stage: build
+  script:
+    - yarn build --base-href /delish/$CI_COMMIT_BRANCH/
+  artifacts:
+    paths:
+      - dist/app 
+
+pages:
+  stage: deploy
+  script:
+    - rm -rf ./public/$CI_COMMIT_BRANCH
+    - mkdir -pv ./public/$CI_COMMIT_BRANCH
+    - cp -aR ./dist/app/* ./public/$CI_COMMIT_BRANCH/
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: ($CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH =~ /^wip\//)

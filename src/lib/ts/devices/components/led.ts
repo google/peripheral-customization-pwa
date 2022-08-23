@@ -12,6 +12,7 @@ export enum LEDZones {
   LEFT = 'LEFT',
   RIGHT = 'RIGHT',
   SCROLL = 'SCROLL',
+  LOGO = 'LOGO',
 }
 
 export enum LEDModes {

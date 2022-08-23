@@ -16,6 +16,20 @@ const assetsById: AssetsById = {
     },
   },
   0x0002: {
+    0x1824: {
+      // Old FWres
+      deviceName: 'Model12',
+      logoUri: 'assets/images/vendor1/footer-logo.svg',
+      deviceTopImgUri: 'assets/images/vendor1/model12wired_top.png',
+      deviceBottomImgUri: 'assets/images/vendor1/model12wired_bottom.png',
+    },
+    0x184c: {
+      // New FWres
+      deviceName: 'Model12',
+      logoUri: 'assets/images/vendor1/footer-logo.svg',
+      deviceTopImgUri: 'assets/images/vendor1/model12wired_top.png',
+      deviceBottomImgUri: 'assets/images/vendor1/model12wired_bottom.png',
+    },
     0x2001: {
       deviceName: 'Model11',
       logoUri: 'assets/images/vendor1/footer-logo.svg',

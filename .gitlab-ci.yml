@@ -2,10 +2,10 @@
 # Build and deploy yarn-based project to GitLab Pages 
 #
 
-image: node:latest
 
-before_script:
-  - yarn install --cache-folder .yarn
+variables:
+  publish_path: ./public/$CI_COMMIT_BRANCH/
+  base_url: /delish/$CI_COMMIT_BRANCH/
 
 stages:
   - build
@@ -14,23 +14,40 @@ stages:
 cache:
   paths:
     - .yarn
+    - public
 
 build:
+  image: node:latest
   stage: build
-  script:
-    - yarn build --base-href /delish/$CI_COMMIT_BRANCH/
+  script: 
+    - yarn install --cache-folder .yarn
+    - yarn build --base-href ${base_url}
   artifacts:
     paths:
       - dist/app 
 
-pages:
-  stage: deploy
+.pages:
+  image: alpine:latest
   script:
-    - rm -rf ./public/$CI_COMMIT_BRANCH
-    - mkdir -pv ./public/$CI_COMMIT_BRANCH
-    - cp -aR ./dist/app/* ./public/$CI_COMMIT_BRANCH/
+    - mkdir -p ${publish_path}
+    - cp -aR ./dist/app/* ${publish_path}/
   artifacts:
     paths:
-      - public
+      - ${publish_path}
+
+pages-wip:
+  extends: .pages
+  stage: deploy
+  artifacts:
+    expire_in: 1 week
   rules:
-    - if: ($CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH =~ /^wip\//)
+    - if: ($CI_COMMIT_BRANCH =~ /^wip\//)
+
+pages-main:
+  extends: .pages
+  stage: deploy
+  artifacts:
+    expire_in: 10 yrs
+  rules:
+    - if: ($CI_COMMIT_BRANCH == "main" )
+        

@@ -1,5 +1,5 @@
-# 
-# Build and deploy yarn-based project to GitLab Pages 
+#
+# Build and deploy yarn-based project to GitLab Pages
 #
 
 
@@ -13,41 +13,31 @@ stages:
 
 cache:
   paths:
-    - .yarn
     - public
 
 build:
   image: node:latest
   stage: build
-  script: 
+  script:
     - yarn install --cache-folder .yarn
     - yarn build --base-href ${base_url}
+  cache:
+    paths:
+      - .yarn
   artifacts:
     paths:
-      - dist/app 
+      - dist/app
 
-.pages:
+pages:
   image: alpine:latest
+  stage: deploy
   script:
     - mkdir -p ${publish_path}
     - cp -aR ./dist/app/* ${publish_path}/
   artifacts:
     paths:
-      - ${publish_path}
-
-pages-wip:
-  extends: .pages
-  stage: deploy
-  artifacts:
-    expire_in: 1 week
+      - public
+    expire_in: 2 weeks
   rules:
-    - if: ($CI_COMMIT_BRANCH =~ /^wip\//)
+    - if: ($CI_COMMIT_BRANCH =~ /^wip\//) || ($CI_COMMIT_BRANCH == "main")
 
-pages-main:
-  extends: .pages
-  stage: deploy
-  artifacts:
-    expire_in: 10 yrs
-  rules:
-    - if: ($CI_COMMIT_BRANCH == "main" )
-        

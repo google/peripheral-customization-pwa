@@ -4,16 +4,13 @@
 
 
 variables:
-  publish_path: ./public/$CI_COMMIT_BRANCH/
-  base_url: /delish/$CI_COMMIT_BRANCH/
+  publish_path: ./public/
+  base_url: /delish/
 
 stages:
   - build
   - deploy
 
-cache:
-  paths:
-    - public
 
 build:
   image: node:latest
@@ -34,10 +31,12 @@ pages:
   script:
     - mkdir -p ${publish_path}
     - cp -aR ./dist/app/* ${publish_path}/
+  cache:
+    paths:
+      - public
   artifacts:
     paths:
       - public
-    expire_in: 2 weeks
+    expire_in: 1 year
   rules:
-    - if: ($CI_COMMIT_BRANCH =~ /^wip\//) || ($CI_COMMIT_BRANCH == "main")
-
+    - if: ($CI_COMMIT_BRANCH == "main")

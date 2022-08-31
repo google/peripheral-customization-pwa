@@ -9,7 +9,7 @@ Communication between the PWA and the peripheral is done using the WebHID API.
 In order to execute the application in development, you should run
 
 ```sh
-$ yarn install
+$ yarn install --frozen-lockfile
 $ yarn start -o
 ```
 

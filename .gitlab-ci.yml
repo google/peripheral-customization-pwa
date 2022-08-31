@@ -16,7 +16,7 @@ build:
   image: node:latest
   stage: build
   script:
-    - yarn install --cache-folder .yarn
+    - yarn install --frozen-lockfile --cache-folder .yarn
     - yarn build --base-href ${base_url}
   cache:
     paths:

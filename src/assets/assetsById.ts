@@ -30,6 +30,12 @@ const assetsById: AssetsById = {
       deviceTopImgUri: 'assets/images/vendor1/model12wired_top.png',
       deviceBottomImgUri: 'assets/images/vendor1/model12wired_bottom.png',
     },
+    0x1830: {
+      deviceName: 'Model12 Wireless',
+      logoUri: 'assets/images/vendor1/footer-logo.svg',
+      deviceTopImgUri: 'assets/images/vendor1/model12wireless_top.png',
+      deviceBottomImgUri: 'assets/images/vendor1/model12wireless_bottom.png',
+    },
     0x2001: {
       deviceName: 'Model11',
       logoUri: 'assets/images/vendor1/footer-logo.svg',

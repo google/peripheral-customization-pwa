@@ -4,7 +4,7 @@
   fxLayoutAlign="center center"
 >
   <div fxLayout="column" fxLayoutAlign="center">
-    <h1 class="title mat-title">DPI Stages</h1>
+    <h1 class="title mat-title">CPI Stages</h1>
     <div class="stages" fxLayout="column" fxLayout.gt-xs="row" fxLayoutAlign="">
       <div
         class="stage-container"
@@ -25,13 +25,13 @@
               <input
                 #matInput="matInput"
                 matInput
-                class="mat-input dpi-input"
-                (change)="setDpiInput(i, matInput.value)"
+                class="mat-input cpi-input"
+                (change)="setCpiInput(i, matInput.value)"
                 type="text"
                 [value]="stage"
                 placeholder=""
               />
-              <span>DPI</span>
+              <span>CPI</span>
             </mat-form-field>
           </mat-card-content>
         </mat-card>
@@ -39,19 +39,19 @@
     </div>
 
     <span class="slider-container">
-      <span>{{minDpi}}</span>
+      <span>{{minCpi}}</span>
       <mat-slider
         class="slider"
         #matSlider="matSlider"
-        (change)="setDpiSlider(matSlider.value)"
-        [min]="minDpi"
-        [max]="maxDpi"
+        (change)="setCpiSlider(matSlider.value)"
+        [min]="minCpi"
+        [max]="maxCpi"
         [step]="step"
-        [value]="selectedDpi"
+        [value]="selectedCpi"
         tickInterval=10
       >
       </mat-slider>
-      <span>{{maxDpi}}</span>
+      <span>{{maxCpi}}</span>
     </span>
   </div>
   <div class="device-container" fxLayout="column" fxLayoutAlign="center center">

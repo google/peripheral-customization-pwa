@@ -24,7 +24,7 @@ These methods should:
 
 ## Manager Service
 
-The manager service is the connection between the UI and the device manager. The components use the manager service to do the all of the device relevant operations such as setting the DPI and LED values.
+The manager service is the connection between the UI and the device manager. The components use the manager service to do the all of the device relevant operations such as setting the CPI and LED values.
 
 Methods:
 
@@ -33,8 +33,8 @@ connectToDevice()
 setLed(color: Color, zone: LEDZones, mode?: LEDModes)
 setInput(keyBinding: KeyBinding)
 requestInputBindings()
-setDpiLevel(index: number, level: number)
-requestDpiLevels()
+setCpiLevel(index: number, level: number)
+requestCpiLevels()
 ```
 
 These methods should:
@@ -43,5 +43,5 @@ These methods should:
 - `setLed`: Sets the color of the device on a specific zone
 - `setInput`: Sets the input of a key binding
 - `requestInputBindings`: Retrieves all of the device input bindings
-- `setDpiLevel`: Sets the DPI value on a level
-- `requestDpiLevels`: Retrieves all of the device DPI levels
+- `setCpiLevel`: Sets the CPI value on a level
+- `requestCpiLevels`: Retrieves all of the device CPI levels

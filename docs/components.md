@@ -26,27 +26,27 @@ The menu component has a navigation list that routes the user to the appropriate
 
 The footer component holds a centralized logo on a container, the logo of the device is retrieved with the use of methods from the `AssetsService`.
 
-## Adjust DPI
+## Adjust CPI
 
-The adjust dpi component on initialization requests all of the DPI information from the device and initializes all of the variables used for the UI's logic.
+The adjust cpi component on initialization requests all of the CPI information from the device and initializes all of the variables used for the UI's logic.
 
 Methods:
 
 ```
-setDpiInput(stage, dpiValue)
-setDpiSlider(dpiValue: number)
+setCpiInput(stage, cpiValue)
+setCpiSlider(cpiValue: number)
 changeStage(stage: number)
 resetToDefault()
-getKeyFromDpiValue(dpiValue: number)
+getKeyFromCpiValue(cpiValue: number)
 ```
 
 These methods should:
 
-- `setDpiInput`: Sets the selected stage with the chosen DPI value
-- `setDpiSlider`: Sets the selected stage with the DPI value from the slider
+- `setCpiInput`: Sets the selected stage with the chosen CPI value
+- `setCpiSlider`: Sets the selected stage with the CPI value from the slider
 - `changeStage`: Changes selected stage
-- `resetToDefault`: Reset the stages with the default DPI values
-- `getKeyFromDpiValue`: Get the key from a DPI value
+- `resetToDefault`: Reset the stages with the default CPI values
+- `getKeyFromCpiValue`: Get the key from a CPI value
 
 ## Customize Buttons
 

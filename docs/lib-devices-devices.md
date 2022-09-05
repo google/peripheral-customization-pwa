@@ -31,7 +31,7 @@ Must be a Class <Device> that extends from `HIDDeviceConfigurator` and overrides
 
 ## \<device>-constants.ts
 
-This is where general device constants will be stored, like DPI levels, possible input mapping and so on.
+This is where general device constants will be stored, like CPI levels, possible input mapping and so on.
 This generally where the `types` and `enums` from `src/lib/ts/devices/components` will be used in the backend.
 
 ## \<device>-handlers.ts

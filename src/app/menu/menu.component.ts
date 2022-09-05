@@ -21,8 +21,8 @@ export class MenuComponent {
         link: './buttons',
       },
       {
-        label: 'Adjust DPI',
-        link: './dpi',
+        label: 'Adjust CPI',
+        link: './cpi',
       },
     ];
   }

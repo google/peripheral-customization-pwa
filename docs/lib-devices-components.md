@@ -2,8 +2,8 @@
 
 Defined set of `types`, `enums` and functions used to express common data between the backend and the UI.
 
-## dpi.ts
-DPI related types.
+## cpi.ts
+CPI related types.
 
 ## inputs.ts
 Input mapping related `enum` and `types`. Also has a helper function that gets the `InputType` out of a given `Input`.

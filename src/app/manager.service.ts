@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { createEventWaitPromiseAndDispatch } from 'src/lib/ts/devices/utils/promises/createEventWaitPromiseAndDispatch';
-import { DPICapabilities } from 'src/lib/ts/devices/components/dpi';
+import { CPICapabilities } from 'src/lib/ts/devices/components/cpi';
 import {
   InputBindings,
   InputCapabilities,
@@ -20,7 +20,7 @@ import {
 } from 'src/lib/ts/devices/configurator';
 import { createCommandBuffer } from 'src/lib/ts/devices/utils/command-util';
 import manager from 'src/lib/ts/manager';
-import { dpi, DpiValue } from './model/dpi';
+import { cpi, CpiValue } from './model/cpi';
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +30,7 @@ export class ManagerService {
     undefined,
   );
 
-  currentDpiStageSubject = new BehaviorSubject<number | undefined>(undefined);
+  currentCpiStageSubject = new BehaviorSubject<number | undefined>(undefined);
 
   commandBuffer = createCommandBuffer();
 
@@ -47,14 +47,14 @@ export class ManagerService {
 
   addEventListeners(): void {
     this.device?.on(
-      ConfiguratorEvents.CHANGED_CURRENT_DPI,
-      (level: number, value: number) => this.currentDpiWasChanged(level, value),
+      ConfiguratorEvents.CHANGED_CURRENT_CPI,
+      (level: number, value: number) => this.currentCpiWasChanged(level, value),
     );
 
     this.device?.on(
-      ConfiguratorEvents.RECEIVED_DPI_LEVELS,
+      ConfiguratorEvents.RECEIVED_CPI_LEVELS,
       (_, current, levels) =>
-        this.currentDpiWasChanged(current, levels[current]),
+        this.currentCpiWasChanged(current, levels[current]),
     );
   }
 
@@ -72,10 +72,10 @@ export class ManagerService {
     setLed: ConfiguratorEvents.LED_WAS_SET,
     setInput: ConfiguratorEvents.BUTTON_WAS_SET,
     requestInputBindings: ConfiguratorEvents.RECEIVED_INPUT_BINDINGS,
-    setDpiLevel: ConfiguratorEvents.DPI_WAS_SET,
-    requestDpiLevels: ConfiguratorEvents.RECEIVED_DPI_LEVELS,
-    requestCurrentDpi: ConfiguratorEvents.RECEIVED_CURRENT_DPI,
-    changeCurrentDpi: ConfiguratorEvents.CHANGED_CURRENT_DPI,
+    setCpiLevel: ConfiguratorEvents.CPI_WAS_SET,
+    requestCpiLevels: ConfiguratorEvents.RECEIVED_CPI_LEVELS,
+    requestCurrentCpi: ConfiguratorEvents.RECEIVED_CURRENT_CPI,
+    changeCurrentCpi: ConfiguratorEvents.CHANGED_CURRENT_CPI,
   } as const;
 
   private addCommandBuffer<
@@ -146,24 +146,24 @@ export class ManagerService {
     return this.device?.defaultInputBindings;
   }
 
-  // DPI
-  get dpiCapabilities(): DPICapabilities | undefined {
-    return this.device?.dpiCapabilities?.();
+  // CPI
+  get cpiCapabilities(): CPICapabilities | undefined {
+    return this.device?.cpiCapabilities?.();
   }
 
-  setDpiLevel(index: number, stage: number): Promise<DpiValue> {
+  setCpiLevel(index: number, stage: number): Promise<CpiValue> {
     return this.addCommandBuffer(
-      'setDpiLevel',
+      'setCpiLevel',
       [index, stage],
-      (id: number, level: number): DpiValue => ({ id, level }),
+      (id: number, level: number): CpiValue => ({ id, level }),
     );
   }
 
-  requestDpiLevels(): Promise<dpi> {
+  requestCpiLevels(): Promise<cpi> {
     return this.addCommandBuffer(
-      'requestDpiLevels',
+      'requestCpiLevels',
       [],
-      (count: number, current: number, levels: dpi['levels']): dpi => ({
+      (count: number, current: number, levels: cpi['levels']): cpi => ({
         count,
         current,
         levels,
@@ -171,17 +171,17 @@ export class ManagerService {
     );
   }
 
-  changeCurrentDpi(toIndex: number, withValue: number): Promise<void> {
-    return this.addCommandBuffer('changeCurrentDpi', [toIndex, withValue]);
+  changeCurrentCpi(toIndex: number, withValue: number): Promise<void> {
+    return this.addCommandBuffer('changeCurrentCpi', [toIndex, withValue]);
   }
 
-  requestCurrentDpi(): Promise<number> {
-    return this.addCommandBuffer('requestCurrentDpi', []);
+  requestCurrentCpi(): Promise<number> {
+    return this.addCommandBuffer('requestCurrentCpi', []);
   }
 
-  currentDpiWasChanged(level: number, value: number): void {
-    this.currentDpiStageSubject.next(level);
+  currentCpiWasChanged(level: number, value: number): void {
+    this.currentCpiStageSubject.next(level);
     // eslint-disable-next-line no-console
-    console.log(`Changed to level ${level + 1}, current DPI value is ${value}`);
+    console.log(`Changed to level ${level + 1}, current CPI value is ${value}`);
   }
 }

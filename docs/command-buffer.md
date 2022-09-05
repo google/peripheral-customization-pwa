@@ -50,25 +50,25 @@ After that, a helper is created inside the Manager that will simply the buffer c
 
 | Parameters |
 |-----------|
-|<b>command: string</b> <br> String that matches a device method's name, so a call like `this.device?.requestDpiLevels?.();` has a command string of `'requestDpiLevels'`.|
-|<b>args: array </b> <br> If the device command require arguments, it should be passed here in order, so a call like `this.device?.setDpiLevel?.(index, stage);` has an args of `[index, stage]`.|
+|<b>command: string</b> <br> String that matches a device method's name, so a call like `this.device?.requestCpiLevels?.();` has a command string of `'requestCpiLevels'`.|
+|<b>args: array </b> <br> If the device command require arguments, it should be passed here in order, so a call like `this.device?.setCpiLevel?.(index, stage);` has an args of `[index, stage]`.|
 |<b>parseEvent: function </b> <br> Function which will parse the event return.|
 
-This wrapper will simply easy the queue call, so what used to be a `this.device?.requestDpiLevels?.()`, now it will call `addCommandBuffer`:
+This wrapper will simply easy the queue call, so what used to be a `this.device?.requestCpiLevels?.()`, now it will call `addCommandBuffer`:
 ```diff
 
- requestDpiLevels(): Promise<dpi> {
+ requestCpiLevels(): Promise<cpi> {
 -    return new Promise(resolve => {
 -      this.device?.once(
--        ConfiguratorEvents.RECEIVED_DPI_LEVELS,
+-        ConfiguratorEvents.RECEIVED_CPI_LEVELS,
 -        (count, current, levels) => resolve({ count, current, levels }),
 -      );
--      this.device?.requestDpiLevels?.();
+-      this.device?.requestCpiLevels?.();
 -    });
 +    return this.addCommandBuffer(
-+      'requestDpiLevels',
++      'requestCpiLevels',
 +      [],
-+      (count: number, current: number, levels: dpi['levels']): dpi => ({
++      (count: number, current: number, levels: cpi['levels']): cpi => ({
 +        count,
 +        current,
 +        levels,

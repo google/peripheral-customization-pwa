@@ -28,7 +28,7 @@ import { HeaderComponent } from './header/header.component';
 import { MenuComponent } from './menu/menu.component';
 import { FooterComponent } from './footer/footer.component';
 import { CustomizeButtonsComponent } from './pane/customize-buttons/customize-buttons.component';
-import { AdjustDpiComponent } from './pane/adjust-dpi/adjust-dpi.component';
+import { AdjustCpiComponent } from './pane/adjust-cpi/adjust-cpi.component';
 import { RgbProfileComponent } from './pane/rgb-profile/rgb-profile.component';
 import { ConnectComponent } from './connect/connect.component';
 import { ProfilesComponent } from './profiles/profiles.component';
@@ -43,7 +43,7 @@ import { environment } from '../environments/environment';
     MenuComponent,
     FooterComponent,
     CustomizeButtonsComponent,
-    AdjustDpiComponent,
+    AdjustCpiComponent,
     RgbProfileComponent,
     ConnectComponent,
     ProfilesComponent,

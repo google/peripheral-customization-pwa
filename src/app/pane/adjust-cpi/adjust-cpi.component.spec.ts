@@ -3,11 +3,11 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AdjustDpiComponent } from './adjust-dpi.component';
+import { AdjustCpiComponent } from './adjust-cpi.component';
 
-describe('AdjustDpiComponent', () => {
-  let component: AdjustDpiComponent;
-  let fixture: ComponentFixture<AdjustDpiComponent>;
+describe('AdjustCpiComponent', () => {
+  let component: AdjustCpiComponent;
+  let fixture: ComponentFixture<AdjustCpiComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -17,12 +17,12 @@ describe('AdjustDpiComponent', () => {
         MatInputModule,
         BrowserAnimationsModule,
       ],
-      declarations: [AdjustDpiComponent],
+      declarations: [AdjustCpiComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AdjustDpiComponent);
+    fixture = TestBed.createComponent(AdjustCpiComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

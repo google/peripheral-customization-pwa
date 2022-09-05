@@ -3,7 +3,7 @@ export enum InputType {
   MOUSE_BUTTON = 'MOUSE_BUTTON',
   KEYBOARD = 'KEYBOARD',
   MEDIA = 'MEDIA', // CONSUMER
-  DPI_CHANGE = 'DPI_CHANGE',
+  CPI_CHANGE = 'CPI_CHANGE',
   MACRO = 'MACRO',
   AC_PAN_LEFT = 'AC_PAN_LEFT',
   AC_PAN_RIGHT = 'AC_PAN_RIGHT',
@@ -194,10 +194,10 @@ export enum MediaInput {
   RIGHT_MOVE = 'RIGHT_MOVE',
 }
 
-export enum DpiChangeInput {
-  CYCLE_DPI = 'CYCLE_DPI',
-  DPI_UP = 'DPI_UP',
-  DPI_DOWN = 'DPI_DOWN',
+export enum CpiChangeInput {
+  CYCLE_CPI = 'CYCLE_CPI',
+  CPI_UP = 'CPI_UP',
+  CPI_DOWN = 'CPI_DOWN',
 }
 
 export enum MacroInput {
@@ -208,7 +208,7 @@ export type Input =
   | MouseInput
   | KeyboardInput
   | MediaInput
-  | DpiChangeInput
+  | CpiChangeInput
   | MacroInput;
 
 export type InputMap = Partial<Record<Input, number>>;
@@ -231,7 +231,7 @@ export const getInputType = (input: Input): InputType => {
   if (input in MouseInput) return InputType.MOUSE_BUTTON;
   if (input in KeyboardInput) return InputType.KEYBOARD;
   if (input in MediaInput) return InputType.MEDIA;
-  if (input in DpiChangeInput) return InputType.DPI_CHANGE;
+  if (input in CpiChangeInput) return InputType.CPI_CHANGE;
   if (input in MacroInput) return InputType.MACRO;
 
   return InputType.UNDEFINED;

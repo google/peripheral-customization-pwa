@@ -97,27 +97,27 @@ When implemented, those methods should:
 - `setLed`: Set the LED of a given zone
 - `defaultRequestCurrentLedConfig`: Default way of getting the current LEDs configuration. Its already implemented by the configurator
 
-### DPI
+### CPI
 ```
-dpiCapabilities?(): DPICapabilities;
+cpiCapabilities?(): CPICapabilities;
 
-requestDpiLevels?(): Promise<void>;
+requestCpiLevels?(): Promise<void>;
 
-setDpiLevel?(index: number, level: number): Promise<void>;
+setCpiLevel?(index: number, level: number): Promise<void>;
 
-setDpiLevels?(levels: DPILevels): Promise<void>;
+setCpiLevels?(levels: CPILevels): Promise<void>;
 
-changeCurrentDpi?(toIndex: number): Promise<void>;
+changeCurrentCpi?(toIndex: number): Promise<void>;
 
-requestCurrentDpi?(): Promise<void>;
+requestCurrentCpi?(): Promise<void>;
 ```
 When implemented, those methods should:
-- `dpiCapabilities`: Get the device DPI capabilities
-- `requestDpiLevels`: Request all DPI levels with its set values
-- `setDpiLevel`: Set the DPI value of a single level
-- `setDpiLevels`: Set DPI value of all levels
-- `changeCurrentDpi`: Change the current DPI level selected in the device to another
-- `requestCurrentDpi`: Request current DPI value
+- `cpiCapabilities`: Get the device CPI capabilities
+- `requestCpiLevels`: Request all CPI levels with its set values
+- `setCpiLevel`: Set the CPI value of a single level
+- `setCpiLevels`: Set CPI value of all levels
+- `changeCurrentCpi`: Change the current CPI level selected in the device to another
+- `requestCurrentCpi`: Request current CPI value
 
 ### Buttons Inputs
 ```

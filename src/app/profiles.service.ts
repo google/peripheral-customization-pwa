@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { InputBindings } from 'src/lib/ts/devices/components/inputs';
-import { DPICapabilities } from 'src/lib/ts/devices/components/dpi';
+import { CPICapabilities } from 'src/lib/ts/devices/components/cpi';
 import { ManagerService } from './manager.service';
 
 enum ErrorMessages {
@@ -10,19 +10,19 @@ enum ErrorMessages {
   CREATE = "Couldn't create device profiles",
   SAVE = "Couldn't save the profile",
   INPUT = "Couldn't get current input bindings",
-  DPI = "Coudn't get current dpi",
+  CPI = "Coudn't get current cpi",
 }
 
 type InvertedLevels = Record<number, number>;
 
-interface DpiProfile {
+interface CpiProfile {
   stages: number[];
   stage: number;
 }
 
 export interface Profile {
   deviceId: string;
-  dpiProfile: DpiProfile;
+  cpiProfile: CpiProfile;
   inputProfile: InputBindings;
 }
 
@@ -38,7 +38,7 @@ export class ProfilesService {
 
   deviceId!: string;
 
-  dpiCapabilities!: DPICapabilities;
+  cpiCapabilities!: CPICapabilities;
 
   invertedLevels!: InvertedLevels;
 
@@ -47,9 +47,9 @@ export class ProfilesService {
       const vendorId = this.manager.device?.hidDevice.vendorId ?? 0;
       const productId = this.manager.device?.hidDevice.productId ?? 0;
 
-      if (!this.manager.dpiCapabilities) return;
-      this.dpiCapabilities = this.manager.dpiCapabilities;
-      this.invertedLevels = Object.entries(this.dpiCapabilities.levels).reduce(
+      if (!this.manager.cpiCapabilities) return;
+      this.cpiCapabilities = this.manager.cpiCapabilities;
+      this.invertedLevels = Object.entries(this.cpiCapabilities.levels).reduce(
         (acc, [key, value]) => {
           acc[value] = parseInt(key, 10);
           return acc;
@@ -85,7 +85,7 @@ export class ProfilesService {
       const profile = {
         deviceId,
         inputProfile: await this.getCurrentInputBinding(),
-        dpiProfile: await this.getCurrentDpi(),
+        cpiProfile: await this.getCurrentCpi(),
       };
       const profiles: Profiles = {
         'Profile 1': profile,
@@ -106,7 +106,7 @@ export class ProfilesService {
       const newProfile = {
         deviceId: this.deviceId,
         inputProfile: await this.getCurrentInputBinding(),
-        dpiProfile: await this.getCurrentDpi(),
+        cpiProfile: await this.getCurrentCpi(),
       };
 
       if (this.profiles) this.profiles[profileId] = newProfile;
@@ -119,7 +119,7 @@ export class ProfilesService {
 
   loadProfile(profileId: string): void {
     this.loadInput(profileId);
-    this.loadDpi(profileId);
+    this.loadCpi(profileId);
   }
 
   clearDeviceProfiles(): void {
@@ -140,15 +140,15 @@ export class ProfilesService {
     });
   }
 
-  private loadDpi(profileId: string): void {
+  private loadCpi(profileId: string): void {
     if (!this.profiles) return;
-    const { stages, stage } = this.profiles[profileId].dpiProfile;
+    const { stages, stage } = this.profiles[profileId].cpiProfile;
     stages.forEach((_, i) => {
-      this.manager.setDpiLevel(i, this.getKeyFromDpiValue(stages[i]));
+      this.manager.setCpiLevel(i, this.getKeyFromCpiValue(stages[i]));
     });
-    this.manager.changeCurrentDpi(
+    this.manager.changeCurrentCpi(
       stage,
-      this.getKeyFromDpiValue(stages[stage]),
+      this.getKeyFromCpiValue(stages[stage]),
     );
   }
 
@@ -160,20 +160,20 @@ export class ProfilesService {
     }
   }
 
-  private async getCurrentDpi(): Promise<DpiProfile> {
+  private async getCurrentCpi(): Promise<CpiProfile> {
     try {
-      const currentDpi = await this.manager.requestDpiLevels();
-      const dpiProfile = Array.from(
-        { length: currentDpi.count },
-        (_, i) => this.dpiCapabilities.levels[currentDpi.levels[i]],
+      const currentCpi = await this.manager.requestCpiLevels();
+      const cpiProfile = Array.from(
+        { length: currentCpi.count },
+        (_, i) => this.cpiCapabilities.levels[currentCpi.levels[i]],
       );
-      return { stages: dpiProfile, stage: currentDpi.current };
+      return { stages: cpiProfile, stage: currentCpi.current };
     } catch (e) {
-      throw new Error(ErrorMessages.DPI);
+      throw new Error(ErrorMessages.CPI);
     }
   }
 
-  private getKeyFromDpiValue(dpiValue: number): number {
-    return this.invertedLevels[dpiValue];
+  private getKeyFromCpiValue(cpiValue: number): number {
+    return this.invertedLevels[cpiValue];
   }
 }

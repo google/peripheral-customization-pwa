@@ -7,7 +7,7 @@ import type {
   LEDZones,
 } from './components/led';
 
-import type { DPILevels, DPICapabilities } from './components/dpi';
+import type { CPILevels, CPICapabilities } from './components/cpi';
 import {
   InputBindings,
   InputCapabilities,
@@ -24,10 +24,10 @@ export enum ConfiguratorEvents {
   RECEIVED_BATTERY = 'receivedBattery',
   RECEIVED_INPUT_BINDINGS = 'receivedInputBindings',
   BUTTON_WAS_SET = 'buttonWasSet',
-  RECEIVED_DPI_LEVELS = 'receivedDpiLevels',
-  DPI_WAS_SET = 'dpiWasSet',
-  CHANGED_CURRENT_DPI = 'dpiChangedCurrent',
-  RECEIVED_CURRENT_DPI = 'receivedCurrentDpi',
+  RECEIVED_CPI_LEVELS = 'receivedCpiLevels',
+  CPI_WAS_SET = 'cpiWasSet',
+  CHANGED_CURRENT_CPI = 'cpiChangedCurrent',
+  RECEIVED_CURRENT_CPI = 'receivedCurrentCpi',
   RECEIVED_LED = 'receivedLed',
   LED_WAS_SET = 'ledWasSet',
 }
@@ -99,18 +99,18 @@ export abstract class HIDDeviceConfigurator extends EventEmitter {
     return Promise.all(zones.map(zone => ledForZone(zone)));
   }
 
-  // DPI
-  dpiCapabilities?(): DPICapabilities;
+  // CPI
+  cpiCapabilities?(): CPICapabilities;
 
-  requestDpiLevels?(): Promise<void>;
+  requestCpiLevels?(): Promise<void>;
 
-  setDpiLevel?(index: number, level: number): Promise<void>;
+  setCpiLevel?(index: number, level: number): Promise<void>;
 
-  setDpiLevels?(levels: DPILevels): Promise<void>;
+  setCpiLevels?(levels: CPILevels): Promise<void>;
 
-  changeCurrentDpi?(toIndex: number, withValue?: number): Promise<void>;
+  changeCurrentCpi?(toIndex: number, withValue?: number): Promise<void>;
 
-  requestCurrentDpi?(): Promise<void>;
+  requestCurrentCpi?(): Promise<void>;
 
   // Inputs
   inputCapabilities?(): InputCapabilities;

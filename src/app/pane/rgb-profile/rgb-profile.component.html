@@ -1,0 +1,71 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+  <div class="list">
+    <div class="title mat-title">
+      RGB Lighting{{ zones.length > 1 ? ': ' + selectedZone.zone : '' }}
+    </div>
+    <mat-selection-list
+      class="buttons-list"
+      [multiple]="false"
+      (selectionChange)="setRGBValue($event)"
+    >
+      <span class="mat-h3 no-zone" *ngIf="!hasZoneSelected">
+        No Zone Selected
+      </span>
+      <div class="option">
+        <mat-list-option
+          #matButton
+          class="button"
+          *ngFor="let setting of settings"
+          [ngClass]="{ 'button-selected': matButton.selected }"
+          [value]="setting"
+        >
+          {{ setting.name }}
+        </mat-list-option>
+        <mat-list-option
+          #matButton
+          *ngIf="hasColorPicker"
+          [value]="colorPickerSetting"
+          class="button"
+          [ngClass]="{ 'button-selected': matButton.selected }"
+          (colorPickerSelect)="handleColorPickClose(color)"
+          [(colorPicker)]="color"
+          cpOutputFormat="rgba"
+          cpAlphaChannel="disabled"
+        >
+          <div class="label" fxLayout="row" fxLayoutAlign="start center">
+            <span>Custom Color</span>
+            <div
+              *ngIf="color"
+              class="box"
+              [ngStyle]="{ 'background-color': color }"
+            ></div>
+          </div>
+        </mat-list-option>
+      </div>
+    </mat-selection-list>
+  </div>
+  <div class="device-container" fxLayout="column" fxLayoutAlign="center">
+    <img class="device" src="{{ mouseFrontImg }}" />
+    <div class="device-shadow"></div>
+  </div>
+  <div class="zones">
+    <div *ngIf="!hasSingleZone()">
+      <div class="title mat-title">Zones</div>
+      <mat-selection-list
+        class="buttons-list"
+        [multiple]="false"
+        (selectionChange)="chooseZone($event.options[0].value)"
+      >
+        <mat-list-option
+          #matListOption
+          class="button"
+          [value]="zone"
+          *ngFor="let zone of zones"
+          [ngClass]="{ 'button-selected': matListOption.selected }"
+        >
+          {{ zone.zone }}
+        </mat-list-option>
+      </mat-selection-list>
+    </div>
+  </div>
+</div>

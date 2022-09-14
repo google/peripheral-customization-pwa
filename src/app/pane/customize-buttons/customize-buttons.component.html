@@ -1,0 +1,79 @@
+<span fxLayout="row" fxLayoutAlign="center center">
+  <div class="buttons-container">
+    <div class="title mat-title">Buttons</div>
+    <mat-selection-list
+      #buttons
+      class="buttons-list"
+      [multiple]="false"
+      (selectionChange)="selectKey(buttons.selectedOptions.selected[0]?.value)"
+    >
+      <div class="option">
+      <mat-list-option
+        #matButton
+        class="button"
+        [ngClass]="{'button-selected': matButton.selected}"
+        *ngFor="let button of inputButtons"
+        [value]="button"
+      >
+        {{button[0] + button.replace('_', ' ').toLowerCase().slice(1)}}
+      </mat-list-option>
+      </div>
+    </mat-selection-list>
+  </div>
+
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <div class="device-container" fxLayout="column" fxLayoutAlign="center">
+      <img class="img device" src="{{ mouseTopImg }}" />
+      <div class="device-shadow"></div>
+    </div>
+    <div class="reset-container">
+      <button
+        class="mat-body-1 reset-button"
+        mat-button
+        (click)="resetToDefault()"
+      >
+        Default settings reset
+      </button>
+    </div>
+  </div>
+
+  <div class="map-container">
+    <div
+      class="mapping"
+      *ngIf="selectedButton$ | async as selectedButton; else select_input"
+    >
+      <h3>Mapping {{ selectedButton }} button</h3>
+      <mat-form-field>
+        <mat-label>Select an input type</mat-label>
+        <mat-select [(value)]="selectedBindToType">
+          <mat-option
+            *ngFor="let type of bindToTypes(selectedButton)"
+            [value]="type"
+          >
+            {{ type }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Select a bind key</mat-label>
+        <mat-select
+          [(value)]="selectedBindToKey"
+          (selectionChange)="changeBindTo(selectedButton)"
+        >
+          <mat-option [value]="selectedButton">Default</mat-option>
+          <mat-divider></mat-divider>
+          <mat-option
+            *ngFor="let input of bindToKeys(selectedButton)"
+            [value]="input"
+          >
+            {{ input }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <ng-template #select_input>
+      <div>Select a button to configure</div>
+    </ng-template>
+  </div>
+</span>

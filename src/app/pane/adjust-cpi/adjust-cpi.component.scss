@@ -1,0 +1,79 @@
+.title {
+  margin-bottom: var(--spacing-size32);
+  border-bottom: 1px solid var(--primary-color);
+  padding-bottom: var(--spacing-size08);
+}
+
+.stage-container {
+  margin-right: var(--spacing-size08);
+  border-radius: var(--dimensions-size05);
+}
+
+.stage-background {
+  box-shadow: 0 var(--dimensions-size10) var(--dimensions-size30) 0 rgba(255, 255, 255, 0.2);
+}
+
+.stages {
+  margin-right: var(--spacing-size132);
+}
+
+.stage {
+  width: var(--dimensions-size120);
+  height: var(--dimensions-size85);
+  border-radius: var(--dimensions-size05);
+  cursor: pointer;
+}
+
+.stage-title {
+  margin-bottom: 0;
+  padding-top: var(--spacing-size08);
+}
+
+.form-field {
+  width: 100%;
+  height: var(--dimensions-size25);
+}
+
+.cpi-input {
+  max-width: var(--dimensions-size50);
+}
+
+.slider {
+  max-width: var(--dimensions-size400);
+  width: 100%;
+}
+
+.slider-container {
+  padding-top: var(--spacing-size32);
+}
+
+.device-container {
+  position: relative;
+}
+
+.device {
+  z-index: 10;
+  width: var(--dimensions-size360);
+  height: var(--dimensions-size480);
+  object-fit: contain;
+}
+
+.device-shadow {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  border-radius: 50%;
+  box-shadow: 0 0 var(--dimensions-size90) var(--dimensions-size90)
+    rgba(255, 255, 255, 0.6);
+}
+
+.default-reset {
+  margin-top: var(--spacing-size32);
+  text-decoration: underline;
+  color: var(--text-primary-lighter-color);
+}
+
+.card-content {
+  padding-top: var(--spacing-size08);
+  padding-bottom: var(--spacing-size16);
+}

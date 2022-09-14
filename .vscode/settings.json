@@ -1,0 +1,13 @@
+{
+  // prettier extension
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnSave": true,
+  "eslint.alwaysShowStatus": true,
+  "eslint.validate": [
+    "typescript",
+  ],
+  "json.format.enable": false
+}

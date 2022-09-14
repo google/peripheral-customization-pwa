@@ -1,0 +1,22 @@
+.nav-bar {
+  margin-top: var(--spacing-size36);
+  margin-bottom: var(--spacing-size72);
+}
+
+.device-container {
+  position: relative;
+}
+
+.device {
+  z-index: 10;
+}
+
+.device-shadow {
+  position: absolute;
+  border-radius: 50%;
+  width: 45%;
+  height: var(--dimensions-size200);
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-filter: blur(var(--dimensions-size35));
+  -webkit-transform: scale(1, 0.5);
+}

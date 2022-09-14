@@ -1,0 +1,29 @@
+.profiles-container {
+  margin: var(--spacing-size32);
+}
+
+.title {
+  border-bottom: 1px solid var(--primary-color);
+  padding-bottom: var(--spacing-size08);
+}
+
+.profiles {
+  margin-right: var(--spacing-size16);
+  margin-bottom: var(--spacing-size16);
+  cursor: pointer;
+}
+
+.profiles-background {
+  box-shadow: 0 var(--dimensions-size10) var(--dimensions-size10) 0
+    rgba(255, 255, 255, 0.2);
+}
+
+.save, .load, .clear {
+  margin-right: var(--spacing-size16);
+  margin-bottom: var(--spacing-size16);
+  cursor: pointer;
+}
+
+.clear {
+  color: rgba(255, 0, 0, 1);
+}

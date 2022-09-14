@@ -1,0 +1,76 @@
+mat-form-field {
+  display: block;
+}
+
+.device-container {
+  position: relative;
+  min-width: 25vw;
+}
+
+.device {
+  z-index: 10;
+  width: var(--dimensions-size360);
+  height: var(--dimensions-size480);
+  object-fit: contain;
+  margin: auto;
+}
+
+.device-shadow {
+  top: 65%;
+  left: 50%;
+  position: absolute;
+  border-radius: 50%;
+  box-shadow: 0 0 var(--dimensions-size145) var(--dimensions-size115)
+    rgba(255, 255, 255, 0.5);
+}
+
+.reset-container {
+  margin-top: var(--spacing-size40);
+}
+
+.reset-button {
+  text-decoration: underline;
+  color: var(--text-primary-lighter-color);
+}
+
+.buttons-container {
+  min-width: 20vw;
+}
+
+.title {
+  margin-bottom: var(--spacing-size16);
+  border-bottom: 1px solid var(--primary-color);
+  padding-bottom: var(--spacing-size08);
+}
+
+.buttons-list {
+  height: var(--dimensions-size260);
+  direction: rtl;
+  overflow-y: hidden;
+  margin-left: var(--spacing-size04);
+  -webkit-mask-image: linear-gradient(180deg, #000000 95%, transparent);
+}
+
+.buttons-list:hover {
+  margin-left: 0;
+  overflow-y: scroll;
+}
+
+.option {
+  margin-left: var(--spacing-size04);
+}
+
+.button {
+  direction: ltr;
+  color: var(--text-primary-lighter-color);
+  margin-left: var(--spacing-size04);
+}
+
+.button-selected {
+  color: inherit;
+  border-left: 1px solid;
+}
+
+.map-container {
+  min-width: 20vw;
+}

@@ -1,0 +1,238 @@
+export enum InputType {
+  DEFAULT = 'DEFAULT',
+  MOUSE_BUTTON = 'MOUSE_BUTTON',
+  KEYBOARD = 'KEYBOARD',
+  MEDIA = 'MEDIA', // CONSUMER
+  CPI_CHANGE = 'CPI_CHANGE',
+  MACRO = 'MACRO',
+  AC_PAN_LEFT = 'AC_PAN_LEFT',
+  AC_PAN_RIGHT = 'AC_PAN_RIGHT',
+  META = 'META',
+  UNDEFINED = 'UNDEFINED',
+}
+
+export enum MouseInput {
+  LEFT = 'LEFT',
+  RIGHT = 'RIGHT',
+  MIDDLE = 'MIDDLE',
+  WHEEL_DOWN = 'WHEEL_DOWN',
+  WHEEL_UP = 'WHEEL_UP',
+  LEFT_FRONT = 'LEFT_FRONT',
+  LEFT_BACK = 'LEFT_BACK',
+  RIGHT_FRONT = 'RIGHT_FRONT',
+  RIGHT_BACK = 'RIGHT_BACK',
+  TOP = 'TOP',
+  DOUBLE_CLICK_LEFT = 'DOUBLE_CLICK_LEFT',
+}
+
+export enum KeyboardInput {
+  NONE = 'NONE',
+  KEY_A = 'KEY_A',
+  KEY_B = 'KEY_B',
+  KEY_C = 'KEY_C',
+  KEY_D = 'KEY_D',
+  KEY_E = 'KEY_E',
+  KEY_F = 'KEY_F',
+  KEY_G = 'KEY_G',
+  KEY_H = 'KEY_H',
+  KEY_I = 'KEY_I',
+  KEY_J = 'KEY_J',
+  KEY_K = 'KEY_K',
+  KEY_L = 'KEY_L',
+  KEY_M = 'KEY_M',
+  KEY_N = 'KEY_N',
+  KEY_O = 'KEY_O',
+  KEY_P = 'KEY_P',
+  KEY_Q = 'KEY_Q',
+  KEY_R = 'KEY_R',
+  KEY_S = 'KEY_S',
+  KEY_T = 'KEY_T',
+  KEY_U = 'KEY_U',
+  KEY_V = 'KEY_V',
+  KEY_W = 'KEY_W',
+  KEY_X = 'KEY_X',
+  KEY_Y = 'KEY_Y',
+  KEY_Z = 'KEY_Z',
+  DIGIT_1 = 'DIGIT_1',
+  DIGIT_2 = 'DIGIT_2',
+  DIGIT_3 = 'DIGIT_3',
+  DIGIT_4 = 'DIGIT_4',
+  DIGIT_5 = 'DIGIT_5',
+  DIGIT_6 = 'DIGIT_6',
+  DIGIT_7 = 'DIGIT_7',
+  DIGIT_8 = 'DIGIT_8',
+  DIGIT_9 = 'DIGIT_9',
+  DIGIT_0 = 'DIGIT_0',
+  ENTER = 'ENTER',
+  ESCAPE = 'ESCAPE',
+  BACKSPACE = 'BACKSPACE',
+  TAB = 'TAB',
+  SPACE = 'SPACE',
+  MINUS = 'MINUS',
+  EQUAL = 'EQUAL',
+  BRACKET_LEFT = 'BRACKET_LEFT',
+  BRACKET_RIGHT = 'BRACKET_RIGHT',
+  BACKSLASH = 'BACKSLASH',
+  HASH_TILDE = '_HASH_TILDE',
+  SEMICOLON = 'SEMICOLON',
+  QUOTE = 'QUOTE',
+  BACKQUOTE = 'BACKQUOTE',
+  COMMA = 'COMMA',
+  PERIOD = 'PERIOD',
+  SLASH = 'SLASH',
+  CAPS_LOCK = 'CAPS_LOCK',
+  F1 = 'F1',
+  F2 = 'F2',
+  F3 = 'F3',
+  F4 = 'F4',
+  F5 = 'F5',
+  F6 = 'F6',
+  F7 = 'F7',
+  F8 = 'F8',
+  F9 = 'F9',
+  F10 = 'F10',
+  F11 = 'F11',
+  F12 = 'F12',
+  PRINT_SCREEN = 'PRINT_SCREEN',
+  SCROLL_LOCK = 'SCROLL_LOCK',
+  PAUSE = 'PAUSE',
+  INSERT = 'INSERT',
+  HOME = 'HOME',
+  PAGE_UP = 'PAGE_UP',
+  DELETE = 'DELETE',
+  END = 'END',
+  PAGE_DOWN = 'PAGE_DOWN',
+  ARROW_RIGHT = 'ARROW_RIGHT',
+  ARROW_LEFT = 'ARROW_LEFT',
+  ARROW_DOWN = 'ARROW_DOWN',
+  ARROW_UP = 'ARROW_UP',
+  NUMPAD_LOCK = 'NUM_LOCK',
+  NUMPAD_DIVIDE = 'NUMPAD_DIVIDE',
+  NUMPAD_MULTIPLY = 'NUMPAD_MULTIPLY',
+  NUMPAD_SUBTRACT = 'NUMPAD_SUBTRACT',
+  NUMPAD_ADD = 'NUMPAD_ADD',
+  NUMPAD_ENTER = '_NUMPAD_ENTER',
+  NUMPAD_1 = 'NUMPAD_1',
+  NUMPAD_2 = 'NUMPAD_2',
+  NUMPAD_3 = 'NUMPAD_3',
+  NUMPAD_4 = 'NUMPAD_4',
+  NUMPAD_5 = 'NUMPAD_5',
+  NUMPAD_6 = 'NUMPAD_6',
+  NUMPAD_7 = 'NUMPAD_7',
+  NUMPAD_8 = 'NUMPAD_8',
+  NUMPAD_9 = 'NUMPAD_9',
+  NUMPAD_0 = 'NUMPAD_0',
+  NUMPAD_DECIMAL = 'NUMPAD_DECIMAL',
+  NUMPAD_102ND = '_NUMPAD_102ND',
+  COMPOSE = '_COMPOSE',
+  POWER = '_POWER',
+  NUMPAD_EQUAL = '_NUMPAD_EQUAL',
+  F13 = 'F13',
+  F14 = 'F14',
+  F15 = 'F15',
+  F16 = 'F16',
+  F17 = 'F17',
+  F18 = 'F18',
+  VOLUME_UP = 'VOLUME_UP',
+  VOLUME_DOWN = 'VOLUME_DOWN',
+  KEY_KPCOMMA = 'KEY_KPCOMMA',
+  KEY_RO = 'KEY_RO',
+  KEY_KATAKANAHIRAGANA = 'KEY_KATAKANAHIRAGANA',
+  KEY_YEN = 'KEY_YEN',
+  KEY_HENKAN = 'KEY_HENKAN',
+  KEY_MUHENKAN = 'KEY_MUHENKAN',
+  KEY_KPJPCOMMA = 'KEY_KPJPCOMMA',
+  KEY_HANGEUL = 'KEY_HANGEUL',
+  KEY_HANJA = 'KEY_HANJA',
+  KEY_KATAKANA = 'KEY_KATAKANA',
+  KEY_HIRAGANA = 'KEY_HIRAGANA',
+  KEY_ZENKAKUHANKAKU = 'KEY_ZENKAKUHANKAKU',
+  CONTROL_LEFT = 'CONTROL_LEFT',
+  SHIFT_LEFT = 'SHIFT_LEFT',
+  ALT_LEFT = 'ALT_LEFT',
+  OS_LEFT = 'OS_LEFT',
+  CONTROL_RIGHT = 'CONTROL_RIGHT',
+  SHIFT_RIGHT = 'SHIFT_RIGHT',
+  ALT_RIGHT = 'ALT_RIGHT',
+  OS_RIGHT = 'OS_RIGHT',
+}
+
+export enum MediaInput {
+  KEY_MEDIA_PLAYPAUSE = 'KEY_MEDIA_PLAYPAUSE',
+  KEY_MEDIA_STOPCD = 'KEY_MEDIA_STOPCD',
+  KEY_MEDIA_PREVIOUSSONG = 'KEY_MEDIA_PREVIOUSSONG',
+  KEY_MEDIA_NEXTSONG = 'KEY_MEDIA_NEXTSONG',
+  KEY_MEDIA_EJECTCD = 'KEY_MEDIA_EJECTCD',
+  KEY_MEDIA_VOLUMEUP = 'KEY_MEDIA_VOLUMEUP',
+  KEY_MEDIA_VOLUMEDOWN = 'KEY_MEDIA_VOLUMEDOWN',
+  KEY_MEDIA_MUTE = 'KEY_MEDIA_MUTE',
+  KEY_MEDIA_HOME = 'KEY_MEDIA_HOME',
+  KEY_MEDIA_BACK = 'KEY_MEDIA_BACK',
+  KEY_MEDIA_FORWARD = 'KEY_MEDIA_FORWARD',
+  KEY_MEDIA_STOP = 'KEY_MEDIA_STOP',
+  KEY_MEDIA_FIND = 'KEY_MEDIA_FIND',
+  KEY_MEDIA_SCROLLUP = 'KEY_MEDIA_SCROLLUP',
+  KEY_MEDIA_SCROLLDOWN = 'KEY_MEDIA_SCROLLDOWN',
+  KEY_MEDIA_EDIT = 'KEY_MEDIA_EDIT',
+  KEY_MEDIA_SLEEP = 'KEY_MEDIA_SLEEP',
+  KEY_MEDIA_COFFEE = 'KEY_MEDIA_COFFEE',
+  KEY_MEDIA_REFRESH = 'KEY_MEDIA_REFRESH',
+  KEY_MEDIA_CALC = 'KEY_MEDIA_CALC',
+
+  KEYBOARD_KEY_CHANGE = 'KEYBOARD_KEY_CHANGE',
+  SHORT_KEY = 'SHORT_KEY',
+  MEDIA = 'MEDIA',
+  MY_COMPUTER = 'MY_COMPUTER',
+  MAIL = 'MAIL',
+  KEY_MEDIA_FAVORITES = 'KEY_MEDIA_FAVORITES',
+  LEFT_BUTTON = 'LEFT_BUTTON',
+  RIGHT_BUTTON = 'RIGHT_BUTTON',
+  MIDDLE_BUTTON = 'MIDDLE_BUTTON',
+  K4_BUTTON = 'K4_BUTTON',
+  K5_BUTTON = 'K5_BUTTON',
+  LEFT_MOVE = 'LEFT_MOVE',
+  RIGHT_MOVE = 'RIGHT_MOVE',
+}
+
+export enum CpiChangeInput {
+  CYCLE_CPI = 'CYCLE_CPI',
+  CPI_UP = 'CPI_UP',
+  CPI_DOWN = 'CPI_DOWN',
+}
+
+export enum MacroInput {
+  MACROS_ID = 'MACROS_ID',
+}
+
+export type Input =
+  | MouseInput
+  | KeyboardInput
+  | MediaInput
+  | CpiChangeInput
+  | MacroInput;
+
+export type InputMap = Partial<Record<Input, number>>;
+
+export type InputCapability = {
+  key: Input;
+  type: InputType;
+};
+
+export type InputCapabilities = Partial<Record<Input, InputCapability[]>>;
+
+export type KeyBinding = {
+  key: Input;
+  bindTo: InputCapability;
+};
+
+export type InputBindings = Partial<Record<Input, KeyBinding>>;
+
+export const getInputType = (input: Input): InputType => {
+  if (input in MouseInput) return InputType.MOUSE_BUTTON;
+  if (input in KeyboardInput) return InputType.KEYBOARD;
+  if (input in MediaInput) return InputType.MEDIA;
+  if (input in CpiChangeInput) return InputType.CPI_CHANGE;
+  if (input in MacroInput) return InputType.MACRO;
+
+  return InputType.UNDEFINED;
+};

@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist/lib",
+    "types": ["@types/w3c-web-hid"]
+  },
+  "files": ["src/lib/ts/manager.ts"],
+  "include": ["src/lib/ts/**/*.d.ts"]
+}

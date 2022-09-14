@@ -1,0 +1,15 @@
+.text-container {
+  width: 80vw;
+  margin: auto;
+  padding-top: var(--spacing-size36);
+  color: var(--primary-color);
+  vertical-align: middle;
+}
+
+.text {
+  color: var(--accent-color);
+}
+
+.battery {
+  min-width: var(--dimensions-size235);
+}

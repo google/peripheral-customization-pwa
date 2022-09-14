@@ -1,0 +1,20 @@
+<nav
+  mat-tab-nav-bar
+  mat-align-tabs="center"
+  class="nav-bar"
+  disableRipple="true"
+>
+  <a
+    mat-tab-link
+    class="device-container"
+    *ngFor="let link of navLinks"
+    routerLinkActive
+    #rla="routerLinkActive"
+    [active]="rla.isActive"
+    [routerLink]="link.link"
+  >
+    <div class="device">{{ link.label }}</div>
+    <div [ngClass]="{'device-shadow': rla.isActive}"></div>
+  </a>
+</nav>
+<router-outlet></router-outlet>

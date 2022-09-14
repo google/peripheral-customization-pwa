@@ -1,0 +1,42 @@
+#
+# Build and deploy yarn-based project to GitLab Pages
+#
+
+
+variables:
+  publish_path: ./public/
+  base_url: /delish/
+
+stages:
+  - build
+  - deploy
+
+
+build:
+  image: node:latest
+  stage: build
+  script:
+    - yarn install --frozen-lockfile --cache-folder .yarn
+    - yarn build --base-href ${base_url}
+  cache:
+    paths:
+      - .yarn
+  artifacts:
+    paths:
+      - dist/app
+
+pages:
+  image: alpine:latest
+  stage: deploy
+  script:
+    - mkdir -p ${publish_path}
+    - cp -aR ./dist/app/* ${publish_path}/
+  cache:
+    paths:
+      - public
+  artifacts:
+    paths:
+      - public
+    expire_in: 1 year
+  rules:
+    - if: ($CI_COMMIT_BRANCH == "main")

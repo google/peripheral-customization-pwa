@@ -45,6 +45,17 @@ export class ManagerService {
     }
   }
 
+  async reconnectToDevice(): Promise<void> {
+    try {
+      const device = await manager.reconnect();
+      this.deviceSubject.next(device);
+      this.addEventListeners();
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(`Unable to reconnect to device:`, error);
+    }
+  }
+
   async forgetDevice(): Promise<void> {
     try {
       await manager.forget();

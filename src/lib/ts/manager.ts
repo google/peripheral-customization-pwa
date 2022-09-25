@@ -28,6 +28,21 @@ class Manager {
     return this.backend;
   }
 
+  async reconnect(): Promise<HIDDeviceConfigurator> {
+    const devices = await navigator.hid.getDevices();
+
+    if (!devices.length) return Promise.reject();
+
+    // eslint-disable-next-line no-console
+    console.log(`Looking for backend for: ${devices}`);
+    this.backend = await this.createBackendForDevices(devices);
+
+    // Initialize UI with capabilities, information and current settings
+    this.backend.emit(ConfiguratorEvents.CONNECT);
+
+    return this.backend;
+  }
+
   async forget(): Promise<void> {
     const devices = await navigator.hid.getDevices();
 

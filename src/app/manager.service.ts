@@ -45,6 +45,16 @@ export class ManagerService {
     }
   }
 
+  async forgetDevice(): Promise<void> {
+    try {
+      await manager.forget();
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(`Error on devices removal:`, error);
+    }
+    window.location.reload();
+  }
+
   addEventListeners(): void {
     this.device?.on(
       ConfiguratorEvents.CHANGED_CURRENT_CPI,

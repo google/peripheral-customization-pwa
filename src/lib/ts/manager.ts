@@ -28,6 +28,14 @@ class Manager {
     return this.backend;
   }
 
+  async forget(): Promise<void> {
+    const devices = await navigator.hid.getDevices();
+
+    devices.forEach(device => {
+      device.forget();
+    });
+  }
+
   async createBackendForDevices(
     devices: HIDDevice[],
   ): Promise<HIDDeviceConfigurator> {

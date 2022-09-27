@@ -29,6 +29,16 @@ export class AppComponent implements OnInit, OnDestroy {
       // eslint-disable-next-line no-console
       error: e => console.error(e),
     });
+
+    navigator.hid.addEventListener('connect', _event => {
+      // Refresh the whole app on connect
+      window.location.reload();
+    });
+
+    navigator.hid.addEventListener('disconnect', _event => {
+      // Refresh the whole app on disconnect
+      window.location.reload();
+    });
   }
 
   ngOnDestroy(): void {

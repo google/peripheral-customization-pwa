@@ -42,4 +42,9 @@ export class HeaderComponent implements OnInit {
         console.log(reason);
       });
   }
+
+  forget(): void {
+    // eslint-disable-next-line no-console
+    this.managerService.forgetDevice().catch(e => console.error(e));
+  }
 }

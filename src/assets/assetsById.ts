@@ -7,6 +7,16 @@ export interface Assets {
 export type AssetsById = Record<string, Record<string, Assets>>;
 
 const assetsById: AssetsById = {
+  // Fake device for demo purposes only
+  // FIXME: remove the demo device!
+  0x0000: {
+    0x0000: {
+      deviceName: 'Fake demo mouse',
+      logoUri: 'assets/images/fake/footer-logo.png',
+      deviceTopImgUri: 'assets/images/fake/mouse_top.svg',
+      deviceBottomImgUri: 'assets/images/fake/mouse_bottom.svg',
+    },
+  },
   0x0001: {
     0x2003: {
       deviceName: 'Model11 Wireless (BlueTooth)',

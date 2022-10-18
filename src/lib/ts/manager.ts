@@ -5,6 +5,9 @@ import {
   HIDDeviceConfigurator,
 } from './devices/configurator';
 
+// FIXME: for fake demo device only
+import { fakeDevice } from './devices/devices/fake/fake-device';
+
 class Manager {
   backend?: HIDDeviceConfigurator;
 
@@ -14,7 +17,21 @@ class Manager {
       return [...acc, ...vendorDevices];
     }, [] as DeviceFilter[]);
 
-    const devices = await navigator.hid.requestDevice({ filters });
+    // FIXME: load the fake device if exists
+    // eslint-disable-next-line @typescript-eslint/no-shadow
+    let devices = Object.values(SupportedDevices).reduce((acc, devices) => {
+      Object.values(devices).forEach(device => {
+        if (device.FILTER.vendorId === 0 && device.FILTER.productId === 0) {
+          acc.push(fakeDevice);
+        }
+      });
+      return [...acc];
+    }, [] as HIDDevice[]);
+
+    // If no fake devices then fallback to real device detection
+    if (!devices.length) {
+      devices = await navigator.hid.requestDevice({ filters });
+    }
 
     if (!devices.length) throw Error('No device was selected');
 

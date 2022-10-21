@@ -1,8 +1,6 @@
 import type { HIDDeviceConfiguratorConstructor } from './configurator';
 
-// eslint-disable-next-line import/no-cycle
-import Vendor1SupportedDevices from './devices/vendor1';
-import Vendor2SupportedDevices from './devices/vendor2';
+import FakeSupportedDevices from './devices/fake';
 
 export type SupportedDevicesMap = Record<
   number,
@@ -29,8 +27,9 @@ const generateSupportedDevices = (
   }, {});
 
 const SupportedDevices = generateSupportedDevices([
-  ...Vendor1SupportedDevices,
-  ...Vendor2SupportedDevices,
+  // FIXME: use the filter for your device
+  // here you need to add the filter for your devices
+  ...FakeSupportedDevices,
 ]);
 
 export default SupportedDevices;

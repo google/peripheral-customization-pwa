@@ -48,6 +48,7 @@
     "@types/w3c-web-hid": "^1.0.3",
     "@typescript-eslint/eslint-plugin": "5.17.0",
     "@typescript-eslint/parser": "^5.40.0",
+    "angular-cli-ghpages": "1.0.5",
     "eslint": "^8.25.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.5.0",

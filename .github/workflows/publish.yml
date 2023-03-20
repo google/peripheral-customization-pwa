@@ -1,0 +1,27 @@
+name: Deploy to GitHub Pages via angular-cli-ghpages
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+        cache: 'npm'
+
+    - name: Prepare and deploy
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      run: |
+        npm install
+        npm run lint
+        npm run ng -- deploy --repo=https://github.com/google/peripheral-customization-pwa.git --base-href=/peripheral-customization-pwa/ --name="PWA deploy bot" --email=nospam@some.domain

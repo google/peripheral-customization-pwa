@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1679349910066,
+  "timestamp": 1679362536929,
   "index": "/peripheral-customization-pwa/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "/peripheral-customization-pwa/favicon.ico",
         "/peripheral-customization-pwa/index.html",
-        "/peripheral-customization-pwa/main.ac69238e06465a39.js",
+        "/peripheral-customization-pwa/main.4916eca41e50acfe.js",
         "/peripheral-customization-pwa/manifest.webmanifest",
         "/peripheral-customization-pwa/polyfills.9ce60deabca90764.js",
         "/peripheral-customization-pwa/runtime.231e96734c9fdc57.js",
@@ -64,8 +64,8 @@
     "/peripheral-customization-pwa/assets/images/fake/mouse_top.svg": "16a15634bf5ae72e8aeaefca3e75b47a4edabe2e",
     "/peripheral-customization-pwa/assets/images/fake/mouse_top.svg.copyright": "025251b814023c5000f364147284cea90bea72d7",
     "/peripheral-customization-pwa/favicon.ico": "85bff34260511b422bf7f9ee33fb7e7b953525b3",
-    "/peripheral-customization-pwa/index.html": "07a5f82a5ad7907970677adb1633f199b228b7bc",
-    "/peripheral-customization-pwa/main.ac69238e06465a39.js": "c5dc1dc3abd7a974f7252df20117c3a93fa0bf57",
+    "/peripheral-customization-pwa/index.html": "357fe8f13023ecd3731efc00d121753d5b3362bb",
+    "/peripheral-customization-pwa/main.4916eca41e50acfe.js": "d90ae689ff260ef5c930a0d7d98f4e8a75db05f0",
     "/peripheral-customization-pwa/manifest.webmanifest": "2488d129dd7e4246081a3c6c852dabd069666b76",
     "/peripheral-customization-pwa/polyfills.9ce60deabca90764.js": "e14a5486bb4bcc72cfa214e304b5b55919c36109",
     "/peripheral-customization-pwa/runtime.231e96734c9fdc57.js": "7b949fafcdcfe1cb54b0460d09f1a6fe3b0d3864",

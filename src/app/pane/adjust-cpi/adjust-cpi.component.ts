@@ -1,9 +1,9 @@
 import { Component, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
 
+import { Subscription } from 'rxjs';
 import { AssetsService } from 'src/app/assets.service';
 import { ManagerService } from 'src/app/manager.service';
 import { cpi, CpiValue } from 'src/app/model/cpi';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-adjust-cpi',

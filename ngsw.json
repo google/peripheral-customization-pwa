@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1679365692417,
+  "timestamp": 1691957271037,
   "index": "/peripheral-customization-pwa/index.html",
   "assetGroups": [
     {
@@ -13,11 +13,11 @@
       "urls": [
         "/peripheral-customization-pwa/favicon.ico",
         "/peripheral-customization-pwa/index.html",
-        "/peripheral-customization-pwa/main.4916eca41e50acfe.js",
+        "/peripheral-customization-pwa/main.4b06c6498c4152e3.js",
         "/peripheral-customization-pwa/manifest.webmanifest",
         "/peripheral-customization-pwa/polyfills.9ce60deabca90764.js",
         "/peripheral-customization-pwa/runtime.231e96734c9fdc57.js",
-        "/peripheral-customization-pwa/styles.2039f9ec93e71b1a.css"
+        "/peripheral-customization-pwa/styles.fa83c8b017a5feaa.css"
       ],
       "patterns": []
     },
@@ -64,12 +64,12 @@
     "/peripheral-customization-pwa/assets/images/fake/mouse_top.svg": "16a15634bf5ae72e8aeaefca3e75b47a4edabe2e",
     "/peripheral-customization-pwa/assets/images/fake/mouse_top.svg.copyright": "025251b814023c5000f364147284cea90bea72d7",
     "/peripheral-customization-pwa/favicon.ico": "85bff34260511b422bf7f9ee33fb7e7b953525b3",
-    "/peripheral-customization-pwa/index.html": "357fe8f13023ecd3731efc00d121753d5b3362bb",
-    "/peripheral-customization-pwa/main.4916eca41e50acfe.js": "d90ae689ff260ef5c930a0d7d98f4e8a75db05f0",
+    "/peripheral-customization-pwa/index.html": "272301a7b6590ea63dc76c2ac27806027ede5b76",
+    "/peripheral-customization-pwa/main.4b06c6498c4152e3.js": "b25aa6067be45689f8aaf01eca37eeb2cc27bb41",
     "/peripheral-customization-pwa/manifest.webmanifest": "2488d129dd7e4246081a3c6c852dabd069666b76",
     "/peripheral-customization-pwa/polyfills.9ce60deabca90764.js": "e14a5486bb4bcc72cfa214e304b5b55919c36109",
     "/peripheral-customization-pwa/runtime.231e96734c9fdc57.js": "7b949fafcdcfe1cb54b0460d09f1a6fe3b0d3864",
-    "/peripheral-customization-pwa/styles.2039f9ec93e71b1a.css": "0073b806c6998e4e0ee94955ce36f9ac09103725"
+    "/peripheral-customization-pwa/styles.fa83c8b017a5feaa.css": "c220e2db44664e8ce1be02ca7ccf1699f1fff795"
   },
   "navigationUrls": [
     {
